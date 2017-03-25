@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyvdp.visadirect.fundstransfer.data &#8212; pyvdp 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyvdp.visadirect.fundstransfer.data</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pyvdp.visadirect.data</span> <span class="k">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">VisaDirectTransaction</span><span class="p">,</span> <span class="n">VisaDirectTransactionBatch</span>
+
+
+<div class="viewcode-block" id="PullFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.PullFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">PullFundsTransaction</span><span class="p">(</span><span class="n">VisaDirectTransaction</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;VisaDirect FundsTransfer PullFunds data object model.</span>
+
+<span class="sd">    :param int stan: **Required**. systemsTraceAuditNumber, 6 digits integer.</span>
+<span class="sd">    :param float amount: **Required**. Transaction amount nnn.mmm.</span>
+<span class="sd">    :param str sender_pan: **Required**. Sender PAN (Primary Account Number), 13-19 characters.</span>
+<span class="sd">    :param datetime sender_card_expiry_date: **Required**. Sender card expiration date, YYYY-MM.</span>
+<span class="sd">    :param str sender_currency_code: **Required**. Sender currency code, 3 characters ISO currency code.</span>
+<span class="sd">    :param bool multi: **Conditional**. If True, this transaction is a part of batch. See :func:`~visa.visadirect.fundstransfer.data.MultiPullFundsTransaction`</span>
+
+<span class="sd">    **Example:**</span>
+<span class="sd">        ..  code-block:: json</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;acquirerCountryCode&quot;: &quot;840&quot;,</span>
+<span class="sd">                &quot;acquiringBin&quot;: &quot;408999&quot;,</span>
+<span class="sd">                &quot;amount&quot;: &quot;124.02&quot;,</span>
+<span class="sd">                &quot;businessApplicationId&quot;: &quot;AA&quot;,</span>
+<span class="sd">                &quot;cardAcceptor&quot;: {</span>
+<span class="sd">                    &quot;address&quot;: {</span>
+<span class="sd">                        &quot;country&quot;: &quot;USA&quot;,</span>
+<span class="sd">                        &quot;county&quot;: &quot;San Mateo&quot;,</span>
+<span class="sd">                        &quot;state&quot;: &quot;CA&quot;,</span>
+<span class="sd">                        &quot;zipCode&quot;: &quot;94404&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    &quot;idCode&quot;: &quot;ABCD1234ABCD123&quot;,</span>
+<span class="sd">                    &quot;name&quot;: &quot;Visa Inc. USA-Foster City&quot;,</span>
+<span class="sd">                    &quot;terminalId&quot;: &quot;ABCD1234&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                &quot;cavv&quot;: &quot;0700100038238906000013405823891061668252&quot;,</span>
+<span class="sd">                &quot;foreignExchangeFeeTransaction&quot;: &quot;11.99&quot;,</span>
+<span class="sd">                &quot;localTransactionDateTime&quot;: &quot;2017-03-17T08:20:42&quot;,</span>
+<span class="sd">                &quot;retrievalReferenceNumber&quot;: &quot;330000550000&quot;,</span>
+<span class="sd">                &quot;senderCardExpiryDate&quot;: &quot;2015-10&quot;,</span>
+<span class="sd">                &quot;senderCurrencyCode&quot;: &quot;USD&quot;,</span>
+<span class="sd">                &quot;senderPrimaryAccountNumber&quot;: &quot;4895142232120006&quot;,</span>
+<span class="sd">                &quot;surcharge&quot;: &quot;11.99&quot;,</span>
+<span class="sd">                &quot;systemsTraceAuditNumber&quot;: &quot;451001&quot;</span>
+<span class="sd">            }</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ATTR_MAPPINGS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_pan&#39;</span><span class="p">:</span> <span class="s1">&#39;senderPrimaryAccountNumber&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_card_expiry_date&#39;</span><span class="p">:</span> <span class="s1">&#39;senderCardExpiryDate&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_currency_code&#39;</span><span class="p">:</span> <span class="s1">&#39;senderCurrencyCode&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;card_acceptor&#39;</span><span class="p">:</span> <span class="s1">&#39;cardAcceptor&#39;</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PullFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;stan&#39;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span> <span class="ow">and</span> <span class="n">v</span><span class="p">)</span>
+
+        <span class="c1"># Acquirer details are only populated for individual pull transactions, not batches</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">multi</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acquiringBin</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ACQUIRER&#39;</span><span class="p">,</span> <span class="s1">&#39;acquiring_bin&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acquirerCountryCode</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ACQUIRER&#39;</span><span class="p">,</span> <span class="s1">&#39;acquirer_country_code&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiPullFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.MultiPullFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">MultiPullFundsTransaction</span><span class="p">(</span><span class="n">VisaDirectTransactionBatch</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;VisaDirect FundsTransfer MultiPullFunds data object model.</span>
+
+<span class="sd">    It is container object, which incorporate PullFundsTransaction objects under the same acquirer</span>
+<span class="sd">    credentials.</span>
+
+<span class="sd">    :param list transactions: **Required**. List of :func:`~visa.visadirect.fundstransfer.data.PullFundsTransaction` objects</span>
+
+<span class="sd">    **Example:**</span>
+<span class="sd">        ..  code-block:: json</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;acquirerCountryCode&quot;: &quot;608&quot;,</span>
+<span class="sd">                &quot;acquiringBin&quot;: &quot;408999&quot;,</span>
+<span class="sd">                &quot;businessApplicationId&quot;: &quot;AA&quot;,</span>
+<span class="sd">                &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:11:08&quot;,</span>
+<span class="sd">                &quot;merchantCategoryCode&quot;: &quot;6012&quot;,</span>
+<span class="sd">                &quot;request&quot;: [</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;amount&quot;: &quot;100.00&quot;,</span>
+<span class="sd">                        &quot;cardAcceptor&quot;: {</span>
+<span class="sd">                            &quot;address&quot;: {</span>
+<span class="sd">                                &quot;country&quot;: &quot;USA&quot;,</span>
+<span class="sd">                                &quot;county&quot;: &quot;00&quot;,</span>
+<span class="sd">                                &quot;state&quot;: &quot;CA&quot;,</span>
+<span class="sd">                                &quot;zipCode&quot;: &quot;94454&quot;</span>
+<span class="sd">                            },</span>
+<span class="sd">                            &quot;idCode&quot;: &quot;5678&quot;,</span>
+<span class="sd">                            &quot;name&quot;: &quot;Mr Smith&quot;,</span>
+<span class="sd">                            &quot;terminalId&quot;: &quot;1234&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;cavv&quot;: &quot;0700020718799100000002980179911000000000&quot;,</span>
+<span class="sd">                        &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:11:08&quot;,</span>
+<span class="sd">                        &quot;retrievalReferenceNumber&quot;: &quot;401010101011&quot;,</span>
+<span class="sd">                        &quot;senderCardExpiryDate&quot;: &quot;2020-12&quot;,</span>
+<span class="sd">                        &quot;senderCurrencyCode&quot;: &quot;USD&quot;,</span>
+<span class="sd">                        &quot;senderPrimaryAccountNumber&quot;: &quot;4895140000066666&quot;,</span>
+<span class="sd">                        &quot;systemsTraceAuditNumber&quot;: &quot;101011&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;amount&quot;: &quot;100.00&quot;,</span>
+<span class="sd">                        &quot;cardAcceptor&quot;: {</span>
+<span class="sd">                            &quot;address&quot;: {</span>
+<span class="sd">                                &quot;country&quot;: &quot;USA&quot;,</span>
+<span class="sd">                                &quot;county&quot;: &quot;00&quot;,</span>
+<span class="sd">                                &quot;state&quot;: &quot;CA&quot;,</span>
+<span class="sd">                                &quot;zipCode&quot;: &quot;94454&quot;</span>
+<span class="sd">                            },</span>
+<span class="sd">                            &quot;idCode&quot;: &quot;5678&quot;,</span>
+<span class="sd">                            &quot;name&quot;: &quot;Mr Smith&quot;,</span>
+<span class="sd">                            &quot;terminalId&quot;: &quot;1234&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;cavv&quot;: &quot;0700020718799100000002980179911000000000&quot;,</span>
+<span class="sd">                        &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:11:08&quot;,</span>
+<span class="sd">                        &quot;retrievalReferenceNumber&quot;: &quot;401010101011&quot;,</span>
+<span class="sd">                        &quot;senderCardExpiryDate&quot;: &quot;2020-12&quot;,</span>
+<span class="sd">                        &quot;senderCurrencyCode&quot;: &quot;USD&quot;,</span>
+<span class="sd">                        &quot;senderPrimaryAccountNumber&quot;: &quot;4895140000066666&quot;,</span>
+<span class="sd">                        &quot;systemsTraceAuditNumber&quot;: &quot;101011&quot;</span>
+<span class="sd">                    }</span>
+<span class="sd">                ]</span>
+<span class="sd">            }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiPullFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transactions</span><span class="o">=</span><span class="n">transactions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PushFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.PushFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">PushFundsTransaction</span><span class="p">(</span><span class="n">VisaDirectTransaction</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;VisaDirect FundsTransfer PushFunds data object model.</span>
+
+<span class="sd">    :param int stan: **Required**. Systems Trace Audit Number (STAN), 6 digits integer.</span>
+<span class="sd">    :param float amount: **Required**. Transaction amount, nnn.mmm.</span>
+<span class="sd">    :param str transaction_currency_code: **Required**. Transaction currency ISO code, 3 characters.</span>
+<span class="sd">    :param str sender_pan: **Required**. Sender primary account number (PAN), 13-19 digits.</span>
+<span class="sd">    :param str recipient_pan: **Required**. Recipient primary account number (PAN), 13-19 digits.</span>
+<span class="sd">    :param str recipient_name: **Required**. Recipient name.</span>
+<span class="sd">    :param str sender_name: **Conditional**. Sender name.</span>
+<span class="sd">    :param str sender_address: **Conditional**. Sender address.</span>
+<span class="sd">    :param str sender_city: **Conditional**. Sender city.</span>
+<span class="sd">    :param str sender_country_code: **Conditional**. Sender ISO country code, 3 characters.</span>
+<span class="sd">    :param str sender_state_code: **Conditional**. Sender country state code.</span>
+<span class="sd">    :param bool multi: **Conditional**. If True, constructs object, used as a part of batch. See :func:`~visa.visadirect.fundstransfer.data.MultiPushFundsTransaction`.</span>
+
+<span class="sd">    **Example:**</span>
+<span class="sd">        ..  code-block:: json</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;acquirerCountryCode&quot;: &quot;840&quot;,</span>
+<span class="sd">                &quot;acquiringBin&quot;: &quot;408999&quot;,</span>
+<span class="sd">                &quot;amount&quot;: &quot;124.05&quot;,</span>
+<span class="sd">                &quot;businessApplicationId&quot;: &quot;AA&quot;,</span>
+<span class="sd">                &quot;cardAcceptor&quot;: {</span>
+<span class="sd">                    &quot;address&quot;: {</span>
+<span class="sd">                        &quot;country&quot;: &quot;USA&quot;,</span>
+<span class="sd">                        &quot;county&quot;: &quot;San Mateo&quot;,</span>
+<span class="sd">                        &quot;state&quot;: &quot;CA&quot;,</span>
+<span class="sd">                        &quot;zipCode&quot;: &quot;94404&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    &quot;idCode&quot;: &quot;CA-IDCode-77765&quot;,</span>
+<span class="sd">                    &quot;name&quot;: &quot;Visa Inc. USA-Foster City&quot;,</span>
+<span class="sd">                    &quot;terminalId&quot;: &quot;TID-9999&quot;</span>
+<span class="sd">                },</span>
+<span class="sd">                &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:01:14&quot;,</span>
+<span class="sd">                &quot;merchantCategoryCode&quot;: &quot;6012&quot;,</span>
+<span class="sd">                &quot;pointOfServiceData&quot;: {</span>
+<span class="sd">                    &quot;motoECIIndicator&quot;: &quot;0&quot;,</span>
+<span class="sd">                    &quot;panEntryMode&quot;: &quot;90&quot;,</span>
+<span class="sd">                    &quot;posConditionCode&quot;: &quot;00&quot;</span>
+<span class="sd">                },</span>
+<span class="sd">                &quot;recipientName&quot;: &quot;rohan&quot;,</span>
+<span class="sd">                &quot;recipientPrimaryAccountNumber&quot;: &quot;4957030420210462&quot;,</span>
+<span class="sd">                &quot;retrievalReferenceNumber&quot;: &quot;412770451018&quot;,</span>
+<span class="sd">                &quot;senderAccountNumber&quot;: &quot;4957030420210454&quot;,</span>
+<span class="sd">                &quot;senderAddress&quot;: &quot;901 Metro Center Blvd&quot;,</span>
+<span class="sd">                &quot;senderCity&quot;: &quot;Foster City&quot;,</span>
+<span class="sd">                &quot;senderCountryCode&quot;: &quot;124&quot;,</span>
+<span class="sd">                &quot;senderName&quot;: &quot;Mohammed Qasim&quot;,</span>
+<span class="sd">                &quot;senderReference&quot;: &quot;&quot;,</span>
+<span class="sd">                &quot;senderStateCode&quot;: &quot;CA&quot;,</span>
+<span class="sd">                &quot;sourceOfFundsCode&quot;: &quot;05&quot;,</span>
+<span class="sd">                &quot;systemsTraceAuditNumber&quot;: &quot;451018&quot;,</span>
+<span class="sd">                &quot;transactionCurrencyCode&quot;: &quot;USD&quot;,</span>
+<span class="sd">                &quot;transactionIdentifier&quot;: &quot;381228649430015&quot;</span>
+<span class="sd">            }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ATTR_MAPPINGS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;transaction_currency_code&#39;</span><span class="p">:</span> <span class="s1">&#39;transactionCurrencyCode&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_pan&#39;</span><span class="p">:</span> <span class="s1">&#39;senderAccountNumber&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_name&#39;</span><span class="p">:</span> <span class="s1">&#39;senderName&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_address&#39;</span><span class="p">:</span> <span class="s1">&#39;senderAddress&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_city&#39;</span><span class="p">:</span> <span class="s1">&#39;senderCity&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_country_code&#39;</span><span class="p">:</span> <span class="s1">&#39;senderCountryCode&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_state_code&#39;</span><span class="p">:</span> <span class="s1">&#39;senderStateCode&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;recipient_pan&#39;</span><span class="p">:</span> <span class="s1">&#39;recipientPrimaryAccountNumber&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;recipient_name&#39;</span><span class="p">:</span> <span class="s1">&#39;recipientName&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;card_acceptor&#39;</span><span class="p">:</span> <span class="s1">&#39;cardAcceptor&#39;</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PushFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;stan&#39;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span> <span class="ow">and</span> <span class="n">v</span><span class="p">)</span>
+
+        <span class="c1"># Acquirer details are only populated for individual push transactions, not batches</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">multi</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acquiringBin</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ACQUIRER&#39;</span><span class="p">,</span> <span class="s1">&#39;acquiring_bin&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acquirerCountryCode</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ACQUIRER&#39;</span><span class="p">,</span> <span class="s1">&#39;acquirer_country_code&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiPushFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.MultiPushFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">MultiPushFundsTransaction</span><span class="p">(</span><span class="n">VisaDirectTransactionBatch</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;VisaDirect FundsTransfer MultiPushFunds data object model.</span>
+
+<span class="sd">    It is container object, which incorporate PushFundsTransaction objects under the same acquirer</span>
+<span class="sd">    credentials.</span>
+
+<span class="sd">    :param list transactions: **Required**. List of :func:`~visa.visadirect.fundstransfer.data.PushFundsTransaction` objects</span>
+
+<span class="sd">    **Example:**</span>
+<span class="sd">        ..  code-block:: json</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;acquirerCountryCode&quot;: &quot;840&quot;,</span>
+<span class="sd">                &quot;acquiringBin&quot;: &quot;408999&quot;,</span>
+<span class="sd">                &quot;businessApplicationId&quot;: &quot;AA&quot;,</span>
+<span class="sd">                &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:12:46&quot;,</span>
+<span class="sd">                &quot;merchantCategoryCode&quot;: &quot;6012&quot;,</span>
+<span class="sd">                &quot;request&quot;: [</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;amount&quot;: &quot;100.00&quot;,</span>
+<span class="sd">                        &quot;cardAcceptor&quot;: {</span>
+<span class="sd">                            &quot;address&quot;: {</span>
+<span class="sd">                                &quot;country&quot;: &quot;USA&quot;,</span>
+<span class="sd">                                &quot;county&quot;: &quot;00&quot;,</span>
+<span class="sd">                                &quot;state&quot;: &quot;CA&quot;,</span>
+<span class="sd">                                &quot;zipCode&quot;: &quot;94454&quot;</span>
+<span class="sd">                            },</span>
+<span class="sd">                            &quot;idCode&quot;: &quot;5678&quot;,</span>
+<span class="sd">                            &quot;name&quot;: &quot;Mr Smith&quot;,</span>
+<span class="sd">                            &quot;terminalId&quot;: &quot;1234&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;feeProgramIndicator&quot;: &quot;123&quot;,</span>
+<span class="sd">                        &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:12:46&quot;,</span>
+<span class="sd">                        &quot;recipientName&quot;: &quot;Akhila&quot;,</span>
+<span class="sd">                        &quot;recipientPrimaryAccountNumber&quot;: &quot;4957030420210454&quot;,</span>
+<span class="sd">                        &quot;retrievalReferenceNumber&quot;: &quot;401010101011&quot;,</span>
+<span class="sd">                        &quot;senderAccountNumber&quot;: &quot;4005520000011126&quot;,</span>
+<span class="sd">                        &quot;senderAddress&quot;: &quot;My Address&quot;,</span>
+<span class="sd">                        &quot;senderCity&quot;: &quot;My City&quot;,</span>
+<span class="sd">                        &quot;senderCountryCode&quot;: &quot;USA&quot;,</span>
+<span class="sd">                        &quot;senderName&quot;: &quot;Mr Name&quot;,</span>
+<span class="sd">                        &quot;senderReference&quot;: &quot;&quot;,</span>
+<span class="sd">                        &quot;senderStateCode&quot;: &quot;CA&quot;,</span>
+<span class="sd">                        &quot;sourceOfFundsCode&quot;: &quot;01&quot;,</span>
+<span class="sd">                        &quot;systemsTraceAuditNumber&quot;: &quot;101011&quot;,</span>
+<span class="sd">                        &quot;transactionCurrencyCode&quot;: &quot;USD&quot;,</span>
+<span class="sd">                        &quot;transactionIdentifier&quot;: &quot;234234234234234&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;amount&quot;: &quot;100.00&quot;,</span>
+<span class="sd">                        &quot;cardAcceptor&quot;: {</span>
+<span class="sd">                            &quot;address&quot;: {</span>
+<span class="sd">                                &quot;country&quot;: &quot;USA&quot;,</span>
+<span class="sd">                                &quot;county&quot;: &quot;00&quot;,</span>
+<span class="sd">                                &quot;state&quot;: &quot;CA&quot;,</span>
+<span class="sd">                                &quot;zipCode&quot;: &quot;94454&quot;</span>
+<span class="sd">                            },</span>
+<span class="sd">                            &quot;idCode&quot;: &quot;5678&quot;,</span>
+<span class="sd">                            &quot;name&quot;: &quot;Mr Smith&quot;,</span>
+<span class="sd">                            &quot;terminalId&quot;: &quot;1234&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;feeProgramIndicator&quot;: &quot;123&quot;,</span>
+<span class="sd">                        &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:12:46&quot;,</span>
+<span class="sd">                        &quot;recipientName&quot;: &quot;Akhila&quot;,</span>
+<span class="sd">                        &quot;recipientPrimaryAccountNumber&quot;: &quot;4957030420210454&quot;,</span>
+<span class="sd">                        &quot;retrievalReferenceNumber&quot;: &quot;401010101012&quot;,</span>
+<span class="sd">                        &quot;senderAccountNumber&quot;: &quot;4840920103511221&quot;,</span>
+<span class="sd">                        &quot;senderAddress&quot;: &quot;My Address&quot;,</span>
+<span class="sd">                        &quot;senderCity&quot;: &quot;My City&quot;,</span>
+<span class="sd">                        &quot;senderCountryCode&quot;: &quot;USA&quot;,</span>
+<span class="sd">                        &quot;senderName&quot;: &quot;Mr Name&quot;,</span>
+<span class="sd">                        &quot;senderReference&quot;: &quot;&quot;,</span>
+<span class="sd">                        &quot;senderStateCode&quot;: &quot;CA&quot;,</span>
+<span class="sd">                        &quot;sourceOfFundsCode&quot;: &quot;01&quot;,</span>
+<span class="sd">                        &quot;systemsTraceAuditNumber&quot;: &quot;101012&quot;,</span>
+<span class="sd">                        &quot;transactionCurrencyCode&quot;: &quot;USD&quot;,</span>
+<span class="sd">                        &quot;transactionIdentifier&quot;: &quot;234234234234234&quot;</span>
+<span class="sd">                    }</span>
+<span class="sd">                ]</span>
+<span class="sd">            }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiPushFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transactions</span><span class="o">=</span><span class="n">transactions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ReverseFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.ReverseFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">ReverseFundsTransaction</span><span class="p">(</span><span class="n">PullFundsTransaction</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;VisaDirect FundsTransfer ReverseFunds data object model.</span>
+
+<span class="sd">    :param int stan: **Required**. Systems Trace Audit Number, required, 6 digits integer.</span>
+<span class="sd">    :param str sender_pan: **Required**. Sender Primary Account Number, 13-19 characters sender PAN.</span>
+<span class="sd">    :param str sender_card_expiry_date: **Required**. Sender Card Expiry Date,, YYYY-MM sender card expiration date.</span>
+<span class="sd">    :param str sender_currency_code: **Required**. Sender Currency Code, required, 3 characters ISO currency code.</span>
+<span class="sd">    :param float amount: **Required**. Transaction amount.</span>
+<span class="sd">    :param int transaction_identifier: **Required**. Transaction Identifier, 15 digits integer.</span>
+<span class="sd">    :param OriginalDataElements ode: **Required**. Instance of :func:`~visa.visadirect.data.OriginalDataElements` object.</span>
+
+<span class="sd">    **Example:**</span>
+<span class="sd">        ..  code-block:: json</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;acquirerCountryCode&quot;: &quot;608&quot;,</span>
+<span class="sd">                &quot;acquiringBin&quot;: &quot;408999&quot;,</span>
+<span class="sd">                &quot;amount&quot;: &quot;24.01&quot;,</span>
+<span class="sd">                &quot;cardAcceptor&quot;: {</span>
+<span class="sd">                    &quot;address&quot;: {</span>
+<span class="sd">                        &quot;country&quot;: &quot;USA&quot;,</span>
+<span class="sd">                        &quot;county&quot;: &quot;San Mateo&quot;,</span>
+<span class="sd">                        &quot;state&quot;: &quot;CA&quot;,</span>
+<span class="sd">                        &quot;zipCode&quot;: &quot;94404&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    &quot;idCode&quot;: &quot;VMT200911026070&quot;,</span>
+<span class="sd">                    &quot;name&quot;: &quot;Visa Inc. USA-Foster City&quot;,</span>
+<span class="sd">                    &quot;terminalId&quot;: &quot;365539&quot;</span>
+<span class="sd">                },</span>
+<span class="sd">                &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:02:32&quot;,</span>
+<span class="sd">                &quot;originalDataElements&quot;: {</span>
+<span class="sd">                    &quot;acquiringBin&quot;: &quot;408999&quot;,</span>
+<span class="sd">                    &quot;approvalCode&quot;: &quot;20304B&quot;,</span>
+<span class="sd">                    &quot;systemsTraceAuditNumber&quot;: &quot;897825&quot;,</span>
+<span class="sd">                    &quot;transmissionDateTime&quot;: &quot;2017-03-17T09:02:32&quot;</span>
+<span class="sd">                },</span>
+<span class="sd">                &quot;pointOfServiceCapability&quot;: {</span>
+<span class="sd">                    &quot;posTerminalEntryCapability&quot;: &quot;2&quot;,</span>
+<span class="sd">                    &quot;posTerminalType&quot;: &quot;4&quot;</span>
+<span class="sd">                },</span>
+<span class="sd">                &quot;pointOfServiceData&quot;: {</span>
+<span class="sd">                    &quot;motoECIIndicator&quot;: &quot;0&quot;,</span>
+<span class="sd">                    &quot;panEntryMode&quot;: &quot;90&quot;,</span>
+<span class="sd">                    &quot;posConditionCode&quot;: &quot;00&quot;</span>
+<span class="sd">                },</span>
+<span class="sd">                &quot;retrievalReferenceNumber&quot;: &quot;330000550000&quot;,</span>
+<span class="sd">                &quot;senderCardExpiryDate&quot;: &quot;2015-10&quot;,</span>
+<span class="sd">                &quot;senderCurrencyCode&quot;: &quot;USD&quot;,</span>
+<span class="sd">                &quot;senderPrimaryAccountNumber&quot;: &quot;4895100000055127&quot;,</span>
+<span class="sd">                &quot;systemsTraceAuditNumber&quot;: &quot;451050&quot;,</span>
+<span class="sd">                &quot;transactionIdentifier&quot;: &quot;381228649430011&quot;</span>
+<span class="sd">            }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ATTR_MAPPINGS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;sender_pan&#39;</span><span class="p">:</span> <span class="s1">&#39;senderPrimaryAccountNumber&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_card_expiry_date&#39;</span><span class="p">:</span> <span class="s1">&#39;senderCardExpiryDate&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sender_currency_code&#39;</span><span class="p">:</span> <span class="s1">&#39;senderCurrencyCode&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;transaction_identifier&#39;</span><span class="p">:</span> <span class="s1">&#39;transactionIdentifier&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;card_acceptor&#39;</span><span class="p">:</span> <span class="s1">&#39;cardAcceptor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ode&#39;</span><span class="p">:</span> <span class="s1">&#39;originalDataElements&#39;</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ReverseFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span> <span class="ow">and</span> <span class="n">v</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">originalDataElements</span> <span class="o">=</span> <span class="n">ode</span></div>
+
+
+<div class="viewcode-block" id="MultiReverseFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.MultiReverseFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">MultiReverseFundsTransaction</span><span class="p">(</span><span class="n">MultiPullFundsTransaction</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;VisaDirect FundsTransfer MultiReverseFunds data object model.</span>
+
+<span class="sd">    It is container object, which incorporate ReverseFundsTransaction objects under the same acquirer</span>
+<span class="sd">    credentials.</span>
+
+<span class="sd">    :param list transactions: **Required**. List of :func:`~visa.visadirect.fundstransfer.data.ReverseFundsTransaction` objects</span>
+
+<span class="sd">    **Example:**</span>
+<span class="sd">        ..  code-block:: json</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;acquirerCountryCode&quot;: &quot;840&quot;,</span>
+<span class="sd">                &quot;acquiringBin&quot;: &quot;408999&quot;,</span>
+<span class="sd">                &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:09:05&quot;,</span>
+<span class="sd">                &quot;request&quot;: [</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;amount&quot;: &quot;100.00&quot;,</span>
+<span class="sd">                        &quot;cardAcceptor&quot;: {</span>
+<span class="sd">                            &quot;address&quot;: {</span>
+<span class="sd">                                &quot;country&quot;: &quot;USA&quot;,</span>
+<span class="sd">                                &quot;county&quot;: &quot;00&quot;,</span>
+<span class="sd">                                &quot;state&quot;: &quot;CA&quot;,</span>
+<span class="sd">                                &quot;zipCode&quot;: &quot;94454&quot;</span>
+<span class="sd">                            },</span>
+<span class="sd">                            &quot;idCode&quot;: &quot;5678&quot;,</span>
+<span class="sd">                            &quot;name&quot;: &quot;Mr Smith&quot;,</span>
+<span class="sd">                            &quot;terminalId&quot;: &quot;1234&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:09:05&quot;,</span>
+<span class="sd">                        &quot;originalDataElements&quot;: {</span>
+<span class="sd">                            &quot;acquiringBin&quot;: &quot;408999&quot;,</span>
+<span class="sd">                            &quot;approvalCode&quot;: &quot;1ABCDE&quot;,</span>
+<span class="sd">                            &quot;systemsTraceAuditNumber&quot;: &quot;228112&quot;,</span>
+<span class="sd">                            &quot;transmissionDateTime&quot;: &quot;2017-03-17T09:09:05&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;retrievalReferenceNumber&quot;: &quot;401010101011&quot;,</span>
+<span class="sd">                        &quot;senderCardExpiryDate&quot;: &quot;2020-12&quot;,</span>
+<span class="sd">                        &quot;senderCurrencyCode&quot;: &quot;USD&quot;,</span>
+<span class="sd">                        &quot;senderPrimaryAccountNumber&quot;: &quot;4485810000000131&quot;,</span>
+<span class="sd">                        &quot;systemsTraceAuditNumber&quot;: &quot;101011&quot;,</span>
+<span class="sd">                        &quot;transactionIdentifier&quot;: &quot;101010101010&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;amount&quot;: &quot;100.00&quot;,</span>
+<span class="sd">                        &quot;cardAcceptor&quot;: {</span>
+<span class="sd">                            &quot;address&quot;: {</span>
+<span class="sd">                                &quot;country&quot;: &quot;USA&quot;,</span>
+<span class="sd">                                &quot;county&quot;: &quot;00&quot;,</span>
+<span class="sd">                                &quot;state&quot;: &quot;CA&quot;,</span>
+<span class="sd">                                &quot;zipCode&quot;: &quot;94454&quot;</span>
+<span class="sd">                            },</span>
+<span class="sd">                            &quot;idCode&quot;: &quot;5678&quot;,</span>
+<span class="sd">                            &quot;name&quot;: &quot;Mr Smith&quot;,</span>
+<span class="sd">                            &quot;terminalId&quot;: &quot;1234&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;localTransactionDateTime&quot;: &quot;2017-03-17T09:09:05&quot;,</span>
+<span class="sd">                        &quot;originalDataElements&quot;: {</span>
+<span class="sd">                            &quot;acquiringBin&quot;: &quot;408999&quot;,</span>
+<span class="sd">                            &quot;approvalCode&quot;: &quot;1ABCDE&quot;,</span>
+<span class="sd">                            &quot;systemsTraceAuditNumber&quot;: &quot;228112&quot;,</span>
+<span class="sd">                            &quot;transmissionDateTime&quot;: &quot;2017-03-17T09:09:05&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;retrievalReferenceNumber&quot;: &quot;401010101011&quot;,</span>
+<span class="sd">                        &quot;senderCardExpiryDate&quot;: &quot;2020-12&quot;,</span>
+<span class="sd">                        &quot;senderCurrencyCode&quot;: &quot;USD&quot;,</span>
+<span class="sd">                        &quot;senderPrimaryAccountNumber&quot;: &quot;4485810000000131&quot;,</span>
+<span class="sd">                        &quot;systemsTraceAuditNumber&quot;: &quot;101011&quot;,</span>
+<span class="sd">                        &quot;transactionIdentifier&quot;: &quot;101010101010&quot;</span>
+<span class="sd">                    }</span>
+<span class="sd">                ]</span>
+<span class="sd">            }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiReverseFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transactions</span><span class="o">=</span><span class="n">transactions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Pavel Pokrovskiy.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

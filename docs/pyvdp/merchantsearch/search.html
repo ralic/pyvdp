@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MerchantSearch &#8212; pyvdp 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Payment Account Attributes Inquiry" href="../paai/index.html" />
+    <link rel="prev" title="Payment Account Validation" href="../pav/card_validation.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="merchantsearch">
+<h1>MerchantSearch<a class="headerlink" href="#merchantsearch" title="Permalink to this headline">¶</a></h1>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://developer.visa.com/products/merchant_search">https://developer.visa.com/products/merchant_search</a></p>
+</div>
+<div class="section" id="module-pyvdp.merchantsearch.request">
+<span id="request"></span><h2>Request<a class="headerlink" href="#module-pyvdp.merchantsearch.request" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyvdp.merchantsearch.request.VisaMerchantSearchRequest">
+<em class="property">class </em><code class="descclassname">pyvdp.merchantsearch.request.</code><code class="descname">VisaMerchantSearchRequest</code><span class="sig-paren">(</span><em>query_string=''</em>, <em>data=None</em>, <em>headers=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyvdp/merchantsearch/request.html#VisaMerchantSearchRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.merchantsearch.request.VisaMerchantSearchRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements HTTP requests to Visa MerchantSearch APIs.</p>
+<p><a class="reference external" href="https://developer.visa.com/products/merchant_search/guides">https://developer.visa.com/products/merchant_search/guides</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>query_string</strong> (<em>str</em>) &#8211; <strong>Conditional</strong>. Query string to append to URL</li>
+<li><strong>data</strong> (<em>object</em>) &#8211; <strong>Conditional</strong>. Payload for POST/PUT requests</li>
+<li><strong>headers</strong> (<em>dict</em>) &#8211; <strong>Optional</strong>. Additional headers as dictionary</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyvdp.merchantsearch.search">
+<span id="usage"></span><h2>Usage<a class="headerlink" href="#module-pyvdp.merchantsearch.search" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyvdp.merchantsearch.search.send">
+<code class="descclassname">pyvdp.merchantsearch.search.</code><code class="descname">send</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyvdp/merchantsearch/search.html#send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.merchantsearch.search.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits a merchant search request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference internal" href="#pyvdp.merchantsearch.data.MerchantSearchData" title="pyvdp.merchantsearch.data.MerchantSearchData"><em>MerchantSearchData</em></a>) &#8211; <strong>Required</strong>. Instance of <code class="xref py py-func docutils literal"><span class="pre">MerchantSearchData()</span></code>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A response from VDP.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt><strong>Example:</strong></dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visa.merchantsearch.data</span> <span class="kn">import</span> <span class="n">MerchantSearchData</span>
+<span class="kn">from</span> <span class="nn">visa.merchantsearch</span> <span class="kn">import</span> <span class="n">search</span>
+
+<span class="c1"># See docs for MerchantSearchAttrList to find out how to build search_attrs</span>
+<span class="n">search_attrs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;merchant_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Acme Inc&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;visa_merchant_id&#39;</span><span class="p">:</span> <span class="mi">12345678</span><span class="p">,</span>
+    <span class="s1">&#39;visa_store_id&#39;</span><span class="p">:</span> <span class="mi">123456789</span><span class="p">,</span>
+    <span class="s1">&#39;business_registration_id&#39;</span><span class="p">:</span> <span class="mi">386004447</span><span class="p">,</span>
+    <span class="s1">&#39;merchant_url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.emc.cmich.edu&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;acquirer_card_acceptor_id&#39;</span><span class="p">:</span> <span class="mi">424295031886</span><span class="p">,</span>
+    <span class="s1">&#39;acquiring_bin&#39;</span><span class="p">:</span> <span class="mi">476197</span>
+<span class="p">}</span>
+
+<span class="n">response_attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GNSTANDARD&#39;</span><span class="p">]</span>
+
+<span class="n">search_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;max_records&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s1">&#39;match_indicators&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s1">&#39;match_score&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s1">&#39;proximity&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;Acme&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;wildcard&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;*cme*&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">MerchantSearchData</span><span class="p">(</span><span class="n">search_attrs</span><span class="o">=</span><span class="n">search_attrs</span><span class="p">,</span>
+                          <span class="n">response_attrs</span><span class="o">=</span><span class="n">response_attrs</span><span class="p">,</span>
+                          <span class="n">options</span><span class="o">=</span><span class="n">search_options</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="data-objects">
+<h2>Data objects<a class="headerlink" href="#data-objects" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="merchantsearchdata">
+<h3>MerchantSearchData<a class="headerlink" href="#merchantsearchdata" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="pyvdp.merchantsearch.data.MerchantSearchData">
+<em class="property">class </em><code class="descclassname">pyvdp.merchantsearch.data.</code><code class="descname">MerchantSearchData</code><span class="sig-paren">(</span><em>header</em>, <em>search_attrs</em>, <em>response_attrs</em>, <em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyvdp/merchantsearch/data.html#MerchantSearchData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.merchantsearch.data.MerchantSearchData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visa Merchant Search data object model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>header</strong> (<em>dict</em>) &#8211; <strong>Required</strong>. A dictionary with header parameters. See <code class="xref py py-func docutils literal"><span class="pre">MerchantSearchHeader()</span></code>
+for possible keys.</li>
+<li><strong>search_attrs</strong> (<em>dict</em>) &#8211; <strong>Required</strong>. A dictionary with search atttributes. See <code class="xref py py-func docutils literal"><span class="pre">MerchantSearchAttrList()</span></code>
+for possible keys.</li>
+<li><strong>response_attrs</strong> (<em>list</em>) &#8211; <strong>Required</strong>. A list with attributes (Group Names) to include in response.</li>
+<li><strong>options</strong> (<em>dict</em>) &#8211; <strong>Required</strong>. A dictionary with search options. See <code class="xref py py-func docutils literal"><span class="pre">MerchantSearchOptions()</span></code>
+for possible keys.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt><strong>Example:</strong></dt>
+<dd><div class="first last highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;header&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;messageDateTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-03-18T03:39:08.903&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;requestMessageId&quot;</span><span class="p">:</span> <span class="s2">&quot;Request_001&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;startIndex&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;searchAttrList&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;merchantName&quot;</span><span class="p">:</span> <span class="s2">&quot;cmu edctn materials cntr&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;merchantStreetAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;802 industrial dr&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;merchantCity&quot;</span><span class="p">:</span> <span class="s2">&quot;Mount Pleasant&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;merchantState&quot;</span><span class="p">:</span> <span class="s2">&quot;MI&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;merchantPostalCode&quot;</span><span class="p">:</span> <span class="s2">&quot;48858&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;merchantCountryCode&quot;</span><span class="p">:</span> <span class="s2">&quot;840&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;merchantPhoneNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;19897747123&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;merchantUrl&quot;</span><span class="p">:</span> <span class="s2">&quot;http://www.emc.cmich.edu&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;businessRegistrationId&quot;</span><span class="p">:</span> <span class="s2">&quot;386004447&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;acquirerCardAcceptorId&quot;</span><span class="p">:</span> <span class="s2">&quot;424295031886&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;acquiringBin&quot;</span><span class="p">:</span> <span class="s2">&quot;476197&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;responseAttrList&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;GNSTANDARD&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;searchOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;maxRecords&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;matchIndicators&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;matchScore&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proximity&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;merchantName&quot;</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;wildCard&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;merchantName&quot;</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="class">
+<dt id="pyvdp.merchantsearch.data.MerchantSearchData.MerchantSearchAttrList">
+<em class="property">class </em><code class="descname">MerchantSearchAttrList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyvdp/merchantsearch/data.html#MerchantSearchData.MerchantSearchAttrList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.merchantsearch.data.MerchantSearchData.MerchantSearchAttrList" title="Permalink to this definition">¶</a></dt>
+<dd><p>MerchantSearch searchAttrList data object model.</p>
+<p>Part of MerchantSearchData object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>merchant_name</strong> (<em>str</em>) &#8211; <strong>Conditional</strong>. Name of the merchant. Optional when any one of VisaMerchantId or
+VisaStoreId or BusinessRegistrationId or MerchantUrl or AcquirerCardAcceptorId is provided.</li>
+<li><strong>merchant_street_address</strong> (<em>str</em>) &#8211; <strong>Conditional</strong>. Merchant street adress.</li>
+<li><strong>merchant_city</strong> (<em>str</em>) &#8211; <strong>Conditional</strong>. City of the registered merchant.</li>
+<li><strong>merchant_state</strong> (<em>str</em>) &#8211; <strong>Conditional</strong>. Merchant state code. 2 characters string.</li>
+<li><strong>merchant_postal_code</strong> (<em>str</em>) &#8211; <strong>Conditional</strong>. Merchant postal code.</li>
+<li><strong>merchant_country_code</strong> (<em>int</em>) &#8211; <strong>Conditional</strong>. Merchant country code, mandatory with merchant_name.</li>
+<li><strong>merchant_phone_number</strong> (<em>int</em>) &#8211; <strong>Conditional</strong>. Merchant phone number.</li>
+<li><strong>merchant_url</strong> (<em>str</em>) &#8211; <strong>Conditional</strong>. Merchant registered URL. Optional when any one of MerchantName or
+VisaMerchantId or VisaStoreId or BusinessRegistrationId or AcquirerCardAcceptorId is provided.</li>
+<li><strong>visa_merchant_id</strong> (<em>int</em>) &#8211; <strong>Conditional</strong>. Merchant ID provided by VISA. Optional when any one of MerchantName
+or VisaStoreId or BusinessRegistrationId or MerchantUrl or AcquirerCardAcceptorId is provided. 8 characters
+double.</li>
+<li><strong>visa_store_id</strong> (<em>int</em>) &#8211; <strong>Conditional</strong>. Merchant store/branch ID, provided by VISA. Optional when any one of
+MerchantName or VisaMerchantId or BusinessRegistrationId or MerchantUrl or AcquirerCardAcceptorId is provided.
+9 characters double.</li>
+<li><strong>business_registration_id</strong> (<em>str</em>) &#8211; <strong>Conditional</strong>. Merchant business/tax registration ID. Optional when any
+one of MerchantName or VisaMerchantId or VisaStoreId or MerchantUrl or AcquirerCardAcceptorId is provided.</li>
+<li><strong>merchant_url</strong> &#8211; <strong>Conditional</strong>. Merchant registered URL. Optional when any one of MerchantName or
+VisaMerchantId or VisaStoreId or BusinessRegistrationId or AcquirerCardAcceptorId is provided.</li>
+<li><strong>acquirer_card_acceptor_id</strong> (<em>str</em>) &#8211; <strong>Conditional</strong>. Acquirer card acceptor ID. Optional when any one of
+MerchantName or VisaMerchantId or VisaStoreId or BusinessRegistrationId or MerchantUrl is provided. 15 digits
+string. Prepend 0 if less than 15 digits.</li>
+<li><strong>acquiring_bin</strong> (<em>int</em>) &#8211; <strong>Conditional</strong>. Acquirer business identification number. Required when
+AcquirerCardAcceptorId is provided.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyvdp.merchantsearch.data.MerchantSearchData.MerchantSearchHeader">
+<em class="property">class </em><code class="descclassname">MerchantSearchData.</code><code class="descname">MerchantSearchHeader</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyvdp/merchantsearch/data.html#MerchantSearchData.MerchantSearchHeader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.merchantsearch.data.MerchantSearchData.MerchantSearchHeader" title="Permalink to this definition">¶</a></dt>
+<dd><p>MerchantSearch header data object model.</p>
+<p>Part of MerchantSearchData object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message_id</strong> (<em>str</em>) &#8211; <strong>Optional</strong>. Unique string ID for service request. String 50 characters max. Default
+&#8216;<a class="reference internal" href="#request">Request</a>&#8216; + epoch</li>
+<li><strong>startIndex</strong> (<em>int</em>) &#8211; <strong>Optional</strong>. Starting records index in response.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyvdp.merchantsearch.data.MerchantSearchData.MerchantSearchOptions">
+<em class="property">class </em><code class="descclassname">MerchantSearchData.</code><code class="descname">MerchantSearchOptions</code><span class="sig-paren">(</span><em>proximity=None</em>, <em>wildcards=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyvdp/merchantsearch/data.html#MerchantSearchData.MerchantSearchOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.merchantsearch.data.MerchantSearchData.MerchantSearchOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>MerchantSearch searchOptions data object model.</p>
+<p>Part of MerchantSearch data object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>max_records</strong> (<em>int</em>) &#8211; <strong>Optional</strong>. Maximum number of records in response. Default 25.</li>
+<li><strong>match_indicators</strong> (<em>bool</em>) &#8211; <strong>Optional</strong>. Show request attributes, that match a record.</li>
+<li><strong>match_score</strong> (<em>bool</em>) &#8211; <strong>Optional</strong>. Add matchScore and order response per matchScore.</li>
+<li><strong>proximity</strong> (<em>list</em>) &#8211; <strong>Optional</strong>. Proximity search on merchant name. If wildcards are used, proximity is ignored.</li>
+<li><strong>wildcards</strong> (<em>list</em>) &#8211; <strong>Optional</strong>. Wildcard search on merchant name.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">MerchantSearch</a><ul>
+<li><a class="reference internal" href="#module-pyvdp.merchantsearch.request">Request</a></li>
+<li><a class="reference internal" href="#module-pyvdp.merchantsearch.search">Usage</a></li>
+<li><a class="reference internal" href="#data-objects">Data objects</a><ul>
+<li><a class="reference internal" href="#merchantsearchdata">MerchantSearchData</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../api.html">API Documentation</a><ul>
+      <li>Previous: <a href="../pav/card_validation.html" title="previous chapter">Payment Account Validation</a></li>
+      <li>Next: <a href="../paai/index.html" title="next chapter">Payment Account Attributes Inquiry</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/pyvdp/merchantsearch/search.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Pavel Pokrovskiy.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/pyvdp/merchantsearch/search.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

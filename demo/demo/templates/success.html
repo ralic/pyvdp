@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="page-header">
+                    <h1>Request</h1>
+                </div>
+                <table class="table table-striped">
+                    <tr>
+                        <th>API</th>
+                        <td>{{ result.request.endpoint }}</td>
+                    </tr>
+                    <tr>
+                        <th>Method</th>
+                        <td>{{ result.request.http_verb }}</td>
+                    </tr>
+                    <tr>
+                        <th>Body</th>
+                        <td>{{ result.request.data }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div class="page-header">
+                    <h1>Response</h1>
+                </div>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Code</th>
+                        <td>{{ result.response.code }}</td>
+                    </tr>
+                    <tr>
+                        <th>Message</th>
+                        <td>{{ result.response.message }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-3 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li><a href="{% url 'merchantsearch_search' %}">Search</a></li>
+                    </ul>
+                </div>
+                <div class="col col-md-9">
+                    <h1>Content</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

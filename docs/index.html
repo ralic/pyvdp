@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyVDP - Visa Developer Program APIs, wrapped in Python &#8212; pyvdp 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Documentation" href="api.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pyvdp-visa-developer-program-apis-wrapped-in-python">
+<h1>PyVDP - Visa Developer Program APIs, wrapped in Python<a class="headerlink" href="#pyvdp-visa-developer-program-apis-wrapped-in-python" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference external" href="https://www.github.com/ppokrovsky/pyvdp">https://www.github.com/ppokrovsky/pyvdp</a></p>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Configuration parameters are set in configuration.ini file, located within visa package.</p>
+<div class="section" id="visa">
+<h3>VISA<a class="headerlink" href="#visa" title="Permalink to this headline">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-url">url</dt>
+<dd>Visa API Endpoint URL</dd>
+<dt id="term-username">username</dt>
+<dd>VDP application username</dd>
+<dt id="term-password">password</dt>
+<dd>VDP application password</dd>
+<dt id="term-version">version</dt>
+<dd>API version (may be overridden)</dd>
+<dt id="term-cert">cert</dt>
+<dd>Relative path to certificate file</dd>
+<dt id="term-key">key</dt>
+<dd>Relative path to keyfile</dd>
+<dt id="term-enable-exceptions">enable_exceptions</dt>
+<dd><p class="first">If False, a response will be returned as dictionary (see below), otherwise an exception will be raised if
+HTTP response code is other than 200 (Success)</p>
+<dl class="last docutils">
+<dt><strong>Response example:</strong></dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;endpoint&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_endpoint</span><span class="p">,</span>
+        <span class="s1">&#39;http_verb&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_verb</span><span class="p">,</span>
+        <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+        <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="acquirer">
+<h3>ACQUIRER<a class="headerlink" href="#acquirer" title="Permalink to this headline">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-acquiring-bin">acquiring_bin</dt>
+<dd>BIN of Acquirer</dd>
+<dt id="term-acquirer-country-code">acquirer_country_code</dt>
+<dd>Acquirer country code</dd>
+</dl>
+</div>
+<div class="section" id="fundstransfer">
+<h3>FUNDSTRANSFER<a class="headerlink" href="#fundstransfer" title="Permalink to this headline">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-business-application-id">business_application_id</dt>
+<dd>Business Application Identifier for FundsTransfer methods (AA)</dd>
+</dl>
+</div>
+<div class="section" id="mvisa">
+<h3>MVISA<a class="headerlink" href="#mvisa" title="Permalink to this headline">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-cashin-business-application-id">cashin_business_application_id</dt>
+<dd>Business application identifier for CashIn methods (CI)</dd>
+<dt id="term-cashout-business-application-id">cashout_business_application_id</dt>
+<dd>Business application identifier for CashOut methods (CO)</dd>
+<dt id="term-mp-business-application-id">mp_business_application_id</dt>
+<dd>Business application identifier for MerchatnPurchase methods (MP)</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="configuration-ini-example">
+<h2>configuration.ini example<a class="headerlink" href="#configuration-ini-example" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-ini"><div class="highlight"><pre><span></span><span class="k">[VISA]</span>
+<span class="na">url</span> <span class="o">=</span> <span class="s">https://sandbox.api.visa.com/</span>
+<span class="na">username</span> <span class="o">=</span> <span class="s">somerandomstring</span>
+<span class="na">password</span> <span class="o">=</span> <span class="s">somerandompassword</span>
+<span class="na">version</span> <span class="o">=</span> <span class="s">v1</span>
+<span class="na">cert</span> <span class="o">=</span> <span class="s">private/cert.pem</span>
+<span class="na">key</span> <span class="o">=</span> <span class="s">private/key.pem</span>
+<span class="na">enable_exceptions</span> <span class="o">=</span> <span class="s">True</span>
+
+<span class="k">[ACQUIRER]</span>
+<span class="na">acquiring_bin</span> <span class="o">=</span> <span class="s">400171</span>
+<span class="na">acquirer_country_code</span> <span class="o">=</span> <span class="s">643</span>
+
+<span class="c1"># Resource-specific configuration</span>
+
+<span class="k">[FUNDSTRANSFER]</span>
+<span class="c1"># FundsTransfer BAI</span>
+<span class="na">business_application_id</span> <span class="o">=</span> <span class="s">AA</span>
+
+<span class="k">[MVISA]</span>
+<span class="c1"># mVISA cashin methods</span>
+<span class="na">cashin_business_application_id</span> <span class="o">=</span> <span class="s">CI</span>
+<span class="c1"># mVISA cashout methods</span>
+<span class="na">cashout_business_application_id</span> <span class="o">=</span> <span class="s">CO</span>
+<span class="c1"># mVISA merchant purchase methods</span>
+<span class="na">mp_business_application_id</span> <span class="o">=</span> <span class="s">MP</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PyVDP - Visa Developer Program APIs, wrapped in Python</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li><a class="reference internal" href="#visa">VISA</a></li>
+<li><a class="reference internal" href="#acquirer">ACQUIRER</a></li>
+<li><a class="reference internal" href="#fundstransfer">FUNDSTRANSFER</a></li>
+<li><a class="reference internal" href="#mvisa">MVISA</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-ini-example">configuration.ini example</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="api.html" title="next chapter">API Documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Pavel Pokrovskiy.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

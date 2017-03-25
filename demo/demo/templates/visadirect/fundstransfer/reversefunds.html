@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-6">
+                    {% include '_form.html' with form=form_post %}
+                </div>
+                <div class="col col-md-6">
+                    {% include '_form.html' with form=form_get %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

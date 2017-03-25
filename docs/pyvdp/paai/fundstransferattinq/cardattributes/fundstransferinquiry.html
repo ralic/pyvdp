@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Funds Transfer Inquiry &#8212; pyvdp 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="General Inquiry" href="../../generalattinq/cardattributes/generalinquiry.html" />
+    <link rel="prev" title="Payment Account Attributes Inquiry" href="../../index.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="funds-transfer-inquiry">
+<h1>Funds Transfer Inquiry<a class="headerlink" href="#funds-transfer-inquiry" title="Permalink to this headline">¶</a></h1>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://developer.visa.com/products/paai/reference#paai__paai">https://developer.visa.com/products/paai/reference#paai__paai</a></p>
+</div>
+<p>The Funds Transfer Attributes Inquiry API is often used with a funds transfer to/from a Visa payment account to
+determine key characteristics of a recipient card before initiating the transfer like country, card-type, block status,
+etc. The API has been enhanced to query <a class="reference internal" href="../../../visadirect/fundstransfer.html#pull-funds-transaction"><span class="std std-ref">PullFundsTransaction</span></a> and <a class="reference internal" href="../../../visadirect/fundstransfer.html#push-funds-transaction"><span class="std std-ref">PushFundsTransaction</span></a> eligibility
+(both domestic and cross-border) for multiple U.S. debit networks.</p>
+<p>Funds Transfer Inquiry API retrieves the attributes, which determine the key characteristics of a recipient payment
+account before initiating a funds transfer, by providing the Primary Account Number (PAN)</p>
+<div class="section" id="module-pyvdp.paai.fundstransferattinq.cardattributes.fundstransferinquiry">
+<span id="usage"></span><h2>Usage<a class="headerlink" href="#module-pyvdp.paai.fundstransferattinq.cardattributes.fundstransferinquiry" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyvdp.paai.fundstransferattinq.cardattributes.fundstransferinquiry.send">
+<code class="descclassname">pyvdp.paai.fundstransferattinq.cardattributes.fundstransferinquiry.</code><code class="descname">send</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pyvdp/paai/fundstransferattinq/cardattributes/fundstransferinquiry.html#send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.paai.fundstransferattinq.cardattributes.fundstransferinquiry.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits Funds Transfer Inquiry request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> &#8211; <strong>Required</strong>. Instance of <code class="xref py py-func docutils literal"><span class="pre">FundsTransferInquiryData()</span></code></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dictionary with VDP response</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt><strong>Example:</strong></dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visa.paai.fundstransferattinq.cardattributes.data</span> <span class="kn">import</span> <span class="n">FundsTransferInquiryData</span>
+<span class="kn">from</span> <span class="nn">visa.paai.fundstransferattinq.cardattribute</span> <span class="kn">import</span> <span class="n">fundstransferinquiry</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">FundsTransferInquiryData</span><span class="p">(</span><span class="n">stan</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span>
+                                <span class="n">rrn</span><span class="o">=</span><span class="s2">&quot;330000123456&quot;</span><span class="p">,</span>
+                                <span class="n">pan</span><span class="o">=</span><span class="s2">&quot;4957030420210512&quot;</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">fundstransferinquiry</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="data-objects">
+<h2>Data Objects<a class="headerlink" href="#data-objects" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyvdp.paai.fundstransferattinq.cardattributes.data.FundsTransferInquiryData">
+<em class="property">class </em><code class="descclassname">pyvdp.paai.fundstransferattinq.cardattributes.data.</code><code class="descname">FundsTransferInquiryData</code><span class="sig-paren">(</span><em>stan</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pyvdp/paai/fundstransferattinq/cardattributes/data.html#FundsTransferInquiryData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.paai.fundstransferattinq.cardattributes.data.FundsTransferInquiryData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funds Transfer Inquiry data object model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pan</strong> (<em>str</em>) &#8211; <strong>Required</strong>. Primary account number (PAN). 13-19 characters string.</li>
+<li><strong>stan</strong> (<em>int</em>) &#8211; <strong>Required</strong>. Systems Trace Audit Number. 6 digits integer. Generated by payment application,
+unique within the scope of application until expired (usually within 24 hours). Can be reused if more than
+999 999 transactions were performed during a day.</li>
+<li><strong>rrn</strong> (<em>str</em>) &#8211; <strong>Optional</strong>. Retrieval Reference Number. 12 digits string. If not provided, will be generated
+as a function from STAN.</li>
+<li><strong>acquiring_bin</strong> (<em>int</em>) &#8211; <strong>Optional</strong>. BIN under which FundsTransfer app is registered. 6-11 digits integer.</li>
+<li><strong>acquirer_country_code</strong> (<em>int</em>) &#8211; <strong>Optional</strong>. 3 digits acquirer country code.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt><strong>Example:</strong></dt>
+<dd><div class="first last highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;primaryAccountNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;4957030420210512&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;retrievalReferenceNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;330000550000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;systemsTraceAuditNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;451006&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="pullfundstransactions-aft"></span></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Funds Transfer Inquiry</a><ul>
+<li><a class="reference internal" href="#module-pyvdp.paai.fundstransferattinq.cardattributes.fundstransferinquiry">Usage</a></li>
+<li><a class="reference internal" href="#data-objects">Data Objects</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../api.html">API Documentation</a><ul>
+  <li><a href="../../index.html">Payment Account Attributes Inquiry</a><ul>
+      <li>Previous: <a href="../../index.html" title="previous chapter">Payment Account Attributes Inquiry</a></li>
+      <li>Next: <a href="../../generalattinq/cardattributes/generalinquiry.html" title="next chapter">General Inquiry</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../_sources/pyvdp/paai/fundstransferattinq/cardattributes/fundstransferinquiry.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Pavel Pokrovskiy.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../../../_sources/pyvdp/paai/fundstransferattinq/cardattributes/fundstransferinquiry.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

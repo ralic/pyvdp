@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exceptions &#8212; pyvdp 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="VisaDirect" href="visadirect/index.html" />
+    <link rel="prev" title="Request" href="request.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyvdp.exceptions">
+<span id="exceptions"></span><h1>Exceptions<a class="headerlink" href="#module-pyvdp.exceptions" title="Permalink to this headline">¶</a></h1>
+<dl class="exception">
+<dt id="pyvdp.exceptions.VisaAccessDeniedError">
+<em class="property">exception </em><code class="descclassname">pyvdp.exceptions.</code><code class="descname">VisaAccessDeniedError</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyvdp/exceptions.html#VisaAccessDeniedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.exceptions.VisaAccessDeniedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when access to resource is restricted.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>VISA API HTTP Code: 403</li>
+<li>VISA Error Code: 9611</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pyvdp.exceptions.VisaDuplicateTransactionError">
+<em class="property">exception </em><code class="descclassname">pyvdp.exceptions.</code><code class="descname">VisaDuplicateTransactionError</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyvdp/exceptions.html#VisaDuplicateTransactionError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.exceptions.VisaDuplicateTransactionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when duplicate transaction detected.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>VISA API HTTP Code: 303</li>
+<li>VISA Error Code: None</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pyvdp.exceptions.VisaGeneralError">
+<em class="property">exception </em><code class="descclassname">pyvdp.exceptions.</code><code class="descname">VisaGeneralError</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyvdp/exceptions.html#VisaGeneralError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.exceptions.VisaGeneralError" title="Permalink to this definition">¶</a></dt>
+<dd><p>General exception, raised by VDP API.</p>
+<p>This class is inherited throughout module and implements general exception handling, such as error messages
+display.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>result</strong> (<em>requests.Response</em>) &#8211; Required. Response from VDP.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pyvdp.exceptions.VisaInvalidCertificateError">
+<em class="property">exception </em><code class="descclassname">pyvdp.exceptions.</code><code class="descname">VisaInvalidCertificateError</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyvdp/exceptions.html#VisaInvalidCertificateError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.exceptions.VisaInvalidCertificateError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when client presented invalid certificate.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>VISA API HTTP Code: 401</li>
+<li>VISA Error Code: 9125</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pyvdp.exceptions.VisaInvalidPanError">
+<em class="property">exception </em><code class="descclassname">pyvdp.exceptions.</code><code class="descname">VisaInvalidPanError</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyvdp/exceptions.html#VisaInvalidPanError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.exceptions.VisaInvalidPanError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised with invalid PAN.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>VISA API HTTP Code: 404</li>
+<li>VISA Error Code: 3001</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pyvdp.exceptions.VisaMessageValidationError">
+<em class="property">exception </em><code class="descclassname">pyvdp.exceptions.</code><code class="descname">VisaMessageValidationError</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyvdp/exceptions.html#VisaMessageValidationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.exceptions.VisaMessageValidationError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when message validation error occured.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>VISA API HTTP Code: 400</li>
+<li>VISA Error Code: 3001</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pyvdp.exceptions.VisaNotFoundError">
+<em class="property">exception </em><code class="descclassname">pyvdp.exceptions.</code><code class="descname">VisaNotFoundError</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyvdp/exceptions.html#VisaNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.exceptions.VisaNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when resource not found.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>VISA API HTTP Code: 404</li>
+<li>VISA Error Code: None</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pyvdp.exceptions.VisaTimeoutError">
+<em class="property">exception </em><code class="descclassname">pyvdp.exceptions.</code><code class="descname">VisaTimeoutError</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyvdp/exceptions.html#VisaTimeoutError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.exceptions.VisaTimeoutError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when POST request is timed out.</p>
+<p>This exception is somewhat special, since while being a timeout error, it is in fact a standard response in case
+multiple transactions were submitted, e.g. through <cite>pullfunds.send(multi=True)</cite> call.</p>
+<p>It returns 202 HTTP code which indicates, that request is received and being processed under the hood, the content
+is a transaction ID which can be used in <cite>get</cite> requests to get a status on this specific submission.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>VISA API HTTP Code: 202</li>
+<li>VISA Error Code: None</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pyvdp.exceptions.VisaUnauthenticatedError">
+<em class="property">exception </em><code class="descclassname">pyvdp.exceptions.</code><code class="descname">VisaUnauthenticatedError</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyvdp/exceptions.html#VisaUnauthenticatedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvdp.exceptions.VisaUnauthenticatedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when client is not authenticated.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>VISA API HTTP Code: 401</li>
+<li>VISA Error Code: 9123, 9124</li>
+</ul>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api.html">API Documentation</a><ul>
+      <li>Previous: <a href="request.html" title="previous chapter">Request</a></li>
+      <li>Next: <a href="visadirect/index.html" title="next chapter">VisaDirect</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/pyvdp/exceptions.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Pavel Pokrovskiy.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/pyvdp/exceptions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

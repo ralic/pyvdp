@@ -1,0 +1,26 @@
+<form role="form" action="" method="post" class="form-horizontal">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="{{ action }}">
+    {% for field in form %}
+        <div class="form-group">
+            <label class="col col-md-2 control-label" for="id_{{ field.name }}">
+                {{ field.label }}
+            </label>
+            <div class="col col-md-10">
+                {{ field }}
+                {% if field.errors %}
+                    <div class="alert alert-danger">
+                        <ul class="fa-ul">
+                            {% for error in field.errors %}
+                                <li>{{ error|escape }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    <p class="text-center">
+        <button type="submit" class="btn btn-success">Send</button>
+    </p>
+</form>

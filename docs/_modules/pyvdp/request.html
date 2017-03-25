@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyvdp.request &#8212; pyvdp 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyvdp.request</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">jsonpickle</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">configparser</span> <span class="k">as</span> <span class="nn">parser</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">ConfigParser</span> <span class="k">as</span> <span class="nn">parser</span>
+
+<span class="kn">from</span> <span class="nn">pyvdp.exceptions</span> <span class="k">import</span> <span class="p">(</span><span class="n">VisaAccessDeniedError</span><span class="p">,</span> <span class="n">VisaDuplicateTransactionError</span><span class="p">,</span> <span class="n">VisaGeneralError</span><span class="p">,</span>
+                              <span class="n">VisaMessageValidationError</span><span class="p">,</span> <span class="n">VisaNotFoundError</span><span class="p">,</span> <span class="n">VisaTimeoutError</span><span class="p">,</span> <span class="n">VisaUnauthenticatedError</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="VisaRequest"><a class="viewcode-back" href="../../pyvdp/request.html#pyvdp.request.VisaRequest">[docs]</a><span class="k">class</span> <span class="nc">VisaRequest</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Constructs a request to Visa API to provided resource, method and http verb.</span>
+
+<span class="sd">    After request is constructed, it shall be submitted with `send()` method, which returns a `requests.Response`</span>
+<span class="sd">    object.</span>
+
+<span class="sd">    This class is not assumed to be instantiated on its own (consider it abstract). Instead, every VISA API</span>
+<span class="sd">    implementation must provide its own request class, inheriting from VisaRequest and providing a</span>
+<span class="sd">    corresponding VISA API resource name as a `resource` argument value (see visa.visadirect.request as an example)</span>
+
+<span class="sd">    :param str resource: **Required**. VISA API resource name</span>
+<span class="sd">    :param str api: **Required**. VISA API api name</span>
+<span class="sd">    :param str method: **Required**. VISA API endpoint method</span>
+<span class="sd">    :param str http_verb: **Required**. VISA API HTTP verb (GET, POST, PUT)</span>
+<span class="sd">    :param str query_string: **Conditional**. Query string to append to API endpoint</span>
+<span class="sd">    :param object data: **Conditional**. Data payload for POST requests, VisaTransacton object</span>
+<span class="sd">    :param str auth_method: **Conditional**. Authentication method. Possible values are:</span>
+<span class="sd">            **ssl** - for certificate-based authentication (default) or **token** - for x-pay-token authentication</span>
+<span class="sd">    :param dict headers: **Optional**. Additional headers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># This is where stuff lives</span>
+    <span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+
+    <span class="c1"># Configuration management</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+    <span class="n">config_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;configuration.ini&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_file</span><span class="p">):</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># use example config as a stub for tests</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;configuration.ini.example&#39;</span><span class="p">))</span>
+
+    <span class="c1"># VDP HTTP codes mapped to exceptions</span>
+    <span class="c1"># (kudos to http://codereview.stackexchange.com/questions/155350/pyvdp-python-library-for-visa-developer-program)</span>
+    <span class="n">ERROR_CODES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">202</span><span class="p">:</span> <span class="n">VisaTimeoutError</span><span class="p">,</span>
+        <span class="mi">303</span><span class="p">:</span> <span class="n">VisaDuplicateTransactionError</span><span class="p">,</span>
+        <span class="mi">400</span><span class="p">:</span> <span class="n">VisaMessageValidationError</span><span class="p">,</span>
+        <span class="mi">401</span><span class="p">:</span> <span class="n">VisaUnauthenticatedError</span><span class="p">,</span>
+        <span class="mi">403</span><span class="p">:</span> <span class="n">VisaAccessDeniedError</span><span class="p">,</span>
+        <span class="mi">404</span><span class="p">:</span> <span class="n">VisaNotFoundError</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">api</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">http_verb</span><span class="p">,</span> <span class="n">query_string</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                 <span class="n">auth_method</span><span class="o">=</span><span class="s1">&#39;ssl&#39;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="c1"># Configuration assignments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VISA&#39;</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VISA&#39;</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VISA&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VISA&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cert</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VISA&#39;</span><span class="p">,</span> <span class="s1">&#39;cert&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VISA&#39;</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enable_exceptions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">getboolean</span><span class="p">(</span><span class="s1">&#39;VISA&#39;</span><span class="p">,</span> <span class="s1">&#39;enable_exceptions&#39;</span><span class="p">)</span>
+        <span class="c1"># Optional parameters</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shared_secret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VISA&#39;</span><span class="p">,</span> <span class="s1">&#39;shared_secret&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">parser</span><span class="o">.</span><span class="n">NoOptionError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shared_secret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="c1"># API path structure: https://domain/resource/api/version/method</span>
+        <span class="c1"># eg https://sandbox.api.visa.com/cybersource/payments/v1/authorizations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource</span> <span class="o">=</span> <span class="n">resource</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">api</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">http_verb</span> <span class="o">=</span> <span class="n">http_verb</span>
+
+        <span class="k">if</span> <span class="n">query_string</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">query_string</span> <span class="o">=</span> <span class="n">query_string</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">query_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_to_json</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="c1"># Headers setup</span>
+        <span class="c1"># FIXME: Hardcoded request/response in json format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;X-Client-Transaction-ID&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_x_client_transaction_id</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">headers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+
+        <span class="c1"># Session initialization</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+
+        <span class="c1"># Authentication setup</span>
+        <span class="k">if</span> <span class="n">auth_method</span> <span class="o">==</span> <span class="s1">&#39;ssl&#39;</span><span class="p">:</span>
+            <span class="c1"># certificate-based authentication</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">cert</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">auth_method</span> <span class="o">==</span> <span class="s1">&#39;token&#39;</span><span class="p">:</span>
+            <span class="c1"># x-pay-token authentication</span>
+            <span class="n">x_pay_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_x_pay_token</span><span class="p">()</span>
+            <span class="n">token_header</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X-PAY-TOKEN&#39;</span><span class="p">:</span> <span class="n">x_pay_token</span><span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">token_header</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;auth_method argument value must be either &#39;ssl&#39; or &#39;token&#39; (&#39;</span><span class="si">%s</span><span class="s2">&#39; passed)&quot;</span> <span class="o">%</span> <span class="n">auth_method</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VisaRequest.send"><a class="viewcode-back" href="../../pyvdp/request.html#pyvdp.request.VisaRequest.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Submits a data object or query string id to VISA using `self.api_endpoint` field and corresponding</span>
+<span class="sd">        http verb.</span>
+
+<span class="sd">        :return: result: Resulting dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_endpoint</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_string</span>
+
+        <span class="c1"># Using requests.Session and requests.PreparedRequest to construct request to VDP</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">http_verb</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">),</span>
+            <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span>
+        <span class="p">)</span>
+        <span class="n">prepped_req</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">prepped_req</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Processes a response from Visa Direct API.</span>
+
+<span class="sd">        Depending on HTTP code in response, either returns a result or raises corresponding app-level exception.</span>
+
+<span class="sd">        :param requests.Response result: Required. Response from VISA</span>
+<span class="sd">        :return: dict result: Resulting dictionary</span>
+<span class="sd">        :raises: VisaTimeoutError, VisaDuplicateTransactionError, VisaMessageValidationError, VisaUnauthenticatedError,</span>
+<span class="sd">                VisaAccessDeniedError, VisaNotFoundError, VisaGeneralError</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">code</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">status_code</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enable_exceptions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+                    <span class="s1">&#39;endpoint&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_endpoint</span><span class="p">,</span>
+                    <span class="s1">&#39;http_verb&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_verb</span><span class="p">,</span>
+                    <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERROR_CODES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">VisaGeneralError</span><span class="p">)(</span><span class="n">result</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">202</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">content</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;endpoint&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_endpoint</span><span class="p">,</span>
+                    <span class="s1">&#39;http_verb&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_verb</span><span class="p">,</span>
+                    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+                    <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_x_client_transaction_id</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;Generates random 12-digits value used for X-Client-Transaction-ID header.</span>
+
+<span class="sd">        :return: Value for X-Client-Transaction-ID header</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_x_pay_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generates payload for X-PAY-TOKEN header (token-based authentication)</span>
+<span class="sd">        https://developer.visa.com/guides/vdpguide#two_way_ssl</span>
+
+<span class="sd">        :return: X-PAY-TOKEN value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shared_secret</span>
+        <span class="n">resource_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">ts</span> <span class="o">+</span> <span class="n">resource_path</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_string</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="n">digest</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">msg</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">digestmod</span><span class="o">=</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="s2">&quot;xv2:&quot;</span> <span class="o">+</span> <span class="n">ts</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">digest</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_obj_to_json</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Serializes Python object to json</span>
+
+<span class="sd">        :param object data: Python object</span>
+<span class="sd">        :return: JSON string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">json</span> <span class="o">=</span> <span class="n">jsonpickle</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">unpicklable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Pavel Pokrovskiy.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
