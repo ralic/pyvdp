@@ -19,7 +19,7 @@ CLASSIFIERS = [
 
 setup(
     name='pyvdp',
-    version='1.1.0',
+    version='1.1.6',
     author='Pavel Pokrovskiy',
     author_email='ppokrovsky@gmail.com',
     license='MIT',
