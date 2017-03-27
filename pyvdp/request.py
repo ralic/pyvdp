@@ -179,13 +179,12 @@ class VisaRequest(object):
                 },
                 'response': {
                     'code': code,
+                    'headers': result.headers,
                     'message': message,
                 }
             }
 
         return result
-
-
 
     @staticmethod
     def _get_x_client_transaction_id():
