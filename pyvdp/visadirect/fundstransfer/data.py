@@ -50,16 +50,10 @@ class PullFundsTransaction(VisaDirectTransaction):
         'card_acceptor': 'cardAcceptor'
     }
 
-    def __init__(self, multi=False, **kwargs):
+    def __init__(self, **kwargs):
         super(PullFundsTransaction, self).__init__(kwargs['stan'])
 
         self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
-
-        # Acquirer details are only populated for individual pull transactions, not batches
-        if not multi:
-            self.acquiringBin = config.get('ACQUIRER', 'acquiring_bin')
-            self.acquirerCountryCode = config.get('ACQUIRER', 'acquirer_country_code')
-            self.businessApplicationId = config.get('FUNDSTRANSFER', 'business_application_id')
 
 
 class MultiPullFundsTransaction(VisaDirectTransactionBatch):
@@ -127,7 +121,6 @@ class MultiPullFundsTransaction(VisaDirectTransactionBatch):
     """
     def __init__(self, transactions):
         super(MultiPullFundsTransaction, self).__init__(transactions=transactions)
-        self.businessApplicationId = config.get('FUNDSTRANSFER', 'business_application_id')
 
 
 class PushFundsTransaction(VisaDirectTransaction):
@@ -203,16 +196,10 @@ class PushFundsTransaction(VisaDirectTransaction):
         'card_acceptor': 'cardAcceptor'
     }
 
-    def __init__(self, multi=False, **kwargs):
+    def __init__(self, **kwargs):
         super(PushFundsTransaction, self).__init__(kwargs['stan'])
 
         self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
-
-        # Acquirer details are only populated for individual push transactions, not batches
-        if not multi:
-            self.acquiringBin = config.get('ACQUIRER', 'acquiring_bin')
-            self.acquirerCountryCode = config.get('ACQUIRER', 'acquirer_country_code')
-            self.businessApplicationId = config.get('FUNDSTRANSFER', 'business_application_id')
 
 
 class MultiPushFundsTransaction(VisaDirectTransactionBatch):
@@ -298,7 +285,6 @@ class MultiPushFundsTransaction(VisaDirectTransactionBatch):
     """
     def __init__(self, transactions):
         super(MultiPushFundsTransaction, self).__init__(transactions=transactions)
-        self.businessApplicationId = config.get('FUNDSTRANSFER', 'business_application_id')
 
 
 class ReverseFundsTransaction(PullFundsTransaction):
@@ -445,5 +431,3 @@ class MultiReverseFundsTransaction(MultiPullFundsTransaction):
     """
     def __init__(self, transactions):
         super(MultiReverseFundsTransaction, self).__init__(transactions=transactions)
-        self.businessApplicationId = config.get('FUNDSTRANSFER', 'business_application_id')
-

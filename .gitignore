@@ -1,9 +1,2 @@
 .idea/
-pyvdp/private/*
-pyvdp/configuration.ini
-docs/.doctrees
-docs/_sources
-docs/.buildinfo
-docs/objects.inv
-.pypirc
 

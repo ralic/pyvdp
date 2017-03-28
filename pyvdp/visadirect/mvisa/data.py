@@ -64,10 +64,6 @@ class CashinPushPaymentTransaction(VisaDirectTransaction):
 
         self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
 
-        self.acquiringBin = config.get('ACQUIRER', 'acquiring_bin')
-        self.acquirerCountryCode = config.get('ACQUIRER', 'acquirer_country_code')
-        self.businessApplicationId = config.get('MVISA', 'cashin_business_application_id')
-
 
 class CashoutPushPaymentTransaction(VisaDirectTransaction):
     """Data model for mVISA CashoutPushPayments API.
@@ -128,10 +124,6 @@ class CashoutPushPaymentTransaction(VisaDirectTransaction):
         super(CashoutPushPaymentTransaction, self).__init__(kwargs['stan'])
 
         self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
-
-        self.acquiringBin = config.get('ACQUIRER', 'acquiring_bin')
-        self.acquirerCountryCode = config.get('ACQUIRER', 'acquirer_country_code')
-        self.businessApplicationId = config.get('MVISA', 'cashout_business_application_id')
 
 
 class MerchantPushPaymentTransaction(VisaDirectTransaction):
@@ -202,10 +194,6 @@ class MerchantPushPaymentTransaction(VisaDirectTransaction):
         super(MerchantPushPaymentTransaction, self).__init__(kwargs['stan'])
 
         self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
-
-        self.acquiringBin = config.get('ACQUIRER', 'acquiring_bin')
-        self.acquirerCountryCode = config.get('ACQUIRER', 'acquirer_country_code')
-        self.businessApplicationId = config.get('MVISA', 'mp_business_application_id')
 
 
 class PurchaseIdentifier(object):

@@ -21,14 +21,18 @@ class TestVisaRequest(unittest.TestCase):
     def setUp(self):
         self.t = VisaDirectTransaction(stan='123456')
 
-        self.vr = VisaRequest(resource='', api='', method='', http_verb='POST', data=self.t)
-        self.vr.user_id = 'testuser'
-        self.vr.password = 'testpassword'
-        self.vr.cert = 'testcert.pem'
-        self.vr.key = 'testkey.pem'
-        self.vr.shared_secret = 'secret'
-        self.vr.api_endpoint = 'http://localhost'
-        self.vr.enable_exceptions = True
+        config = {
+            'url': 'http://localhost',
+            'version': 'v1',
+            'username': 'testuser',
+            'password': 'testpassword',
+            'cert': 'testcert.pem',
+            'key': 'testkey.pem',
+            'debug': False,
+            'shared_secret': 'secret'
+        }
+
+        self.vr = VisaRequest(resource='', api='', method='', http_verb='POST', data=self.t, config=config)
 
     def test_sendReturnsDictionaryOnHTTP200(self, m):
         message = "{\"text\": \"this is a test\"}"
@@ -36,7 +40,7 @@ class TestVisaRequest(unittest.TestCase):
         result = self.vr.send()
         expect = {
             'code': 200,
-            'endpoint': 'http://localhost',
+            'endpoint': 'http://localhost///v1/',
             'http_verb': 'POST',
             'message': {'text': 'this is a test'}
         }
@@ -79,9 +83,9 @@ class TestVisaRequest(unittest.TestCase):
 
     def test_getXPayTokenGeneratesToken(self, m):
         ts = str(int(time.time()))
-        resource_path = self.vr.api + '/' + self.vr.version + '/' + self.vr.method
+        resource_path = self.vr.api + '/' + self.vr._config['version'] + '/' + self.vr.method
         message = ts + resource_path + self.vr.query_string + self.vr.data
-        digest = hmac.new(str.encode(self.vr.shared_secret), msg=str.encode(message), digestmod=hashlib.sha256).hexdigest()
+        digest = hmac.new(str.encode(self.vr._config['shared_secret']), msg=str.encode(message), digestmod=hashlib.sha256).hexdigest()
         token = "xv2:" + ts + ":" + digest
 
         self.assertEqual(token, self.vr._get_x_pay_token(), "x-pay-token does not match")

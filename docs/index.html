@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyVDP - Visa Developer Program APIs, wrapped in Python &#8212; pyvdp 1.0 documentation</title>
+    <title>PyVDP - Visa Developer Program APIs, wrapped in Python &#8212; pyvdp 1.1.6 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0',
+        VERSION:     '1.1.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -55,107 +55,69 @@
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 </div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install pyvdp
+</pre></div>
+</div>
+</div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>Configuration parameters are set in configuration.ini file, located within visa package.</p>
-<div class="section" id="visa">
-<h3>VISA<a class="headerlink" href="#visa" title="Permalink to this headline">¶</a></h3>
-<dl class="glossary docutils">
-<dt id="term-url">url</dt>
-<dd>Visa API Endpoint URL</dd>
-<dt id="term-username">username</dt>
-<dd>VDP application username</dd>
-<dt id="term-password">password</dt>
-<dd>VDP application password</dd>
-<dt id="term-version">version</dt>
-<dd>API version (may be overridden)</dd>
-<dt id="term-cert">cert</dt>
-<dd>Relative path to certificate file</dd>
-<dt id="term-key">key</dt>
-<dd>Relative path to keyfile</dd>
-<dt id="term-enable-exceptions">enable_exceptions</dt>
-<dd><p class="first">If False, a response will be returned as dictionary (see below), otherwise an exception will be raised if
-HTTP response code is other than 200 (Success)</p>
-<dl class="last docutils">
-<dt><strong>Response example:</strong></dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;endpoint&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_endpoint</span><span class="p">,</span>
-        <span class="s1">&#39;http_verb&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_verb</span><span class="p">,</span>
-        <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
-        <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<p>PyVDP is configured through INI-file. The location of INI-file is defined with environment variable <strong>PYVDP_CONFIG</strong>.
+In case <strong>PYVDP_CONFIG</strong> variable is not set, then PyVDP will attempt to search for <strong>configuration.ini</strong> file in module
+folder (which is usually located in site-packages/pyvdp).</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Since configuration file contains sensitive data, such as user credentials, the configuration file itself and
+corresponding certificate/keyfiles should be kept safely and ignored by version control.</p>
 </div>
-</dd>
-</dl>
-</dd>
-</dl>
-</div>
-<div class="section" id="acquirer">
-<h3>ACQUIRER<a class="headerlink" href="#acquirer" title="Permalink to this headline">¶</a></h3>
-<dl class="glossary docutils">
-<dt id="term-acquiring-bin">acquiring_bin</dt>
-<dd>BIN of Acquirer</dd>
-<dt id="term-acquirer-country-code">acquirer_country_code</dt>
-<dd>Acquirer country code</dd>
-</dl>
-</div>
-<div class="section" id="fundstransfer">
-<h3>FUNDSTRANSFER<a class="headerlink" href="#fundstransfer" title="Permalink to this headline">¶</a></h3>
-<dl class="glossary docutils">
-<dt id="term-business-application-id">business_application_id</dt>
-<dd>Business Application Identifier for FundsTransfer methods (AA)</dd>
-</dl>
-</div>
-<div class="section" id="mvisa">
-<h3>MVISA<a class="headerlink" href="#mvisa" title="Permalink to this headline">¶</a></h3>
-<dl class="glossary docutils">
-<dt id="term-cashin-business-application-id">cashin_business_application_id</dt>
-<dd>Business application identifier for CashIn methods (CI)</dd>
-<dt id="term-cashout-business-application-id">cashout_business_application_id</dt>
-<dd>Business application identifier for CashOut methods (CO)</dd>
-<dt id="term-mp-business-application-id">mp_business_application_id</dt>
-<dd>Business application identifier for MerchatnPurchase methods (MP)</dd>
-</dl>
-</div>
-</div>
-<div class="section" id="configuration-ini-example">
-<h2>configuration.ini example<a class="headerlink" href="#configuration-ini-example" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><div class="highlight-ini"><div class="highlight"><pre><span></span><span class="k">[VISA]</span>
-<span class="na">url</span> <span class="o">=</span> <span class="s">https://sandbox.api.visa.com/</span>
-<span class="na">username</span> <span class="o">=</span> <span class="s">somerandomstring</span>
-<span class="na">password</span> <span class="o">=</span> <span class="s">somerandompassword</span>
+<p>Here&#8217;s an example of configuration file:</p>
+<div class="highlight-ini"><div class="highlight"><pre><span></span><span class="k">[VISA]</span>
+<span class="na">url</span> <span class="o">=</span> <span class="s">https://sandbox.api.visa.com</span>
+<span class="na">username</span> <span class="o">=</span> <span class="s">myapplicationusername</span>
+<span class="na">password</span> <span class="o">=</span> <span class="s">myapplicationpassword</span>
 <span class="na">version</span> <span class="o">=</span> <span class="s">v1</span>
-<span class="na">cert</span> <span class="o">=</span> <span class="s">private/cert.pem</span>
-<span class="na">key</span> <span class="o">=</span> <span class="s">private/key.pem</span>
-<span class="na">enable_exceptions</span> <span class="o">=</span> <span class="s">True</span>
-
-<span class="k">[ACQUIRER]</span>
-<span class="na">acquiring_bin</span> <span class="o">=</span> <span class="s">400171</span>
-<span class="na">acquirer_country_code</span> <span class="o">=</span> <span class="s">643</span>
-
-<span class="c1"># Resource-specific configuration</span>
-
-<span class="k">[FUNDSTRANSFER]</span>
-<span class="c1"># FundsTransfer BAI</span>
-<span class="na">business_application_id</span> <span class="o">=</span> <span class="s">AA</span>
-
-<span class="k">[MVISA]</span>
-<span class="c1"># mVISA cashin methods</span>
-<span class="na">cashin_business_application_id</span> <span class="o">=</span> <span class="s">CI</span>
-<span class="c1"># mVISA cashout methods</span>
-<span class="na">cashout_business_application_id</span> <span class="o">=</span> <span class="s">CO</span>
-<span class="c1"># mVISA merchant purchase methods</span>
-<span class="na">mp_business_application_id</span> <span class="o">=</span> <span class="s">MP</span>
+<span class="na">cert</span> <span class="o">=</span> <span class="s">cert.pem</span>
+<span class="na">key</span> <span class="o">=</span> <span class="s">key.pem</span>
+<span class="na">shared_secret</span> <span class="o">=</span> <span class="s">secret</span>
+<span class="na">api_key</span> <span class="o">=</span> <span class="s">12345678ABCDEF</span>
+<span class="na">debug</span> <span class="o">=</span> <span class="s">false</span>
 </pre></div>
 </div>
-</div></blockquote>
+<p><strong>[VISA]</strong> is a mandatory section, under which configuration parameters are defined.</p>
+<ul class="simple">
+<li><em>url</em> - <strong>Required</strong>. API endpoint with or without trailing slash.</li>
+<li><em>username</em> - <strong>Conditional</strong>. Username for authentication. It is generated automatically when you add a
+corresponding API to your app.</li>
+<li><em>password</em> - <strong>Conditional</strong>. Password for authentication. It is generated automatically when you add a
+corresponding API to your app.</li>
+<li><em>version</em> - <strong>Conditional</strong>. Version of API. It may be overridden during Request instantiation.</li>
+<li><em>cert</em> - <strong>Conditional</strong>. Full path to certificate file, relative to a directory, where configuration file is
+located.</li>
+<li><em>key</em> - <strong>Conditional</strong>. Full path to keyfile, relative to a directory, where configuration file is located.</li>
+<li><em>shared_secret</em> - <strong>Conditional</strong>. A shared secret string for token-based APIs.</li>
+<li><em>api_key</em> - <strong>Conditional</strong>. API key for token-based APIs.</li>
+<li><em>debug</em> - <strong>Optional</strong>. true or false. When enabled, returns a response dictionary. When disabled, only 200 codes
+will be returned as a dictionary. Other codes will raise corresponding exceptions. Default false.</li>
+</ul>
+</div>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>VDP supports two methods of authentication:</p>
+<ol class="arabic simple">
+<li>SSL-based</li>
+<li>Token-based</li>
+</ol>
+<p>The actual type of authentication depends on the API. E.g. VisaDirect APIs support SSL-based authentication, while
+Microtransactions require token-based authentication.</p>
+<p>If your app uses only SSL-based APIs, then you need to provide username,password and certificate/keyfile config
+parameters. Correspondingly, if you built something with token-based API, then you need to provide shared_secret and
+api_key parameters.</p>
+<p>More details regarding VDP authentication are available at VDP portal (see link below).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://developer.visa.com/guides/vdpguide#two_way_ssl">https://developer.visa.com/guides/vdpguide#two_way_ssl</a></p>
+</div>
 </div>
 </div>
 
@@ -168,14 +130,9 @@ HTTP response code is other than 200 (Success)</p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">PyVDP - Visa Developer Program APIs, wrapped in Python</a><ul>
-<li><a class="reference internal" href="#configuration">Configuration</a><ul>
-<li><a class="reference internal" href="#visa">VISA</a></li>
-<li><a class="reference internal" href="#acquirer">ACQUIRER</a></li>
-<li><a class="reference internal" href="#fundstransfer">FUNDSTRANSFER</a></li>
-<li><a class="reference internal" href="#mvisa">MVISA</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#configuration-ini-example">configuration.ini example</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#authentication">Authentication</a></li>
 </ul>
 </li>
 </ul>

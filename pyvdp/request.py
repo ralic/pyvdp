@@ -7,13 +7,10 @@ import requests
 import string
 import time
 
-try:
-    import configparser as parser
-except ImportError:
-    import ConfigParser as parser
-
 from pyvdp.exceptions import (VisaAccessDeniedError, VisaDuplicateTransactionError, VisaGeneralError,
                               VisaMessageValidationError, VisaNotFoundError, VisaTimeoutError, VisaUnauthenticatedError)
+
+from pyvdp import configuration
 
 
 class VisaRequest(object):
@@ -36,18 +33,6 @@ class VisaRequest(object):
             **ssl** - for certificate-based authentication (default) or **token** - for x-pay-token authentication
     :param dict headers: **Optional**. Additional headers.
     """
-    # This is where stuff lives
-    BASE_DIR = os.path.dirname(__file__)
-
-    # Configuration management
-    config = parser.ConfigParser()
-    config_file = os.path.join(BASE_DIR, 'configuration.ini')
-
-    if os.path.exists(config_file):
-        config.read(config_file)
-    else:
-        # use example config as a stub for tests
-        config.read(os.path.join(BASE_DIR, 'configuration.ini.example'))
 
     # VDP HTTP codes mapped to exceptions
     # (kudos to http://codereview.stackexchange.com/questions/155350/pyvdp-python-library-for-visa-developer-program)
@@ -60,29 +45,38 @@ class VisaRequest(object):
         404: VisaNotFoundError
     }
 
-    def __init__(self, resource, api, method, http_verb, query_string='', data='',
-                 auth_method='ssl', headers=None):
+    def __init__(self,
+                 resource,
+                 api,
+                 method,
+                 http_verb,
+                 query_string='',
+                 data='',
+                 auth_method='ssl',
+                 headers=None,
+                 config=None):
 
-        # Configuration assignments
-        self.url = self.config.get('VISA', 'url')
-        self.version = self.config.get('VISA', 'version')
-        self.user_id = self.config.get('VISA', 'username')
-        self.password = self.config.get('VISA', 'password')
-        self.cert = os.path.join(self.BASE_DIR, self.config.get('VISA', 'cert'))
-        self.key = os.path.join(self.BASE_DIR, self.config.get('VISA', 'key'))
-        self.enable_exceptions = self.config.getboolean('VISA', 'enable_exceptions')
-        # Optional parameters
-        try:
-            self.shared_secret = self.config.get('VISA', 'shared_secret')
-        except parser.NoOptionError:
-            self.shared_secret = ''
+        if config:
+            self._config = self._get_config_from_dict(config)
+        else:
+            config_path = os.getenv('PYVDP_CONFIG', os.path.join(os.path.dirname(__file__), 'configuration.ini'))
+            self._config = configuration.get_config(config_path)
 
         # API path structure: https://domain/resource/api/version/method
         # eg https://sandbox.api.visa.com/cybersource/payments/v1/authorizations
         self.resource = resource
         self.api = api
         self.method = method
-        self.api_endpoint = self.url + "/" + "/" + self.resource + "/" + self.api + "/" + self.version + "/" + self.method
+        self.api_endpoint = self._config['url'] \
+                            + "/" \
+                            + self.resource \
+                            + "/" \
+                            + self.api \
+                            + "/" \
+                            + self._config['version'] \
+                            + "/" \
+                            + self.method
+
         self.http_verb = http_verb
 
         if query_string:
@@ -111,7 +105,7 @@ class VisaRequest(object):
         # Authentication setup
         if auth_method == 'ssl':
             # certificate-based authentication
-            self.session.cert = (self.cert, self.key)
+            self.session.cert = (self._config['cert'], self._config['key'])
         elif auth_method == 'token':
             # x-pay-token authentication
             x_pay_token = self._get_x_pay_token()
@@ -121,8 +115,7 @@ class VisaRequest(object):
             raise AttributeError("auth_method argument value must be either 'ssl' or 'token' ('%s' passed)" % auth_method)
 
     def send(self):
-        """Submits a data object or query string id to VISA using `self.api_endpoint` field and corresponding
-        http verb.
+        """Submits a data object or query string id to VISA using `self.api_endpoint` field and corresponding http verb.
 
         :return: result: Resulting dictionary.
         """
@@ -134,7 +127,7 @@ class VisaRequest(object):
             method=self.http_verb,
             url=url,
             data=self.data,
-            auth=(self.user_id, self.password),
+            auth=(self._config['username'], self._config['password']),
             headers=self.headers
         )
         prepped_req = req.prepare()
@@ -155,7 +148,7 @@ class VisaRequest(object):
 
         code = result.status_code
 
-        if self.enable_exceptions:
+        if not self._config['debug']:
             if code == 200:
                 result = {
                     'code': code,
@@ -201,8 +194,8 @@ class VisaRequest(object):
         :return: X-PAY-TOKEN value
         """
         ts = str(int(time.time()))
-        key = self.shared_secret
-        resource_path = self.api + '/' + self.version + '/' + self.method
+        key = self._config['shared_secret']
+        resource_path = self.api + '/' + self._config['version'] + '/' + self.method
         message = ts + resource_path + self.query_string + self.data
 
         digest = hmac.new(str.encode(key), msg=str.encode(message), digestmod=hashlib.sha256).hexdigest()
@@ -218,3 +211,7 @@ class VisaRequest(object):
         """
         json = jsonpickle.encode(data, unpicklable=False)
         return json
+
+    @staticmethod
+    def _get_config_from_dict(config):
+        return config

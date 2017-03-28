@@ -57,8 +57,6 @@ class VisaDirectTransactionBatch(object):
     :param list transactions: **Required**. List of :func:`~visa.visadirect.data.VisaDirectTransaction` objects.
     """
     def __init__(self, transactions):
-        self.acquiringBin = config.get('ACQUIRER', 'acquiring_bin')
-        self.acquirerCountryCode = config.get('ACQUIRER', 'acquirer_country_code')
         self.localTransactionDateTime = transaction_datetime
         self.request = transactions
 
@@ -125,4 +123,4 @@ class OriginalDataElements(object):
 
     def __init__(self, **kwargs):
         self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
-        self.acquiringBin = config.get('ACQUIRER', 'acquiring_bin')
+

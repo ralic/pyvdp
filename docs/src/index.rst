@@ -13,120 +13,76 @@ PyVDP - Visa Developer Program APIs, wrapped in Python
     api
     glossary
 
+++++++++++++
+Installation
+++++++++++++
+
+..  code-block:: bash
+
+    $ pip install pyvdp
+
 +++++++++++++
 Configuration
 +++++++++++++
 
-Configuration parameters are set in configuration.ini file, located within visa package.
+PyVDP is configured through INI-file. The location of INI-file is defined with environment variable **PYVDP_CONFIG**.
+In case **PYVDP_CONFIG** variable is not set, then PyVDP will attempt to search for **configuration.ini** file in module
+folder (which is usually located in site-packages/pyvdp).
 
-----
-VISA
-----
+..  warning::
 
-..  glossary::
+    Since configuration file contains sensitive data, such as user credentials, the configuration file itself and
+    corresponding certificate/keyfiles should be kept safely and ignored by version control.
 
-    url
-        Visa API Endpoint URL
+Here's an example of configuration file:
 
-    username
-        VDP application username
+..  code-block:: ini
 
-    password
-        VDP application password
+    [VISA]
+    url = https://sandbox.api.visa.com
+    username = myapplicationusername
+    password = myapplicationpassword
+    version = v1
+    cert = cert.pem
+    key = key.pem
+    shared_secret = secret
+    api_key = 12345678ABCDEF
+    debug = false
 
-    version
-        API version (may be overridden)
+**[VISA]** is a mandatory section, under which configuration parameters are defined.
 
-    cert
-        Relative path to certificate file
+* *url* - **Required**. API endpoint with or without trailing slash.
+* *username* - **Conditional**. Username for authentication. It is generated automatically when you add a
+  corresponding API to your app.
+* *password* - **Conditional**. Password for authentication. It is generated automatically when you add a
+  corresponding API to your app.
+* *version* - **Conditional**. Version of API. It may be overridden during Request instantiation.
+* *cert* - **Conditional**. Full path to certificate file, relative to a directory, where configuration file is
+  located.
+* *key* - **Conditional**. Full path to keyfile, relative to a directory, where configuration file is located.
+* *shared_secret* - **Conditional**. A shared secret string for token-based APIs.
+* *api_key* - **Conditional**. API key for token-based APIs.
+* *debug* - **Optional**. true or false. When enabled, returns a response dictionary. When disabled, only 200 codes
+  will be returned as a dictionary. Other codes will raise corresponding exceptions. Default false.
 
-    key
-        Relative path to keyfile
+++++++++++++++
+Authentication
+++++++++++++++
 
-    enable_exceptions
-        If False, a response will be returned as dictionary (see below), otherwise an exception will be raised if
-        HTTP response code is other than 200 (Success)
+VDP supports two methods of authentication:
 
-        **Response example:**
-            ..  code-block:: python
+1. SSL-based
+2. Token-based
 
-                    result = {
-                        'request': {
-                            'endpoint': self.api_endpoint,
-                            'http_verb': self.http_verb,
-                            'data': self.data,
-                        },
-                        'response': {
-                            'code': code,
-                            'message': result.json(),
-                        }
-                    }
+The actual type of authentication depends on the API. E.g. VisaDirect APIs support SSL-based authentication, while
+Microtransactions require token-based authentication.
 
---------
-ACQUIRER
---------
+If your app uses only SSL-based APIs, then you need to provide username,password and certificate/keyfile config
+parameters. Correspondingly, if you built something with token-based API, then you need to provide shared_secret and
+api_key parameters.
 
-..  glossary::
+More details regarding VDP authentication are available at VDP portal (see link below).
 
-    acquiring_bin
-        BIN of Acquirer
+..  seealso::
 
-    acquirer_country_code
-        Acquirer country code
-
--------------
-FUNDSTRANSFER
--------------
-
-..  glossary::
-
-    business_application_id
-        Business Application Identifier for FundsTransfer methods (AA)
-
------
-MVISA
------
-
-..  glossary::
-
-    cashin_business_application_id
-        Business application identifier for CashIn methods (CI)
-
-    cashout_business_application_id
-        Business application identifier for CashOut methods (CO)
-
-    mp_business_application_id
-        Business application identifier for MerchatnPurchase methods (MP)
-
-+++++++++++++++++++++++++
-configuration.ini example
-+++++++++++++++++++++++++
-
-    ..  code-block:: ini
-
-        [VISA]
-        url = https://sandbox.api.visa.com/
-        username = somerandomstring
-        password = somerandompassword
-        version = v1
-        cert = private/cert.pem
-        key = private/key.pem
-        enable_exceptions = True
-
-        [ACQUIRER]
-        acquiring_bin = 400171
-        acquirer_country_code = 643
-
-        # Resource-specific configuration
-
-        [FUNDSTRANSFER]
-        # FundsTransfer BAI
-        business_application_id = AA
-
-        [MVISA]
-        # mVISA cashin methods
-        cashin_business_application_id = CI
-        # mVISA cashout methods
-        cashout_business_application_id = CO
-        # mVISA merchant purchase methods
-        mp_business_application_id = MP
+    https://developer.visa.com/guides/vdpguide#two_way_ssl

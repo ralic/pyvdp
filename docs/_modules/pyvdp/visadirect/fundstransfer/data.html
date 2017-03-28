@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyvdp.visadirect.fundstransfer.data &#8212; pyvdp 1.0 documentation</title>
+    <title>pyvdp.visadirect.fundstransfer.data &#8212; pyvdp 1.1.6 documentation</title>
     
     <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '1.0',
+        VERSION:     '1.1.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -94,16 +94,10 @@
         <span class="s1">&#39;card_acceptor&#39;</span><span class="p">:</span> <span class="s1">&#39;cardAcceptor&#39;</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PullFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;stan&#39;</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span> <span class="ow">and</span> <span class="n">v</span><span class="p">)</span>
-
-        <span class="c1"># Acquirer details are only populated for individual pull transactions, not batches</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">multi</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">acquiringBin</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ACQUIRER&#39;</span><span class="p">,</span> <span class="s1">&#39;acquiring_bin&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">acquirerCountryCode</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ACQUIRER&#39;</span><span class="p">,</span> <span class="s1">&#39;acquirer_country_code&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span> <span class="ow">and</span> <span class="n">v</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MultiPullFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.MultiPullFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">MultiPullFundsTransaction</span><span class="p">(</span><span class="n">VisaDirectTransactionBatch</span><span class="p">):</span>
@@ -170,8 +164,7 @@
 <span class="sd">            }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MultiPullFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transactions</span><span class="o">=</span><span class="n">transactions</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiPullFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transactions</span><span class="o">=</span><span class="n">transactions</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PushFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.PushFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">PushFundsTransaction</span><span class="p">(</span><span class="n">VisaDirectTransaction</span><span class="p">):</span>
@@ -247,16 +240,10 @@
         <span class="s1">&#39;card_acceptor&#39;</span><span class="p">:</span> <span class="s1">&#39;cardAcceptor&#39;</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multi</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PushFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;stan&#39;</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span> <span class="ow">and</span> <span class="n">v</span><span class="p">)</span>
-
-        <span class="c1"># Acquirer details are only populated for individual push transactions, not batches</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">multi</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">acquiringBin</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ACQUIRER&#39;</span><span class="p">,</span> <span class="s1">&#39;acquiring_bin&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">acquirerCountryCode</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ACQUIRER&#39;</span><span class="p">,</span> <span class="s1">&#39;acquirer_country_code&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ATTR_MAPPINGS</span> <span class="ow">and</span> <span class="n">v</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MultiPushFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.MultiPushFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">MultiPushFundsTransaction</span><span class="p">(</span><span class="n">VisaDirectTransactionBatch</span><span class="p">):</span>
@@ -341,8 +328,7 @@
 <span class="sd">            }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MultiPushFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transactions</span><span class="o">=</span><span class="n">transactions</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiPushFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transactions</span><span class="o">=</span><span class="n">transactions</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ReverseFundsTransaction"><a class="viewcode-back" href="../../../../pyvdp/visadirect/fundstransfer.html#pyvdp.visadirect.fundstransfer.data.ReverseFundsTransaction">[docs]</a><span class="k">class</span> <span class="nc">ReverseFundsTransaction</span><span class="p">(</span><span class="n">PullFundsTransaction</span><span class="p">):</span>
@@ -488,9 +474,7 @@
 <span class="sd">            }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MultiReverseFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transactions</span><span class="o">=</span><span class="n">transactions</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">businessApplicationId</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FUNDSTRANSFER&#39;</span><span class="p">,</span> <span class="s1">&#39;business_application_id&#39;</span><span class="p">)</span></div>
-
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiReverseFundsTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transactions</span><span class="o">=</span><span class="n">transactions</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
