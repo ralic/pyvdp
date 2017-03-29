@@ -3,19 +3,20 @@ from django.shortcuts import render
 from demo.forms.visadirect.fundstransfer import (PullFundsFormGet, PullFundsFormPost, PushFundsFormGet,
                                                  PushFundsFormPost, ReverseFundsFormGet, ReverseFundsFormPost)
 
-from pyvdp.visadirect.data import CardAcceptor
-from pyvdp.visadirect.data import OriginalDataElements
+from pyvdp.visadirect import CardAcceptor, OriginalDataElements
 
-from pyvdp.visadirect.fundstransfer.data import PullFundsTransaction, MultiPullFundsTransaction
-from pyvdp.visadirect.fundstransfer.data import PushFundsTransaction, MultiPushFundsTransaction
-from pyvdp.visadirect.fundstransfer.data import ReverseFundsTransaction, MultiReverseFundsTransaction
+from pyvdp.visadirect.fundstransfer import PullFundsTransaction, MultiPullFundsTransaction
+from pyvdp.visadirect.fundstransfer import PushFundsTransaction, MultiPushFundsTransaction
+from pyvdp.visadirect.fundstransfer import ReverseFundsTransaction, MultiReverseFundsTransaction
 
-from pyvdp.visadirect.fundstransfer import push_funds, pull_funds, reverse_funds
+from pyvdp.visadirect.fundstransfer import pushfunds, pullfunds, reversefunds
+
 
 def index(request):
     return render(request, template_name='visadirect/fundstransfer/index.html')
 
-def pullfunds(request):
+
+def pull(request):
     if request.method == 'POST':
         result = {}
         if request.POST['action'] == 'post':
@@ -26,42 +27,59 @@ def pullfunds(request):
                 amount = form.cleaned_data['amount']
                 is_multi = form.cleaned_data['is_multi']
 
-                card_acceptor = CardAcceptor(name='Acceptor 1',
-                                             address={
-                                                 'country': 'USA',
-                                                 'zip_code': '12345',
-                                                 'state': 'CA'
-                                             },
-                                             terminal_id='TID-9999',
-                                             id_code='CA-IDCode-77765')
+                ca_kwargs = {
+                    'name': 'Acceptor 1',
+                    'address': {
+                        'country': 'USA',
+                        'zip_code': '12345',
+                        'state': 'CA'
+                    },
+                    'terminal_id': 'TID-9999',
+                    'id_code': 'CA-IDCode-77765'
+                }
 
-                data = PullFundsTransaction(stan=123456,
-                                            amount=amount,
-                                            sender_pan=sender_pan,
-                                            sender_card_expiry_date=sender_expiry_date,
-                                            sender_currency_code='USD',
-                                            card_acceptor=card_acceptor)
+                pft_kwargs = {
+                    'stan': 123456,
+                    'amount': amount,
+                    'sender_pan': sender_pan,
+                    'sender_expiration': sender_expiry_date,
+                    'card_acceptor': CardAcceptor(**ca_kwargs),
+                    'sender_currency_code': 'USD',
+                    'acquiring_bin': 408999,
+                    'acquirer_country_code': 840,
+                    'business_application_id': 'AA'
+                }
+
+                pft = PullFundsTransaction(**pft_kwargs)
 
                 if is_multi:
-                    # FIXME multi should not be an argument for PFT
-                    data = PullFundsTransaction(multi=True,
-                                                stan=123456,
-                                                amount=amount,
-                                                sender_pan=sender_pan,
-                                                sender_card_expiry_date=sender_expiry_date,
-                                                sender_currency_code='USD',
-                                                card_acceptor=card_acceptor)
+                    pft_kwargs = {
+                        'stan': 123456,
+                        'amount': amount,
+                        'sender_pan': sender_pan,
+                        'sender_expiration': sender_expiry_date,
+                        'card_acceptor': CardAcceptor(**ca_kwargs),
+                        'sender_currency_code': 'USD',
+                    }
 
-                    pfts = [data]
-                    mpft = MultiPullFundsTransaction(transactions=pfts)
-                    result = pull_funds.send(transaction=mpft, multi=True)
+                    mpft_kwargs = {
+                        'acquiring_bin': 408999,
+                        'acquirer_country_code': 840,
+                        'business_application_id': 'AA',
+                        'request': [
+                            PullFundsTransaction(**pft_kwargs)
+                        ]
+                    }
+
+                    mpft = MultiPullFundsTransaction(**mpft_kwargs)
+                    result = pullfunds.send(data=mpft, multi=True)
                 else:
-                    result = pull_funds.send(transaction=data)
+                    result = pullfunds.send(data=pft)
         else:
                 form = PullFundsFormGet(request.POST)
                 if form.is_valid():
                     status_id = form.cleaned_data['status_id']
-                    result = pull_funds.get(status_id=status_id, multi=True)
+                    result = pullfunds.get(query=status_id, multi=True)
 
         return render(request, template_name='success.html', context={'result': result})
 
@@ -72,7 +90,8 @@ def pullfunds(request):
                       template_name='visadirect/fundstransfer/pullfunds.html',
                       context={'form_get': form_get, 'form_post': form_post})
 
-def pushfunds(request):
+
+def push(request):
     if request.method == 'POST':
         form = PushFundsFormPost(request.POST)
         if form.is_valid():
@@ -81,42 +100,62 @@ def pushfunds(request):
             amount = form.cleaned_data['amount']
             is_multi = form.cleaned_data['is_multi']
 
-            card_acceptor = CardAcceptor(name='Acceptor 1',
-                                         terminal_id='TID-9999',
-                                         address={
-                                             'country': 'USA',
-                                             'zip_code': '12345',
-                                             'state': 'CA'
-                                         },
-                                         id_code='CA-IDCode-77765')
+            ca_kwargs = {
+                'name': 'Acceptor 1',
+                'terminal_id': 'TID-9999',
+                'id_code': 'CA-IDCode-77765',
+                'address': {
+                    'country': 'USA',
+                    'zip_code': '12345',
+                    'state': 'CA'
+                }
+            }
 
-            data = PushFundsTransaction(stan=123456,
-                                        amount=amount,
-                                        transaction_currency_code='USD',
-                                        card_acceptor=card_acceptor,
-                                        sender_pan=sender_pan,
-                                        recipient_pan=recipient_pan,
-                                        recipient_name='Test')
+            pft_kwargs = {
+                'stan': 123456,
+                'acquiring_bin': 408999,
+                'acquirer_country_code': 840,
+                'business_application_id': 'AA',
+                'amount': amount,
+                'card_acceptor': CardAcceptor(**ca_kwargs),
+                'sender_account_number': sender_pan,
+                'recipient_pan': recipient_pan,
+                'recipient_name': 'Doe John',
+                'transaction_currency_code': 'USD'
+            }
+
+            data = PushFundsTransaction(**pft_kwargs)
 
             if is_multi:
-                data = PushFundsTransaction(multi=True,
-                                            stan=123456,
-                                            amount=amount,
-                                            transaction_currency_code='USD',
-                                            card_acceptor=card_acceptor,
-                                            sender_pan=sender_pan,
-                                            sender_name='John',
-                                            sender_address='Home',
-                                            sender_city='San Francisco',
-                                            sender_country_code='USA',
-                                            sender_state_code='CA',
-                                            recipient_pan=recipient_pan,
-                                            recipient_name='Test')
-                pfts = [data]
-                mpft = MultiPushFundsTransaction(transactions=pfts)
-                result = push_funds.send(transaction=mpft, multi=True)
+
+                pft_kwargs = {
+                    'stan': 123456,
+                    'amount': amount,
+                    'card_acceptor': CardAcceptor(**ca_kwargs),
+                    'sender_account_number': sender_pan,
+                    'sender_name': 'Doe Jane',
+                    'sender_address': 'Home',
+                    'sender_city': 'San Francisco',
+                    'sender_country_code': 'USA',
+                    'sender_state_code': 'CA',
+                    'recipient_pan': recipient_pan,
+                    'recipient_name': 'Doe John',
+                    'transaction_currency_code': 'USD'
+                }
+
+                mpft_kwargs = {
+                    'acquiring_bin': 408999,
+                    'acquirer_country_code': 840,
+                    'business_application_id': 'AA',
+                    'request': [
+                        PushFundsTransaction(**pft_kwargs)
+                    ]
+                }
+
+                mpft = MultiPushFundsTransaction(**mpft_kwargs)
+                result = pushfunds.send(transaction=mpft, multi=True)
             else:
-                result = push_funds.send(transaction=data)
+                result = pushfunds.send(transaction=data)
 
             return render(request, template_name='success.html', context={'result': result})
     else:
@@ -126,7 +165,8 @@ def pushfunds(request):
                       template_name='visadirect/fundstransfer/pushfunds.html',
                       context={'form_post': form_post, 'form_get': form_get})
 
-def reversefunds(request):
+
+def reverse(request):
     if request.method == 'POST':
         form = ReverseFundsFormPost(request.POST)
         if form.is_valid():
@@ -136,43 +176,66 @@ def reversefunds(request):
             amount = form.cleaned_data['amount']
             is_multi = form.cleaned_data['is_multi']
 
-            card_acceptor = CardAcceptor(name='Acceptor 1',
-                                         terminal_id='TID-9999',
-                                         id_code='CA-IDCode-77765',
-                                         address={
-                                             'country': 'USA',
-                                             'zip_code': '12345',
-                                             'state': 'CA'
-                                         })
+            ca_kwargs = {
+                'name': 'Acceptor 1',
+                'terminal_id': 'TID-9999',
+                'id_code': 'CA-IDCode-77765',
+                'address': {
+                    'country': 'USA',
+                    'zip_code': '12345',
+                    'state': 'CA'
+                }
+            }
 
-            ode = OriginalDataElements(stan=123456,
-                                       approval_code='20304B',
-                                       transmission_datetime='2017-02-16T12:59:26')
+            ode_kwargs = {
+                'stan': 123456,
+                'acquiring_bin': 408999,
+                'approval_code': '20304B',
+                'transmission_datetime': '2017-02-16T12:59:23'
+            }
 
-            data = ReverseFundsTransaction(stan=123456,
-                                           ode=ode,
-                                           sender_pan=sender_pan,
-                                           sender_currency_code='USD',
-                                           amount=amount,
-                                           sender_card_expiry_date=sender_card_expiry_date,
-                                           transaction_identifier=transaction_identifier,
-                                           card_acceptor=card_acceptor)
+            rft_kwargs = {
+                'stan': 123456,
+                'acquiring_bin': 408999,
+                'acquirer_country_code': 608,
+                'ode': OriginalDataElements(**ode_kwargs),
+                'card_acceptor': CardAcceptor(**ca_kwargs),
+                'sender_pan': sender_pan,
+                'sender_currency_code': 'USD',
+                'amount': amount,
+                'sender_expiration': sender_card_expiry_date,
+                'transaction_identifier': transaction_identifier
+            }
+
+            rft = ReverseFundsTransaction(**rft_kwargs)
 
             if is_multi:
-                data = ReverseFundsTransaction(multi=True,
-                                               stan=123456,
-                                               ode=ode,
-                                               sender_pan=sender_pan,
-                                               sender_currency_code='USD',
-                                               amount=amount,
-                                               sender_card_expiry_date=sender_card_expiry_date,
-                                               transaction_identifier=transaction_identifier,
-                                               card_acceptor=card_acceptor)
-                rfts = [data]
-                mrft = MultiReverseFundsTransaction(transactions=rfts)
-                result = reverse_funds.send(transaction=mrft, multi=True)
+
+                rft_kwargs = {
+                    'stan': 123456,
+                    'ode': OriginalDataElements(**ode_kwargs),
+                    'card_acceptor': CardAcceptor(**ca_kwargs),
+                    'sender_pan': sender_pan,
+                    'sender_currency_code': 'USD',
+                    'amount': amount,
+                    'sender_expiration': sender_card_expiry_date,
+                    'transaction_identifier': transaction_identifier
+                }
+
+                mrft_kwargs = {
+                    'acquiring_bin': 408999,
+                    'acquirer_country_code': 608,
+                    'request': [
+                        ReverseFundsTransaction(**rft_kwargs)
+                    ]
+                }
+
+                mrft = MultiReverseFundsTransaction(**mrft_kwargs)
+
+                result = reversefunds.send(data=mrft, multi=True)
+
             else:
-                result = reverse_funds.send(transaction=data)
+                result = reversefunds.send(data=rft)
 
             return render(request, template_name='success.html', context={'result': result})
     else:

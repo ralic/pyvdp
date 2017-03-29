@@ -32,9 +32,9 @@ urlpatterns = [
         # FundsTransfer API
         url(r'^fundstransfer$', fundstransfer.index, name='vd_ft'),
         url(r'^fundstransfer/', include([
-            url(r'^pullfunds$', fundstransfer.pullfunds, name='vd_ft_pullfunds'),
-            url(r'^pushfunds$', fundstransfer.pushfunds, name='vd_ft_pushfunds'),
-            url(r'^reversefunds$', fundstransfer.reversefunds, name='vd_ft_reversefunds'),
+            url(r'^pullfunds$', fundstransfer.pull, name='vd_ft_pullfunds'),
+            url(r'^pushfunds$', fundstransfer.push, name='vd_ft_pushfunds'),
+            url(r'^reversefunds$', fundstransfer.reverse, name='vd_ft_reversefunds'),
         ])),
         # mVISA API
         url(r'^mvisa$', mvisa.index, name='vd_mvisa'),
