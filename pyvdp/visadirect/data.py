@@ -84,12 +84,14 @@ class CardAcceptor(object):
         :param str county: **Optional**. Address county code. 3 characters string.
         :param str zip_code: **Conditional**. Address ZIP code. 5-9 characters string.
         :param str state: **Condtional**. Address state code. 2 characters string.
+        :param str city: **Conditional**. Agent city name. Max 13 characters string. 
         """
         ATTR_MAPPINGS = {
             'country': 'country',
             'zip_code': 'zipCode',
             'state': 'state',
-            'county': 'county'
+            'county': 'county',
+            'city': 'city'
         }
 
         def __init__(self, **kwargs):

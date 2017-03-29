@@ -39,9 +39,9 @@ urlpatterns = [
         # mVISA API
         url(r'^mvisa$', mvisa.index, name='vd_mvisa'),
         url(r'^mvisa/', include([
-            url(r'^cashinpushpayments$', mvisa.cashinpushpayments, name='vd_mvisa_cipp'),
-            url(r'^cashoutpushpayments$', mvisa.cashoutpushpayments, name='vd_mvisa_copp'),
-            url(r'^merchantpushpayments$', mvisa.merchantpushpayments, name='vd_mvisa_mpp'),
+            url(r'^cashinpushpayments$', mvisa.cipp, name='vd_mvisa_cipp'),
+            url(r'^cashoutpushpayments$', mvisa.copp, name='vd_mvisa_copp'),
+            url(r'^merchantpushpayments$', mvisa.mpp, name='vd_mvisa_mpp'),
         ])),
         # Reports API
         url(r'^reports$', reports.index, name='vd_reports'),

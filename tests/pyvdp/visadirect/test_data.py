@@ -64,7 +64,8 @@ class TestCardAcceptorAddress(unittest.TestCase):
             'country': 'US',
             'zip_code': 'ABC123',
             'state': 'CA',
-            'county': 'ML'
+            'county': 'ML',
+            'city': 'SFO'
         }
 
         caa = CardAcceptor.CardAcceptorAddress(**params)
@@ -73,7 +74,8 @@ class TestCardAcceptorAddress(unittest.TestCase):
             'country',
             'zipCode',
             'state',
-            'county'
+            'county',
+            'city'
         ]
 
         for attr in attrs:
