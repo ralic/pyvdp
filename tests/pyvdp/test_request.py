@@ -35,16 +35,19 @@ class TestVisaRequest(unittest.TestCase):
         self.vr = VisaRequest(resource='', api='', method='', http_verb='POST', data=self.t, config=config)
 
     def test_sendReturnsDictionaryOnHTTP200(self, m):
-        message = "{\"text\": \"this is a test\"}"
-        m.register_uri('POST', self.vr.api_endpoint, text=message)
+        self.maxDiff = None
+
+        message = jsonpickle.encode({'text': 'this is a test'}, unpicklable=False)
+        m.register_uri('POST', self.vr.api_endpoint, headers={'content-type': 'application/json;charset=UTF-8'}, text=message)
         result = self.vr.send()
-        expect = {
+
+        expected = {
             'code': 200,
-            'endpoint': 'http://localhost///v1/',
-            'http_verb': 'POST',
+            'headers': {'content-type': 'application/json;charset=UTF-8'},
             'message': {'text': 'this is a test'}
         }
-        self.assertDictEqual(result, expect)
+
+        self.assertDictEqual(result['response'], expected)
 
     def test_sendRaisesVisaTimeoutErrorOnHTTP202(self, m):
         m.register_uri('POST', self.vr.api_endpoint, status_code=202)

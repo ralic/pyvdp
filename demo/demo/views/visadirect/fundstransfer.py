@@ -153,9 +153,9 @@ def push(request):
                 }
 
                 mpft = MultiPushFundsTransaction(**mpft_kwargs)
-                result = pushfunds.send(transaction=mpft, multi=True)
+                result = pushfunds.send(data=mpft, multi=True)
             else:
-                result = pushfunds.send(transaction=data)
+                result = pushfunds.send(data=data)
 
             return render(request, template_name='success.html', context={'result': result})
     else:

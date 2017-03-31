@@ -11,6 +11,7 @@ from pyvdp.exceptions import (VisaAccessDeniedError, VisaDuplicateTransactionErr
                               VisaMessageValidationError, VisaNotFoundError, VisaTimeoutError, VisaUnauthenticatedError)
 
 from pyvdp import configuration
+from pyvdp import logger
 
 
 class VisaRequest(object):
@@ -114,6 +115,7 @@ class VisaRequest(object):
         else:
             raise AttributeError("auth_method argument value must be either 'ssl' or 'token' ('%s' passed)" % auth_method)
 
+    @logger.log_event
     def send(self):
         """Submits a data object or query string id to VISA using `self.api_endpoint` field and corresponding http verb.
 
@@ -131,11 +133,11 @@ class VisaRequest(object):
             headers=self.headers
         )
         prepped_req = req.prepare()
-        result = self.session.send(prepped_req)
+        response = self.session.send(prepped_req)
 
-        return self._response(result)
+        return self._handle_response(response)
 
-    def _response(self, result):
+    def _handle_response(self, response):
         """Processes a response from Visa Direct API.
 
         Depending on HTTP code in response, either returns a result or raises corresponding app-level exception.
@@ -146,38 +148,34 @@ class VisaRequest(object):
                 VisaAccessDeniedError, VisaNotFoundError, VisaGeneralError
         """
 
-        code = result.status_code
-
-        if not self._config['debug']:
-            if code == 200:
-                result = {
-                    'code': code,
-                    'endpoint': self.api_endpoint,
-                    'http_verb': self.http_verb,
-                    'message': result.json()
-                }
+        try:
+            if response.headers['content-type'] == 'application/json;charset=UTF-8':
+                message = response.json()
             else:
-                raise self.ERROR_CODES.get(code, VisaGeneralError)(result=result)
-        else:
-            if code == 202:
-                message = result.content
-            else:
-                message = result.json()
+                message = response.text
+        except KeyError:
+            message = "Unknown VISA error"
 
-            result = {
-                'request': {
-                    'endpoint': self.api_endpoint,
-                    'http_verb': self.http_verb,
-                    'data': self.data,
-                },
-                'response': {
-                    'code': code,
-                    'headers': result.headers,
-                    'message': message,
-                }
+        status_code = response.status_code
+
+        result = {
+            'request': {
+                'url': response.request.url,
+                'method': response.request.method,
+                'headers': response.request.headers,
+                'body': response.request.body,
+            },
+            'response': {
+                'code': status_code,
+                'headers': response.headers,
+                'message': message
             }
+        }
 
-        return result
+        if status_code == 200:
+            return result
+        else:
+            raise self.ERROR_CODES.get(status_code, VisaGeneralError)(result=result)
 
     @staticmethod
     def _get_x_client_transaction_id():

@@ -83,14 +83,25 @@ def get_config(config_path):
             'api_key': '',
         })
 
-    # debug
+    # logging
+
     try:
         configuration.update({
-            'debug': config.getboolean('VISA', 'debug')
+            'logfile': config.get('LOGGING', 'logfile'),
         })
-    except parser.NoOptionError:
+    except (parser.NoSectionError, parser.NoOptionError):
         configuration.update({
-            'debug': False
+            'logfile': 'pyvdp.log',
+        })
+
+    try:
+        configuration.update({
+            'loglevel': config.get('LOGGING', 'loglevel')
+        })
+    except (parser.NoSectionError, parser.NoOptionError):
+        configuration.update({
+            'loglevel': 'ERROR'
         })
 
     return configuration
+

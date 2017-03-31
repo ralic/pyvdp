@@ -1,3 +1,7 @@
+from pyvdp import logger
+import jsonpickle
+
+
 class VisaGeneralError(Exception):
     """General exception, raised by VDP API.
 
@@ -6,15 +10,13 @@ class VisaGeneralError(Exception):
 
     :param requests.Response result: Required. Response from VDP.
     """
+    @logger.log_exception
     def __init__(self, result):
 
-        if result.content:
-            self.message = result.content.decode('utf-8')
-        else:
-            self.message = "Unknown VISA Error"
+        self.result = result
 
     def __str__(self):
-        return self.message
+        return jsonpickle.encode(self.result)
 
 
 class VisaConfigurationError(Exception):

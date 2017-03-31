@@ -19,7 +19,9 @@ def send(data, multi=False):
         method = 'multipullfundstransactions'
 
     c = VisaDirectRequest(api=API, method=method, http_verb='POST', data=data)
-    return c.send()
+    response = c.send()
+
+    return response
 
 
 def get(query, multi=False):
