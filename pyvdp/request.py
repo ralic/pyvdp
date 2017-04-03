@@ -1,7 +1,6 @@
 import hashlib
 import hmac
 import jsonpickle
-import os
 import random
 import requests
 import string
@@ -60,8 +59,7 @@ class VisaRequest(object):
         if config:
             self._config = self._get_config_from_dict(config)
         else:
-            config_path = os.getenv('PYVDP_CONFIG', os.path.join(os.path.dirname(__file__), 'configuration.ini'))
-            self._config = configuration.get_config(config_path)
+            self._config = configuration.get_config()
 
         # API path structure: https://domain/resource/api/version/method
         # eg https://sandbox.api.visa.com/cybersource/payments/v1/authorizations
@@ -133,7 +131,13 @@ class VisaRequest(object):
             headers=self.headers
         )
         prepped_req = req.prepare()
-        response = self.session.send(prepped_req)
+        try:
+            response = self.session.send(prepped_req)
+        except OSError:
+            message = "Could not load certificate or keyfile." \
+                      "Make sure that certficate and keyfile are stored in %s and %s respectively." \
+                      % (self._config['cert'], self._config['key'])
+            raise configuration.VisaConfigurationError(message)
 
         return self._handle_response(response)
 

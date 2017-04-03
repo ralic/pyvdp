@@ -2,14 +2,23 @@ import functools
 import logging
 import uuid
 
+from pyvdp import configuration
+
+config = configuration.get_config()
+
 
 def get_logger():
+    """Creates an instance of logger. See "Logging" chapter in docs for details.
+    
+    :return: logger 
+    """
     logger = logging.getLogger('pyvdp')
-    logger.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    loglevel = logging.getLevelName(config['loglevel'])
+    logger.setLevel(loglevel)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 
     if not logger.handlers:
-        fh = logging.FileHandler('pyvdp.log')
+        fh = logging.FileHandler(config['logfile'])
         fh.setFormatter(formatter)
         logger.addHandler(fh)
 
@@ -17,6 +26,7 @@ def get_logger():
 
 
 def log_event(func):
+    """Decorator function to log events."""
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         logger = get_logger()
@@ -25,8 +35,13 @@ def log_event(func):
 
         _uuid = uuid.uuid4()
 
-        logger.info(_request_msg(_uuid, result['request']))
-        logger.info(_response_msg(_uuid, result['response']))
+        logger.info("[%s] Request: %s %s" % (_uuid, result['request']['method'], result['request']['url']))
+        logger.debug("[%s] Request HTTP headers: %s" % (_uuid, result['request']['headers']))
+        logger.debug("[%s] Request payload: %s" % (_uuid, result['request']['body']))
+
+        logger.info("[%s] Response: HTTP %s" % (_uuid, result['response']['code']))
+        logger.debug("[%s] Response HTTP headers: %s" % (_uuid, result['response']['headers']))
+        logger.debug("[%s] Response message: %s" % (_uuid, result['response']['message']))
 
         return result
 
@@ -34,6 +49,7 @@ def log_event(func):
 
 
 def log_exception(func):
+    """Decorator function to log exceptions."""
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         logger = get_logger()
@@ -42,17 +58,14 @@ def log_exception(func):
 
         _uuid = uuid.uuid4()
 
-        logger.error(_request_msg(_uuid, result['request']))
-        logger.error(_response_msg(_uuid, result['response']))
+        logger.error("[%s] Request: %s %s" % (_uuid, result['request']['method'], result['request']['url']))
+        logger.debug("[%s] Request headers: %s" % (_uuid, result['request']['headers']))
+        logger.debug("[%s] Request payload: %s" % (_uuid, result['request']['body']))
+
+        logger.error("[%s] Response: HTTP %s" % (_uuid, result['response']['code']))
+        logger.debug("[%s] Response headers: %s" % (_uuid, result['response']['headers']))
+        logger.debug("[%s] Response message: %s" % (_uuid, result['response']['message']))
 
         func(*args, **kwargs)
 
     return wrapper
-
-
-def _request_msg(*args):
-    return "[%s] Request: %s" % args
-
-
-def _response_msg(*args):
-    return "[%s] Response: %s" % args

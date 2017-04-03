@@ -47,7 +47,9 @@ Here's an example of configuration file:
     key = key.pem
     shared_secret = secret
     api_key = 12345678ABCDEF
-    debug = false
+    loglevel = DEBUG
+    logfile = pyvdp.log
+
 
 **[VISA]** is a mandatory section, under which configuration parameters are defined.
 
@@ -62,8 +64,8 @@ Here's an example of configuration file:
 * *key* - **Conditional**. Full path to keyfile, relative to a directory, where configuration file is located.
 * *shared_secret* - **Conditional**. A shared secret string for token-based APIs.
 * *api_key* - **Conditional**. API key for token-based APIs.
-* *debug* - **Optional**. true or false. When enabled, returns a response dictionary. When disabled, only 200 codes
-  will be returned as a dictionary. Other codes will raise corresponding exceptions. Default false.
+* *loglevel* - **Optional**. Loglevel. See `Logging`_ section below
+* *logfile* - **Optional**. Path and name of the logfile. See `Logging`_ section below.
 
 ++++++++++++++
 Authentication
@@ -86,3 +88,36 @@ More details regarding VDP authentication are available at VDP portal (see link 
 ..  seealso::
 
     https://developer.visa.com/guides/vdpguide#two_way_ssl
+
++++++++
+Logging
++++++++
+
+PyVDP provides some logging capabilities, that may be used to log errors or debug operations. Logging is implemented
+via standard Python `logging` library and is configured in **[VISA]** section of configuration file.
+
+..  code-block:: ini
+
+    loglevel = DEBUG
+    logfile = pyvdp.log
+
+..  glossary::
+
+    loglevel
+        Logging level. Possible values: DEBUG, INFO, WARNING, ERROR, CRITICAL. Default is **ERROR**.
+    logfile
+        Logfile path and name. Path is relative to directory, where config file is stored. Default is **pyvdp.log**
+        located in the same directory, where configuration file resides.
+
+In order to provide consistency between requests and replies, every session with VDP is identified in logfile with UUID.
+This way you can easily correlate records and trace requests flow for information or debug.
+
+Default loglevel is **ERROR**. With this loglevel, exceptions will be logged, including request method + url and
+response HTTP code. **INFO** loglevel will log the same but for successful requests. Finally, **DEBUG** level will
+log everything, including request and response headers and payloads.
+
+..  warning::
+
+    **DEBUG** should not be used in production environment because logs may (and will) contain sensitive data, such
+    as VDP authentication credentials and card details.
+

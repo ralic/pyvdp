@@ -19,15 +19,6 @@ class VisaGeneralError(Exception):
         return jsonpickle.encode(self.result)
 
 
-class VisaConfigurationError(Exception):
-    """Raised with invalid configuration"""
-    def __init__(self, message):
-        self.message = message
-
-    def __str__(self):
-        return self.message
-
-
 class VisaTimeoutError(VisaGeneralError):
     """Raised when POST request is timed out.
 
