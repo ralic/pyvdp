@@ -27,9 +27,9 @@ Usage
 Data Objects
 ++++++++++++
 
---------------
-PavTransaction
---------------
+-------
+PavData
+-------
 
-.. autoclass:: pyvdp.pav.data.PavTransaction
+.. autoclass:: pyvdp.pav.PavData
    :members:

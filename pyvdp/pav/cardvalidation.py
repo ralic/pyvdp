@@ -1,25 +1,11 @@
-from pyvdp.pav.request import VisaPavRequest
-from pyvdp.pav.data import PavTransaction
+from pyvdp.pav import VisaPavRequest
 
 
-def send(data: PavTransaction):
+def send(data):
     """Submits a payment account validation request.
 
-    :param PavTransaction data: **Required**. Instance of :func:`~visa.pav.data.PavTransaction`.
+    :param PavTransaction data: **Required**. Instance of :func:`~pyvdp.pav.PavData`.
     :return: A response from VDP.
-
-    **Example:**
-        ..  code-block:: python
-
-            from visa.pav.data import PavTransaction
-            from visa.pav import cardvalidation
-
-            data = PavTransaction(stan=123456,
-                                  pan='1234567812345678',
-                                  expiry_date='2020-04',
-                                  cvv2='123')
-
-            result = cardvalidation.send(data=data)
     """
     c = VisaPavRequest(method='cardvalidation', http_verb='post', data=data)
     return c.send()
