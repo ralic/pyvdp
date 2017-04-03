@@ -30,24 +30,24 @@ Data objects
 VisaDirectTransaction
 ---------------------
 
-.. autoclass:: pyvdp.visadirect.data.VisaDirectTransaction
+.. autoclass:: pyvdp.visadirect.VisaDirectTransaction
    :members:
 
-.. autoclass:: pyvdp.visadirect.data.VisaDirectTransactionBatch
+.. autoclass:: pyvdp.visadirect.VisaDirectTransactionBatch
    :members:
 
 ------------
 CardAcceptor
 ------------
 
-.. autoclass:: pyvdp.visadirect.data.CardAcceptor
+.. autoclass:: pyvdp.visadirect.CardAcceptor
    :members:
 
 --------------------
 OriginalDataElements
 --------------------
 
-.. autoclass:: pyvdp.visadirect.data.OriginalDataElements
+.. autoclass:: pyvdp.visadirect.OriginalDataElements
    :members:
 
 .. _FundsTransfer: https://developer.visa.com/products/visa_direct/guides#using_the_funds_transfer_api

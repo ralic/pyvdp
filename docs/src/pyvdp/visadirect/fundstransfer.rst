@@ -25,21 +25,21 @@ PullFunds
 
 
 
-.. automodule:: pyvdp.visadirect.fundstransfer.pull_funds
+.. automodule:: pyvdp.visadirect.fundstransfer.pullfunds
    :members:
 
 ---------
 PushFunds
 ---------
 
-.. automodule:: pyvdp.visadirect.fundstransfer.push_funds
+.. automodule:: pyvdp.visadirect.fundstransfer.pushfunds
    :members:
 
 ------------
 ReverseFunds
 ------------
 
-.. automodule:: pyvdp.visadirect.fundstransfer.reverse_funds
+.. automodule:: pyvdp.visadirect.fundstransfer.reversefunds
    :members:
 
 ++++++++++++
@@ -52,10 +52,10 @@ Data objects
 PullFundsTransaction
 --------------------
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.data.PullFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.PullFundsTransaction
    :members:
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.data.MultiPullFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPullFundsTransaction
    :members:
 
 ..  _push_funds_transaction:
@@ -64,18 +64,18 @@ PullFundsTransaction
 PushFundsTransaction
 --------------------
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.data.PushFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.PushFundsTransaction
    :members:
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.data.MultiPushFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction
    :members:
 
 -----------------------
 ReverseFundsTransaction
 -----------------------
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.data.ReverseFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.ReverseFundsTransaction
    :members:
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.data.MultiReverseFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.MultiReverseFundsTransaction
    :members:

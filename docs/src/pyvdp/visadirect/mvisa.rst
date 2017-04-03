@@ -20,21 +20,21 @@ A collection of functional calls for VisaDirect mVISA APIs, including:
 CashInPushPayments
 ------------------
 
-.. automodule:: pyvdp.visadirect.mvisa.cashin_push_payments
+.. automodule:: pyvdp.visadirect.mvisa.cashinpushpayments
    :members:
 
 -------------------
 CashOutPushPayments
 -------------------
 
-.. automodule:: pyvdp.visadirect.mvisa.cashout_push_payments
+.. automodule:: pyvdp.visadirect.mvisa.cashoutpushpayments
    :members:
 
 --------------------
 MerchantPushPayments
 --------------------
 
-.. automodule:: pyvdp.visadirect.mvisa.merchant_push_payments
+.. automodule:: pyvdp.visadirect.mvisa.merchantpushpayments
    :members:
 
 ++++++++++++
@@ -45,26 +45,26 @@ Data objects
 CashinPushPaymentTransaction
 ----------------------------
 
-.. autoclass:: pyvdp.visadirect.mvisa.data.CashinPushPaymentTransaction
+.. autoclass:: pyvdp.visadirect.mvisa.CashinPushPaymentTransaction
    :members:
 
 -----------------------------
 CashoutPushPaymentTransaction
 -----------------------------
 
-.. autoclass:: pyvdp.visadirect.mvisa.data.CashoutPushPaymentTransaction
+.. autoclass:: pyvdp.visadirect.mvisa.CashoutPushPaymentTransaction
    :members:
 
 ------------------------------
 MerchantPushPaymentTransaction
 ------------------------------
 
-.. autoclass:: pyvdp.visadirect.mvisa.data.MerchantPushPaymentTransaction
+.. autoclass:: pyvdp.visadirect.mvisa.MerchantPushPaymentTransaction
    :members:
 
 ------------------
 PurchaseIdentifier
 ------------------
 
-.. autoclass:: pyvdp.visadirect.mvisa.data.PurchaseIdentifier
+.. autoclass:: pyvdp.visadirect.mvisa.PurchaseIdentifier
    :members:
