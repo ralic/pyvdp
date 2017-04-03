@@ -5,7 +5,6 @@ try:
 except ImportError:
     import ConfigParser as parser
 
-
 DEFAULT_CONFIG = {
     'url': 'https://sandbox.api.visa.com',
     'username': '',

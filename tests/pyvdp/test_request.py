@@ -21,18 +21,7 @@ class TestVisaRequest(unittest.TestCase):
     def setUp(self):
         self.t = VisaDirectTransaction(stan='123456')
 
-        config = {
-            'url': 'http://localhost',
-            'version': 'v1',
-            'username': 'testuser',
-            'password': 'testpassword',
-            'cert': 'testcert.pem',
-            'key': 'testkey.pem',
-            'debug': False,
-            'shared_secret': 'secret'
-        }
-
-        self.vr = VisaRequest(resource='', api='', method='', http_verb='POST', data=self.t, config=config)
+        self.vr = VisaRequest(resource='', api='', method='', http_verb='POST', data=self.t)
 
     def test_sendReturnsDictionaryOnHTTP200(self, m):
         self.maxDiff = None

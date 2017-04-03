@@ -53,13 +53,9 @@ class VisaRequest(object):
                  query_string='',
                  data='',
                  auth_method='ssl',
-                 headers=None,
-                 config=None):
+                 headers=None):
 
-        if config:
-            self._config = self._get_config_from_dict(config)
-        else:
-            self._config = configuration.get_config()
+        self._config = configuration.get_config()
 
         # API path structure: https://domain/resource/api/version/method
         # eg https://sandbox.api.visa.com/cybersource/payments/v1/authorizations
