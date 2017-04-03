@@ -1,19 +1,35 @@
 import os
 
-from pyvdp.exceptions import VisaConfigurationError
-
 try:
     import configparser as parser
 except ImportError:
     import ConfigParser as parser
 
 
-def get_config(config_path):
+DEFAULT_CONFIG = {
+    'url': 'https://sandbox.api.visa.com',
+    'username': '',
+    'password': '',
+    'version': 'v1',
+    'cert': '',
+    'key': '',
+    'loglevel': 'ERROR',
+    'logfile': 'pyvdp.log',
+    'shared_secret': '',
+    'api_key': ''
+}
+
+
+def get_config(config_path=None):
     """Validates configuration file.
 
-    :param config_path: Full path to configuration file including filename
+    :param config_path: **Optional**. Full path to configuration file including filename. Default is PYVDP_CONFIG env
+        variable value or `configuration.ini` file in current directory. 
     :return: configuration
     """
+    if not config_path:
+        config_path = os.getenv('PYVDP_CONFIG', os.path.join(os.path.dirname(__file__), 'configuration.ini'))
+
     # config file existence
     if not os.path.exists(config_path):
         message = "Could not find configuration file in %s. " \
@@ -23,85 +39,18 @@ def get_config(config_path):
     config = parser.ConfigParser()
     config.read(config_path)
 
-    # required params
-    try:
-        configuration = {
-            'url': config.get('VISA', 'url'),
-            'version': config.get('VISA', 'version'),
-        }
-    except parser.NoSectionError as e:
-        raise VisaConfigurationError("PyVDP configuration error: %s in %s" % (e.message, config_path))
-    except parser.NoOptionError as e:
-        raise VisaConfigurationError("PyVDP configuration error: %s in %s" % (e.message, config_path))
+    configuration = DEFAULT_CONFIG
+    config_dict = dict(config.items('VISA'))
 
-    # username and password
-    try:
-        configuration.update({
-            'username': config.get('VISA', 'username'),
-            'password': config.get('VISA', 'password'),
-        })
-    except parser.NoOptionError:
-        configuration.update({
-            'username': '',
-            'password': '',
-        })
-
-    # Certificate and keyfile
-    try:
-        config_dir = os.path.dirname(config_path)
-
-        cert_path = os.path.join(config_dir, config.get('VISA', 'cert'))
-        key_path = os.path.join(config_dir, config.get('VISA', 'key'))
-
-        # Validate certificate and keyfile
-        if not os.path.exists(cert_path):
-            message = "Could not find certificate file in %s" % cert_path
-            raise VisaConfigurationError(message)
-        elif not os.path.exists(key_path):
-            message = "Could not find keyfile in %s" % key_path
-            raise VisaConfigurationError(message)
-
-        configuration.update({
-            'cert': cert_path,
-            'key': key_path,
-        })
-    except parser.NoOptionError:
-        configuration.update({
-            'cert': '',
-            'key': '',
-        })
-
-    # shared secret and api key
-    try:
-        configuration.update({
-            'shared_secret': config.get('VISA', 'shared_secret'),
-            'api_key': config.get('VISA', 'api_key'),
-        })
-    except parser.NoOptionError:
-        configuration.update({
-            'shared_secret': '',
-            'api_key': '',
-        })
-
-    # logging
-
-    try:
-        configuration.update({
-            'logfile': config.get('LOGGING', 'logfile'),
-        })
-    except (parser.NoSectionError, parser.NoOptionError):
-        configuration.update({
-            'logfile': 'pyvdp.log',
-        })
-
-    try:
-        configuration.update({
-            'loglevel': config.get('LOGGING', 'loglevel')
-        })
-    except (parser.NoSectionError, parser.NoOptionError):
-        configuration.update({
-            'loglevel': 'ERROR'
-        })
+    configuration.update(config_dict)
 
     return configuration
 
+
+class VisaConfigurationError(Exception):
+    """Raised with invalid configuration"""
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return self.message
