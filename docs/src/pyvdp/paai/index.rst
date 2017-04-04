@@ -19,3 +19,15 @@ Request
 
 ..  automodule:: pyvdp.paai.request
     :members:
+
+
+++++++++++++
+Data objects
+++++++++++++
+
+-----------------------------------
+PaymentAccountAttributesInquiryData
+-----------------------------------
+
+.. autoclass:: pyvdp.paai.PaymentAccountAttributesInquiryData
+   :members:

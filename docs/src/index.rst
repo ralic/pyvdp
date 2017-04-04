@@ -105,6 +105,7 @@ via standard Python `logging` library and is configured in **[VISA]** section of
 
     loglevel
         Logging level. Possible values: DEBUG, INFO, WARNING, ERROR, CRITICAL. Default is **ERROR**.
+
     logfile
         Logfile path and name. Path is relative to directory, where config file is stored. Default is **pyvdp.log**
         located in the same directory, where configuration file resides.
