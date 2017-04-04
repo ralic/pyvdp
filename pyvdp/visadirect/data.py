@@ -40,7 +40,7 @@ class VisaDirectTransactionBatch(object):
     Constructs and populates a 'transaction of transactions', normally submitted with `multi` requests.
     This class is not supposed to be instantiated on its own, it is just providing a `shell` for batch requests
 
-    :param list request: **Required**. List of :func:`~pyvdp.visadirect.data.VisaDirectTransaction` objects.
+    :param list request: **Required**. List of :func:`~pyvdp.visadirect.VisaDirectTransaction` objects.
     """
     def __init__(self, request):
         self.localTransactionDateTime = transaction_datetime
@@ -54,8 +54,8 @@ class CardAcceptor(object):
     :param str terminal_id: **Required**. Identifier of the terminal at a card acceptor location. Max 8 characters
         string.
     :param str id_code: **Required**. Identifier of card acceptor (Visa Direct Originator). Max 15 characters string.
-    :param dict address: **Required**. See `~pyvdp.visadirect.data.CardAcceptor.CardAcceptorAddress` class for possible
-        keys.
+    :param dict address: **Required**. See :func:`~pyvdp.visadirect.CardAcceptor.CardAcceptorAddress` class for 
+        allowed keys.
     """
 
     ATTR_MAPPINGS = {
@@ -75,9 +75,9 @@ class CardAcceptor(object):
             pass
 
     class CardAcceptorAddress(object):
-        """Card Acceptor address object model (part of :func:`~pyvdp.visadirect.data.CardAcceptor` object).
+        """Card Acceptor address object model (part of :func:`~pyvdp.visadirect.CardAcceptor` object).
 
-        Populated from `address` dictionary argument for :func:`~pyvdp.visadirect.data.CardAcceptor` class ctor.
+        Populated from `address` dictionary argument for :func:`~pyvdp.visadirect.CardAcceptor` class ctor.
 
         :param str country: **Required**. Address country `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_.
             3 characters string.

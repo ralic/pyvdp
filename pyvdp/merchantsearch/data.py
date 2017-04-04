@@ -6,10 +6,10 @@ from datetime import datetime
 class MerchantSearchData(object):
     """Visa Merchant Search data object model.
     
-    :param MerchantSearchHeader header: **Required**. Instance of :func:`~visa.merchantsearch.MerchantSearchData.MerchantSearchHeader`
-    :param MerchantSearchAttrList search_attrs: **Required**. Instance of :func:`~visa.merchantsearch.MerchantSearchData.MerchantSearchAttrList`
+    :param MerchantSearchHeader header: **Required**. Instance of :func:`~pyvdp.merchantsearch.MerchantSearchData.MerchantSearchHeader`
+    :param MerchantSearchAttrList search_attrs: **Required**. Instance of :func:`~pyvdp.merchantsearch.MerchantSearchData.MerchantSearchAttrList`
     :param list response_attrs: **Required**. A list with attributes (Group Names) to include in response.
-    :param MerchantSearchOptions options: **Required**. Instance of :func:`~visa.merchantsearch.MerchantSearchData.MerchantSearchOptions`
+    :param MerchantSearchOptions options: **Required**. Instance of :func:`~pyvdp.merchantsearch.MerchantSearchData.MerchantSearchOptions`
 
     **Example:**
         ..  code-block:: json

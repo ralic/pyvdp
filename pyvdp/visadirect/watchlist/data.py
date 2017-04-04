@@ -52,7 +52,7 @@ class WatchlistData(object):
         return ''.join(random.choice(string.digits) for _ in range(12))
 
     class WatchlistDataAddress(object):
-        """Watchlist address object model, part of :func:`~visa.visadirect.watchlist.data.WatchlistObject`.
+        """Watchlist address object model, part of :func:`~pyvdp.visadirect.watchlist.WatchlistObject`.
     
         :param str city: **Required**. Client city name.
         :param str issuer_country_code: **Required**. Card issuer 3 characters ISO country code.

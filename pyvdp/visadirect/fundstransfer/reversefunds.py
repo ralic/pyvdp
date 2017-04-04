@@ -8,10 +8,10 @@ METHOD = 'reversefundstransactions'
 def send(data, multi=False):
     """Submits a ReverseFunds request.
 
-    :param data: **Required**. Instance of :func:`~visa.visadirect.fundstransfer.ReverseFundsTransaction` or 
-        :func:`~visa.visadirect.fundstransfer.MultiReverseFundsTransaction`.
+    :param data: **Required**. Instance of :func:`~pyvdp.visadirect.fundstransfer.ReverseFundsTransaction` or 
+        :func:`~pyvdp.visadirect.fundstransfer.MultiReverseFundsTransaction`.
     :param bool multi: **Conditional**. Indicates that transaction is a batch 
-        (:func:`~visa.visadirect.fundstransfer.MultiReverseFundsTransaction`).
+        (:func:`~pyvdp.visadirect.fundstransfer.MultiReverseFundsTransaction`).
     :return: Dictionary with VDP API response.
     """
     method = METHOD

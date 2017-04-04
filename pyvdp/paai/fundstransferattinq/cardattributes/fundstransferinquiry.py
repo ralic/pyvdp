@@ -8,7 +8,7 @@ METHOD = 'cardattributes/fundstransferinquiry'
 def send(data):
     """Submits Funds Transfer Inquiry request.
 
-    :param data: **Required**. Instance of :func:`~visa.paai.fundstransferattinq.cardattributes.FundsTransferInquiryData`
+    :param data: **Required**. Instance of :func:`~pyvdp.paai.fundstransferattinq.cardattributes.FundsTransferInquiryData`
     :return: Dictionary with VDP response
     """
     c = VisaPaaiDispatcher(api=API, method=METHOD, http_verb='POST', data=data)

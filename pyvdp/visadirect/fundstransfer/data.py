@@ -14,7 +14,7 @@ class PullFundsTransaction(VisaDirectTransaction):
     :param str sender_currency_code: **Required**. Sender currency code, 3 characters `ISO currency code <https://developer.visa.com/request_response_codes#isoCodes>`_.
     :param str business_application_id: **Required**. `Program business application type <https://developer.visa.com/request_response_codes#businessApplicationId>`_.
         2 characters string.
-    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~pyvdp.visadirect.data.CardAcceptor`.
+    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~pyvdp.visadirect.CardAcceptor`.
     :param int mcc: **Conditional**. Merchant category code (MCC). If provided, overrides the one present in
         onboarding data. If missing in onboarding, then this value is required. Max 4 digits integer.
     :param float surcharge: **Optional**. Sender surcharge, as assessed by originator. It must be the same currency and
@@ -24,19 +24,19 @@ class PullFundsTransaction(VisaDirectTransaction):
     :param str cvv2: **Optional**. Card CVV2 value for **sender_pan**. 3-4 characters string.
     :param float foreign_exchange_fee_transaction: Exchange fee on top of Visa exchange rate. Must be in the same
         currency and format as **amount**. Float 12 digits, max 3 fractions.
-    :param MagneticStripeData msd: **Optional**. Instance of :func:`~pyvdp.visadirect.data.MagneticStripeData`.
-    :param PointOfServiceData pos: **Conditional**. Instance of :func:`~pyvdp.visadirect.data.PointOfServiceData`.
+    :param MagneticStripeData msd: **Optional**. Instance of :func:`~pyvdp.visadirect.MagneticStripeData`.
+    :param PointOfServiceData pos: **Conditional**. Instance of :func:`~pyvdp.visadirect.PointOfServiceData`.
         Required for CardPresent transactions.
-    :param PointOfServiceCapability: posc: **Conditional**. Instance of :func:`~pyvdp.visadirect.data.PointOfServiceCapability`.
+    :param PointOfServiceCapability: posc: **Conditional**. Instance of :func:`~pyvdp.visadirect.PointOfServiceCapability`.
         Required for CardPresent transactions.
-    :param PinData pin_data: **Optional**. Instance of :func:`~pyvdp.visadirect.data.PinData`.
+    :param PinData pin_data: **Optional**. Instance of :func:`~pyvdp.visadirect.PinData`.
     :param str fee_program_indicator: **Optional**. You probably don't need it.
     :param str merchant_pseudo_aba_number: **Optional**. Unique ID for originator when transaction is sent via PPGS.
         9 characters string.
     :param str sharing_group_code: **Optional**. Used by PPG participants to specify network access priority.
         See `Sharing Group Code <https://developer.visa.com/request_response_codes#networkIDAndSharingCode>`_
-    :param MerchantVerificationValue mvv: **Optional**. Instance of :func:`~pyvdp.visadirect.data.MerchantVerificationValue`.
-    :param bool multi: **Conditional**. If True, this transaction is a part of batch. See :func:`~pyvdp.visadirect.fundstransfer.data.MultiPullFundsTransaction`
+    :param MerchantVerificationValue mvv: **Optional**. Instance of :func:`~pyvdp.visadirect.MerchantVerificationValue`.
+    :param bool multi: **Conditional**. If True, this transaction is a part of batch. See :func:`~pyvdp.visadirect.fundstransfer.MultiPullFundsTransaction`
 
     **Example:**
         ..  code-block:: json
@@ -116,7 +116,7 @@ class MultiPullFundsTransaction(VisaDirectTransactionBatch):
         for acquiring institution.
     :param str business_application_id: **Required**. `Program business application type <https://developer.visa.com/request_response_codes#businessApplicationId>`_.
         2 characters string.
-    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.data.PullFundsTransaction`
+    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.PullFundsTransaction`
         objects. 
 
     **Example:**
@@ -201,7 +201,7 @@ class PushFundsTransaction(VisaDirectTransaction):
     :param float amount: **Required**. Transaction amount. 12 digits, 3 fractions.
     :param business_application_id: **Required**. `Business application type <https://developer.visa.com/request_response_codes#businessApplicationId>`_
         for VisaNet processing. 2 characters string.
-    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~pyvdp.visadirect.data.CardAcceptor`.
+    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~pyvdp.visadirect.CardAcceptor`.
     :param str sender_reference: **Conditional**. Required, if transaction is money transfer, pre-paid load, credit card
         bill pay and if sender is funding with a non financial instrument (cash). Required if funds disbursement.
         Required if **sender_account_number** is not set. Max 16 characters string.
@@ -229,15 +229,15 @@ class PushFundsTransaction(VisaDirectTransaction):
     :param str account_type: **Optional**. Used to define account type of the sender PAN. Default '00' (Not applicable).
     :param str fee_program_indicator: **Optional**.
     :param str sender_dob: **Optional**. Sender's date of birth, YYYY-MM-DD.
-    :param PointOfServiceData pos: **Conditional**. Instance of :func:~`visa.visadirect.data.PointOfServiceData`.
+    :param PointOfServiceData pos: **Conditional**. Instance of :func:`~visa.visadirect.PointOfServiceData`.
         Required for CardPresent transactions.
     :param float surcharge: **Optional**. Sender's surcharge as assessed by originator. Must be in the same format
         and currency as **amount**. 12 digits, 3 fractions float.
     :param str merchant_pseudo_aba_number: **Optional**. Uniquely identifies originator with PPGS. 9 characters string.
     :param str sharing_group_code: **Optional**. Used by PPG participants to specify network priority. 30 characters
         string.
-    :param MerchantVerificationValue mvv: **Optional**. Instance of :func:`~pyvdp.visadirect.data.MerchantVerificationValue`.
-    :param bool multi: **Conditional**. If True, this transaction is a part of batch. See :func:`~pyvdp.visadirect.fundstransfer.data.MultiPushFundsTransaction`
+    :param MerchantVerificationValue mvv: **Optional**. Instance of :func:`~pyvdp.visadirect.MerchantVerificationValue`.
+    :param bool multi: **Conditional**. If True, this transaction is a part of batch. See :func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction`
 
     **Example:**
         ..  code-block:: json
@@ -335,7 +335,7 @@ class MultiPushFundsTransaction(VisaDirectTransactionBatch):
         for acquiring institution.
     :param str business_application_id: **Required**. `Program business application type <https://developer.visa.com/request_response_codes#businessApplicationId>`_.
         2 characters string.
-    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.data.PushFundsTransaction`
+    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.PushFundsTransaction`
         objects. 
 
     **Example:**
@@ -441,18 +441,18 @@ class ReverseFundsTransaction(PullFundsTransaction):
         and currency as **amount**. 12 digits, 3 fractions float.
     :param float foreign_exchange_fee_transaction: **Optional**. Foreign exchange markup fee, on top of VisaNet
         exchange rate. 12 digist, 3 fractions float.
-    :param OriginalDataElements ode: **Required**. Instance of `~pyvdp.visadirect.data.OriginalDataElements`.
-    :param CardAcceptor card_acceptor: **Required**. Instance of `~pyvdp.visadirect.data.CardAcceptor`.
-    :param PointOfServiceData pos: **Optional**. Instance of `~pyvdp.visadirect.data.PointOfServiceData`.
-    :param PointOfServiceCapability posc: **Optional**. Instance of `~pyvdp.visadirect.data.PointOfServiceCapability`.
+    :param OriginalDataElements ode: **Required**. Instance of :func:`~pyvdp.visadirect.OriginalDataElements`.
+    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~pyvdp.visadirect.CardAcceptor`.
+    :param PointOfServiceData pos: **Optional**. Instance of :func:`~pyvdp.visadirect.PointOfServiceData`.
+    :param PointOfServiceCapability posc: **Optional**. Instance of :func:`~pyvdp.visadirect.PointOfServiceCapability`.
     :param str fee_program_indicator: **Optional**.
     :param str merchant_pseudo_aba_number: **Optional**. Uniquely identifies originator with PPGS. 9 characters string.
     :param str sharing_group_code: **Optional**. Used by PPG participants to specify network priority. 30 characters
         string.
     :param int network_id: **Optional**. Code, that specifies network for transmission. Refer to `Network ID <https://developer.visa.com/request_response_codes#networkIDAndSharingCode>`_.
         2 digits integer.
-    :param MerchantVerificationValue mvv: **Optional**. Instance of :func:`~pyvdp.visadirect.data.MerchantVerificationValue`.
-    :param bool multi: **Conditional**. If True, this transaction is a part of batch. See :func:`~pyvdp.visadirect.fundstransfer.data.MultiPushFundsTransaction`
+    :param MerchantVerificationValue mvv: **Optional**. Instance of :func:`~pyvdp.visadirect.MerchantVerificationValue`.
+    :param bool multi: **Conditional**. If True, this transaction is a part of batch. See :func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction`
 
     **Example:**
         ..  code-block:: json
@@ -531,7 +531,7 @@ class MultiReverseFundsTransaction(MultiPullFundsTransaction):
         integer.
     :param int acquirer_country_code: **Required**. `ISO country code <https://developer.visa.com/request_response_codes#isoCodes>`_
         for acquiring institution.
-    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.data.ReverseFundsTransaction`
+    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.ReverseFundsTransaction`
         objects. 
         
     **Example:**

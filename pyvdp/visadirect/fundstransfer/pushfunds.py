@@ -8,10 +8,10 @@ METHOD = 'pushfundstransactions'
 def send(data, multi=False):
     """Submits a PushFunds (OCT) request.
 
-    :param data: **Required**. Instance of :func:`~visa.visadirect.fundstransfer.PushFundsTransaction` or 
-        :func:`~visa.visadirect.fundstransfer.MultiPushFundsTransaction`.
+    :param data: **Required**. Instance of :func:`~pyvdp.visadirect.fundstransfer.PushFundsTransaction` or 
+        :func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction`.
     :param bool multi: **Conditional**. Indicates that transaction is a batch 
-        (:func:`~visa.visadirect.fundstransfer.MultiPushFundsTransaction`).
+        (:func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction`).
     :return: Dictionary with VDP API response.
     """
     method = METHOD

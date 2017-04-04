@@ -11,7 +11,7 @@ class CashinPushPaymentTransaction(VisaDirectTransaction):
     :param int acquiring_bin: **Required**. Business identification number. 6-11 digits integer.
     :param int acquirer_country_code: **Required**. Country `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_ 
         of originator BIN. 3 digits integer.
-    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~visa.visadirect.CardAcceptor` data object.
+    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~pyvdp.visadirect.CardAcceptor` data object.
     :param str transaction_currency_code: **Required**. Transaction currencyt `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_.
             3 characters string.
     :param str business_application_id: **Required**. Business application identifier. **CI** for cash-in operations.
@@ -79,7 +79,7 @@ class CashoutPushPaymentTransaction(VisaDirectTransaction):
     :param int acquiring_bin: **Required**. Business identification number. 6-11 digits integer.
     :param int acquirer_country_code: **Required**. Country `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_ 
         of originator BIN. 3 digits integer.
-    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~visa.visadirect.CardAcceptor` data object.
+    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~pyvdp.visadirect.CardAcceptor` data object.
     :param str transaction_currency_code: **Required**. Transaction currencyt `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_.
             3 characters string.
     :param str business_application_id: **Required**. Business application identifier. **CO** for cash-out operations.
@@ -153,10 +153,10 @@ class MerchantPushPaymentTransaction(VisaDirectTransaction):
     :param int acquirer_country_code: **Required**. Country `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_ 
         of originator BIN. 3 digits integer.
     :param float transaction_fee_amount: **Required**. Convenience fee amount. 8 digits, 3 fractions. 
-    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~visa.visadirect.CardAcceptor` data object.
+    :param CardAcceptor card_acceptor: **Required**. Instance of :func:`~pyvdp.visadirect.CardAcceptor` data object.
     :param str transaction_currency_code: **Required**. Transaction currency `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_.
         3 characters string.
-    :param PurchaseIdentifier purchase_id: **Required**. Instance of :func:`~visa.visadirect.mvisa.PurchaseIdentifier` 
+    :param PurchaseIdentifier purchase_id: **Required**. Instance of :func:`~pyvdp.visadirect.mvisa.PurchaseIdentifier` 
         data object.
     :param str secondary_id: **Conditional**. Second field with additional transaction data. Max 28 characters string. 
     :param str business_application_id: **Required**. Business application identifier. **MP** for merchant payments 
@@ -228,7 +228,7 @@ class MerchantPushPaymentTransaction(VisaDirectTransaction):
 class PurchaseIdentifier(object):
     """VisaDirect mVISA PurchaseIdentifier data object model.
 
-    Used as a part of :func:`~visa.visadirect.mvisa.data.MerchantPushPaymentTransaction`.
+    Used as a part of :func:`~pyvdp.visadirect.mvisa.MerchantPushPaymentTransaction`.
 
     :param str type: **Required**. Primary ID as defined by mVISA. 1 character string.
     :param str reference_number: **Required**. Key data element for matching a message to others within a given
