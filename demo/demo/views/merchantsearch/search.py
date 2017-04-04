@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.merchantsearch.data import MerchantSearchData
-from pyvdp.merchantsearch import search
+from pyvdp.merchantsearch import search, MerchantSearchData
 
 from demo.forms.merchantsearch.search import MerchantSearchFormPost
 
@@ -12,40 +11,40 @@ def merchant_search(request):
         if form.is_valid():
             merchant_name = form.cleaned_data['merchant_name']
 
-            search_attrs = {
+            msal_kwargs = {
                 'merchant_name': merchant_name,
-                'merchant_street_address': '802 industrial dr',
-                'merchant_city': 'Mount Pleasant',
-                'merchant_state': 'MI',
-                'merchant_postal_code': '48858',
-                'merchant_country_code': 840,
-                'merchant_phone_number': '19897747123',
-                'merchant_url': 'http://www.emc.cmich.edu/',
-                'business_registration_id': '386004447',
-                'acquirer_card_acceptor_id': '424295031886',
-                'acquiring_bin': '476197'
+                "merchantStreetAddress": "802 industrial dr",
+                "merchantCity": "Mount Pleasant",
+                "merchantState": "MI",
+                "merchantPostalCode": "48858",
+                "merchantCountryCode": "840",
+                "merchantPhoneNumber": "19897747123",
+                "merchantUrl": "http://www.emc.cmich.edu",
+                "businessRegistrationId": "386004447",
+                "acquirerCardAcceptorId": "424295031886",
+                "acquiringBin": "476197",
             }
 
-            response_attrs = [
-                'GNBANKA'
-            ]
-
-            options = {
-                'max_records': 5,
-                'match_indicators': True,
-                'match_score': True,
-                'proximity': [merchant_name],
-                'wildcards': [merchant_name]
+            mso_kwargs = {
+                "maxRecords": "5",
+                "matchIndicators": "true",
+                "matchScore": "true",
+                "proximity": [
+                    "merchantName"
+                ],
+                "wildCard": [
+                    "merchantName"
+                ]
             }
 
-            header = {
-                'message_id': 'Request_001',
+            ms_kwargs = {
+                'header': MerchantSearchData.MerchantSearchHeader(),
+                'search_attr_list': MerchantSearchData.MerchantSearchAttrList(**msal_kwargs),
+                'response_attr_list': ["GNSTANDARD"],
+                'options': MerchantSearchData.MerchantSearchOptions(**mso_kwargs)
             }
 
-            data = MerchantSearchData(header=header,
-                                      search_attrs=search_attrs,
-                                      response_attrs=response_attrs,
-                                      options=options)
+            data = MerchantSearchData(**ms_kwargs)
 
             result = search.send(data=data)
 

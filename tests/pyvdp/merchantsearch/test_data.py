@@ -1,122 +1,112 @@
 import unittest
 
-from pyvdp.merchantsearch.data import MerchantSearchData
+from pyvdp.merchantsearch import MerchantSearchData
 
 
 class TestMerchantSearchData(unittest.TestCase):
 
-    def setUp(self):
-        self.msd = MerchantSearchData(header={},
-                                      search_attrs={},
-                                      response_attrs=[],
-                                      options={})
+    def test_attributes(self):
 
-    def test_hasHeader(self):
-        self.assertTrue(hasattr(self.msd, 'header'))
+        params = {
+            'header': object,
+            'search_attr_list': object,
+            'response_attr_list': list,
+            'options': object
+        }
 
-    def test_hasSearchAttrList(self):
-        self.assertTrue(hasattr(self.msd, 'searchAttrList'))
+        data = MerchantSearchData(**params)
 
-    def test_hasResponseAttrList(self):
-        self.assertTrue(hasattr(self.msd, 'responseAttrList'))
+        attrs = [
+            'header',
+            'searchAttrList',
+            'responseAttrList',
+            'searchOptions',
+        ]
 
-    def test_hasSearchOptions(self):
-        self.assertTrue(hasattr(self.msd, 'searchOptions'))
+        for attr in attrs:
+            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
 
 
 class TestMerchantSearchHeader(unittest.TestCase):
 
-    def setUp(self):
-        self.msh = MerchantSearchData.MerchantSearchHeader()
+    def test_attributes(self):
 
-    def test_hasMessageDateTime(self):
-        self.assertTrue(hasattr(self.msh, 'messageDateTime'))
+        params = {
+            'message_id': 'Request_007',
+            'start_index': 0
+        }
 
-    def test_hasRequestMessageId(self):
-        self.assertTrue(hasattr(self.msh, 'requestMessageId'))
+        data = MerchantSearchData.MerchantSearchHeader(**params)
 
-    def test_hasStartIndex(self):
-        self.assertTrue(hasattr(self.msh, 'startIndex'))
+        attrs = [
+            'requestMessageId',
+            'startIndex'
+        ]
+
+        for attr in attrs:
+            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
 
 
 class TestMerchantSearchAttrList(unittest.TestCase):
 
-    def setUp(self):
-        attrs = {
-            'merchant_name': 'cmu edctn materials cntr',
-            'merchant_street_address': '802 industrial dr',
-            'merchant_city': 'Mount Pleasant',
-            'merchant_state': 'MI',
-            'merchant_postal_code': '48858',
-            'merchant_country_code': 840,
-            'merchant_phone_number': 19897747123,
-            'merchant_url': 'https://www.google.com',
-            'visa_merchant_id': '12345',
-            'visa_store_id': '12345',
-            'business_registration_id': '386004447',
-            'acquirer_card_acceptor_id': '424295031886',
-            'acquiring_bin': '476197',
+    def test_attributes(self):
+
+        params = {
+            'merchant_name': 'ACME',
+            'merchant_street_address': 'ELm Street',
+            'merchant_city': 'LA',
+            'merchant_state': 'CA',
+            'merchant_postal_code': '12345',
+            'merchant_country_code': '1234',
+            'merchant_phone_number': '111111111',
+            'merchant_url': 'http://localhost',
+            'visa_merchant_id': '123',
+            'visa_store_id': '123',
+            'business_registration_id': '123',
+            'acquirer_card_acceptor_id': '123',
+            'acquiring_bin': '123',
         }
-        self.msal = MerchantSearchData.MerchantSearchAttrList(**attrs)
 
-    def test_hasMerchantName(self):
-        self.assertTrue(hasattr(self.msal, 'merchantName'))
+        data = MerchantSearchData.MerchantSearchAttrList(**params)
 
-    def test_hasMerchantStreetAddress(self):
-        self.assertTrue(hasattr(self.msal, 'merchantStreetAddress'))
+        attrs = [
+            'merchantName',
+            'merchantStreetAddress',
+            'merchantCity',
+            'merchantState',
+            'merchantPostalCode',
+            'merchantCountryCode',
+            'merchantPhoneNumber',
+            'merchantUrl',
+            'visaMerchantId',
+            'visaStoreId',
+            'businessRegistrationId',
+            'acquirerCardAcceptorId',
+            'acquiringBin'
+        ]
 
-    def test_hasMerchantCity(self):
-        self.assertTrue(hasattr(self.msal, 'merchantCity'))
-
-    def test_hasMerchantState(self):
-        self.assertTrue(hasattr(self.msal, 'merchantState'))
-
-    def test_hasMerchantPostalCode(self):
-        self.assertTrue(hasattr(self.msal, 'merchantPostalCode'))
-
-    def test_hasMerchantCountryCode(self):
-        self.assertTrue(hasattr(self.msal, 'merchantCountryCode'))
-
-    def test_hasMerchantPhoneNumber(self):
-        self.assertTrue(hasattr(self.msal, 'merchantPhoneNumber'))
-
-    def test_hasMerchantUrl(self):
-        self.assertTrue(hasattr(self.msal, 'merchantUrl'))
-
-    def test_hasVisaMerchantId(self):
-        self.assertTrue(hasattr(self.msal, 'visaMerchantId'))
-
-    def test_hasVisaStoreId(self):
-        self.assertTrue(hasattr(self.msal, 'visaStoreId'))
-
-    def test_hasBusinessRegistrationId(self):
-        self.assertTrue(hasattr(self.msal, 'businessRegistrationId'))
-
-    def test_hasAcquirerCardAcceptorId(self):
-        self.assertTrue(hasattr(self.msal, 'acquirerCardAcceptorId'))
-
-    def test_hasAcquiringBin(self):
-        self.assertTrue(hasattr(self.msal, 'acquiringBin'))
+        for attr in attrs:
+            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
 
 
 class TestMerchantSearchOptions(unittest.TestCase):
 
-    def test_hasMaxRecords(self):
-        mso = MerchantSearchData.MerchantSearchOptions(max_records=1)
-        self.assertTrue(hasattr(mso, 'maxRecords'))
+    def test_attributes(self):
 
-    def test_hasMatchIndicators(self):
-        mso = MerchantSearchData.MerchantSearchOptions(match_indicators=True)
-        self.assertTrue(hasattr(mso, 'matchIndicators'))
+        params = {
+            'max_records': '123',
+            'match_indicators': '123',
+            'match_score': '123',
+        }
 
-    def test_hasMatchScore(self):
-        mso = MerchantSearchData.MerchantSearchOptions(match_score=True)
-        self.assertTrue(hasattr(mso, 'matchScore'))
+        data = MerchantSearchData.MerchantSearchOptions(**params)
 
-    def test_hasProximity(self):
-        mso = MerchantSearchData.MerchantSearchOptions(proximity=['merchantName'])
-        self.assertTrue(hasattr(mso, 'proximity'))
+        attrs = [
+            'maxRecords',
+            'matchIndicators',
+            'matchScore'
+        ]
 
-    def test_hasWildcards(self):
-        mso = MerchantSearchData.MerchantSearchOptions(wildcards=['*erchantNa*'])
-        self.assertTrue(hasattr(mso, 'wildCards'))
+        for attr in attrs:
+            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+

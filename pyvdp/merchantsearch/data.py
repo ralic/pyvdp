@@ -5,14 +5,11 @@ from datetime import datetime
 
 class MerchantSearchData(object):
     """Visa Merchant Search data object model.
-
-    :param dict header: **Required**. A dictionary with header parameters. See :func:`~visa.merchantsearch.data.MerchantSearchData.MerchantSearchHeader`
-        for possible keys.
-    :param dict search_attrs: **Required**. A dictionary with search atttributes. See :func:`~visa.merchantsearch.data.MerchantSearchData.MerchantSearchAttrList`
-        for possible keys.
+    
+    :param MerchantSearchHeader header: **Required**. Instance of :func:`~visa.merchantsearch.MerchantSearchData.MerchantSearchHeader`
+    :param MerchantSearchAttrList search_attrs: **Required**. Instance of :func:`~visa.merchantsearch.MerchantSearchData.MerchantSearchAttrList`
     :param list response_attrs: **Required**. A list with attributes (Group Names) to include in response.
-    :param dict options: **Required**. A dictionary with search options. See :func:`~visa.merchantsearch.data.MerchantSearchData.MerchantSearchOptions`
-        for possible keys.
+    :param MerchantSearchOptions options: **Required**. Instance of :func:`~visa.merchantsearch.MerchantSearchData.MerchantSearchOptions`
 
     **Example:**
         ..  code-block:: json
@@ -52,13 +49,15 @@ class MerchantSearchData(object):
                 }
             }
     """
+    ATTR_MAPPINGS = {
+        'header': 'header',
+        'search_attr_list': 'searchAttrList',
+        'response_attr_list': 'responseAttrList',
+        'options': 'searchOptions'
+    }
 
-    def __init__(self, header, search_attrs, response_attrs, options):
-        self.header = self.MerchantSearchHeader(**header)
-        self.searchAttrList = self.MerchantSearchAttrList(**search_attrs)
-        self.responseAttrList = response_attrs
-        self.searchOptions = self.MerchantSearchOptions(**options)
-
+    def __init__(self, **kwargs):
+        self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
 
     class MerchantSearchHeader(object):
         """MerchantSearch header data object model.
@@ -67,7 +66,7 @@ class MerchantSearchData(object):
 
         :param str message_id: **Optional**. Unique string ID for service request. String 50 characters max. Default
             'Request_' + epoch
-        :param int startIndex: **Optional**. Starting records index in response.
+        :param int start_index: **Optional**. Starting records index in response.
         """
 
         def __init__(self, **kwargs):
@@ -100,7 +99,7 @@ class MerchantSearchData(object):
 
         :param str merchant_name: **Conditional**. Name of the merchant. Optional when any one of VisaMerchantId or
             VisaStoreId or BusinessRegistrationId or MerchantUrl or AcquirerCardAcceptorId is provided.
-        :param str merchant_street_address: **Conditional**. Merchant street adress.
+        :param str merchant_street_address: **Conditional**. Merchant street address.
         :param str merchant_city: **Conditional**. City of the registered merchant.
         :param str merchant_state: **Conditional**. Merchant state code. 2 characters string.
         :param str merchant_postal_code: **Conditional**. Merchant postal code.
@@ -116,12 +115,12 @@ class MerchantSearchData(object):
             9 characters double.
         :param str business_registration_id: **Conditional**. Merchant business/tax registration ID. Optional when any
             one of MerchantName or VisaMerchantId or VisaStoreId or MerchantUrl or AcquirerCardAcceptorId is provided.
-        :param str merchant_url: **Conditional**. Merchant registered URL. Optional when any one of MerchantName or
+        :param str merchant_url: **Required**. Merchant registered URL. Optional when any one of MerchantName or
             VisaMerchantId or VisaStoreId or BusinessRegistrationId or AcquirerCardAcceptorId is provided.
-        :param str acquirer_card_acceptor_id: **Conditional**. Acquirer card acceptor ID. Optional when any one of
+        :param str acquirer_card_acceptor_id: **Required**. Acquirer card acceptor ID. Optional when any one of
             MerchantName or VisaMerchantId or VisaStoreId or BusinessRegistrationId or MerchantUrl is provided. 15 digits
             string. Prepend 0 if less than 15 digits.
-        :param int acquiring_bin: **Conditional**. Acquirer business identification number. Required when
+        :param int acquiring_bin: **Required**. Acquirer business identification number. Required when
             AcquirerCardAcceptorId is provided.
         """
 
@@ -152,7 +151,8 @@ class MerchantSearchData(object):
         :param int max_records: **Optional**. Maximum number of records in response. Default 25.
         :param bool match_indicators: **Optional**. Show request attributes, that match a record.
         :param bool match_score: **Optional**. Add matchScore and order response per matchScore.
-        :param list proximity: **Optional**. Proximity search on merchant name. If wildcards are used, proximity is ignored.
+        :param list proximity: **Optional**. Proximity search on merchant name. If wildcards are used, proximity is 
+            ignored.
         :param list wildcards: **Optional**. Wildcard search on merchant name.
         """
 
@@ -162,11 +162,5 @@ class MerchantSearchData(object):
             'match_score': 'matchScore',
         }
 
-        def __init__(self, proximity=None, wildcards=None, **kwargs):
+        def __init__(self, **kwargs):
             self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
-
-            if proximity:
-                self.proximity = proximity
-
-            if wildcards:
-                self.wildCards = wildcards

@@ -7,7 +7,7 @@ class VisaMerchantSearchRequest(VisaRequest):
     https://developer.visa.com/products/merchant_search/guides
 
     :param str query_string: **Conditional**. Query string to append to URL
-    :param object data: **Conditional**. Payload for POST/PUT requests
+    :param MerchantSearchData data: **Conditional**. Payload for POST/PUT requests
     :param dict headers: **Optional**. Additional headers as dictionary
     """
 
@@ -16,7 +16,7 @@ class VisaMerchantSearchRequest(VisaRequest):
         super(VisaMerchantSearchRequest, self).__init__(resource='merchantsearch',
                                                         api='',
                                                         method='search',
-                                                        http_verb='post',
+                                                        http_verb='POST',
                                                         query_string=query_string,
                                                         data=data,
                                                         headers=headers)

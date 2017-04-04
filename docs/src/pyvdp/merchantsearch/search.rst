@@ -28,5 +28,5 @@ Data objects
 MerchantSearchData
 ------------------
 
-..  autoclass:: pyvdp.merchantsearch.data.MerchantSearchData
+..  autoclass:: pyvdp.merchantsearch.MerchantSearchData
     :members:
