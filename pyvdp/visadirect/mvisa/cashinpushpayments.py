@@ -1,4 +1,4 @@
-from pyvdp.visadirect import VisaDirectRequest
+from pyvdp.visadirect import VisaDirectDispatcher
 
 
 API = 'mvisa'
@@ -11,7 +11,7 @@ def send(data):
     :param CashinPushPaymentTransaction data: **Required**. Instance of CashinPushPaymentTransaction.
     :return: Dictionary with VDP API response.
     """
-    c = VisaDirectRequest(api=API, method=METHOD, http_verb='POST', data=data)
+    c = VisaDirectDispatcher(api=API, method=METHOD, http_verb='POST', data=data)
     return c.send()
 
 
@@ -23,5 +23,5 @@ def get(query):
     """
     query_string = '/' + query
 
-    c = VisaDirectRequest(api=API, method=METHOD, http_verb='GET', query_string=query_string)
+    c = VisaDirectDispatcher(api=API, method=METHOD, http_verb='GET', query_string=query_string)
     return c.send()

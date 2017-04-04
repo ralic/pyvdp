@@ -1,4 +1,4 @@
-from .request import VisaDirectRequest
+from .dispatcher import VisaDirectDispatcher
 from .data import (CardAcceptor,
                    OriginalDataElements,
                    MerchantVerificationValue,

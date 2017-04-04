@@ -1,4 +1,4 @@
-from pyvdp.visadirect.request import VisaDirectRequest
+from pyvdp.visadirect import VisaDirectDispatcher
 
 
 API = 'reports'
@@ -13,5 +13,5 @@ def get(from_date, to_date):
     :return: CSV-formatted list of transactions
     """
     query = '?fromDate=' + from_date + '&toDate=' + to_date
-    c = VisaDirectRequest(api=API, method=METHOD, http_verb='get', query_string=query)
+    c = VisaDirectDispatcher(api=API, method=METHOD, http_verb='get', query_string=query)
     return c.send()

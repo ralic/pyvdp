@@ -1,4 +1,4 @@
-from pyvdp.merchantsearch import MerchantSearchData, VisaMerchantSearchRequest
+from pyvdp.merchantsearch import MerchantSearchData, VisaMerchantSearchDispatcher
 
 
 def send(data):
@@ -7,5 +7,5 @@ def send(data):
     :param MerchantSearchData data: **Required**. Instance of :func:`~pyvdp.merchantsearch.MerchantSearchData`.
     :return: A response from VDP.
     """
-    c = VisaMerchantSearchRequest(data=data)
+    c = VisaMerchantSearchDispatcher(data=data)
     return c.send()

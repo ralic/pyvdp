@@ -6,7 +6,7 @@ API Documentation
     :maxdepth: 1
     :caption: Contents:
 
-    pyvdp/request
+    pyvdp/dispatcher
     pyvdp/exceptions
     pyvdp/visadirect/index
     pyvdp/pav/card_validation

@@ -1,7 +1,7 @@
-from pyvdp.request import VisaRequest
+from pyvdp.dispatcher import VisaDispatcher
 
 
-class VisaPavRequest(VisaRequest):
+class VisaPavDispatcher(VisaDispatcher):
     """Instantiates connection to PaymentAccountValidation VDP API endpoint.
 
     :param str method: **Required**. VDP method name.
@@ -11,5 +11,5 @@ class VisaPavRequest(VisaRequest):
     :param dict headers: **Optional**. Additional headers as dictionary.
     """
     def __init__(self, method, http_verb, query_string='', data=None, headers=None):
-        super(VisaPavRequest, self).__init__(resource='pav', api='', method=method, http_verb=http_verb,
-                                             query_string=query_string, data=data, headers=headers)
+        super(VisaPavDispatcher, self).__init__(resource='pav', api='', method=method, http_verb=http_verb,
+                                                query_string=query_string, data=data, headers=headers)

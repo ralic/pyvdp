@@ -9,11 +9,11 @@ Payment Account Validation
 The Payment Account Validation API allows applications to run validations of the payment account before processing a
 transaction ensuring greater probability of success and allowing for a more seamless transaction flow.
 
-+++++++
-Request
-+++++++
+++++++++++
+Dispatcher
+++++++++++
 
-.. automodule:: pyvdp.pav.request
+.. automodule:: pyvdp.pav.dispatcher
    :members:
 
 +++++

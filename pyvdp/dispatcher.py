@@ -13,7 +13,7 @@ from pyvdp import configuration
 from pyvdp import logger
 
 
-class VisaRequest(object):
+class VisaDispatcher(object):
     """Constructs a request to Visa API to provided resource, method and http verb.
 
     After request is constructed, it shall be submitted with `send()` method, which returns a `requests.Response`
@@ -21,14 +21,14 @@ class VisaRequest(object):
 
     This class is not assumed to be instantiated on its own (consider it abstract). Instead, every VISA API
     implementation must provide its own request class, inheriting from VisaRequest and providing a
-    corresponding VISA API resource name as a `resource` argument value (see visa.visadirect.request as an example)
+    corresponding VISA API resource name as a `resource` argument value.
 
-    :param str resource: **Required**. VISA API resource name
-    :param str api: **Required**. VISA API api name
-    :param str method: **Required**. VISA API endpoint method
-    :param str http_verb: **Required**. VISA API HTTP verb (GET, POST, PUT)
-    :param str query_string: **Conditional**. Query string to append to API endpoint
-    :param object data: **Conditional**. Data payload for POST requests, VisaTransacton object
+    :param str resource: **Required**. VISA API resource name.
+    :param str api: **Required**. VISA API api name.
+    :param str method: **Required**. VISA API endpoint method.
+    :param str http_verb: **Required**. VISA API HTTP verb (GET, POST, PUT).
+    :param str query_string: **Conditional**. Query string to append to API endpoint.
+    :param object data: **Conditional**. Data payload for POST requests, VisaTransacton object.
     :param str auth_method: **Conditional**. Authentication method. Possible values are:
             **ssl** - for certificate-based authentication (default) or **token** - for x-pay-token authentication
     :param dict headers: **Optional**. Additional headers.

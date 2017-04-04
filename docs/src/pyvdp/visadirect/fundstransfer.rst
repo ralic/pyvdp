@@ -23,8 +23,6 @@ A collection of functional call for VisaDirect FundsTransfer APIs, including:
 PullFunds
 ---------
 
-
-
 .. automodule:: pyvdp.visadirect.fundstransfer.pullfunds
    :members:
 

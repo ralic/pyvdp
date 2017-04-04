@@ -15,11 +15,11 @@ VisaDirect
    reports
    watchlist
 
-+++++++
-Request
-+++++++
+++++++++++
+Dispatcher
+++++++++++
 
-.. automodule:: pyvdp.visadirect.request
+.. automodule:: pyvdp.visadirect.dispatcher
    :members:
 
 ++++++++++++

@@ -1,2 +1,2 @@
-from .request import PaaiRequest
+from .dispatcher import VisaPaaiDispatcher
 from .data import PaymentAccountAttributesInquiryData

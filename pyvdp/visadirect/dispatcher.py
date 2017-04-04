@@ -1,7 +1,7 @@
-from pyvdp.request import VisaRequest
+from pyvdp.dispatcher import VisaDispatcher
 
 
-class VisaDirectRequest(VisaRequest):
+class VisaDirectDispatcher(VisaDispatcher):
     """Implements HTTP requests to Visa Direct APIs.
 
     https://developer.visa.com/products/visa_direct/guides
@@ -16,11 +16,10 @@ class VisaDirectRequest(VisaRequest):
 
     def __init__(self, api, method, http_verb, query_string='', data=None, headers=None):
 
-        super(VisaDirectRequest, self).__init__(resource='visadirect',
-                                                api=api,
-                                                method=method,
-                                                http_verb=http_verb,
-                                                query_string=query_string,
-                                                data=data,
-                                                headers=headers)
-
+        super(VisaDirectDispatcher, self).__init__(resource='visadirect',
+                                                   api=api,
+                                                   method=method,
+                                                   http_verb=http_verb,
+                                                   query_string=query_string,
+                                                   data=data,
+                                                   headers=headers)

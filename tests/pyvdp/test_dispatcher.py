@@ -12,16 +12,16 @@ from pyvdp.exceptions import (VisaTimeoutError,
                               VisaAccessDeniedError,
                               VisaNotFoundError,
                               VisaGeneralError)
-from pyvdp.request import VisaRequest
+from pyvdp.dispatcher import VisaDispatcher
 from pyvdp.visadirect.data import VisaDirectTransaction
 
 
 @requests_mock.Mocker()
-class TestVisaRequest(unittest.TestCase):
+class TestVisaDispatcher(unittest.TestCase):
     def setUp(self):
         self.t = VisaDirectTransaction(stan='123456')
 
-        self.vr = VisaRequest(resource='', api='', method='', http_verb='POST', data=self.t)
+        self.vr = VisaDispatcher(resource='', api='', method='', http_verb='POST', data=self.t)
 
     def test_sendReturnsDictionaryOnHTTP200(self, m):
         self.maxDiff = None

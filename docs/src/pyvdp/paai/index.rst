@@ -13,11 +13,11 @@ Payment Account Attributes Inquiry
     fundstransferattinq/cardattributes/fundstransferinquiry
     generalattinq/cardattributes/generalinquiry
 
-+++++++
-Request
-+++++++
+++++++++++
+Dispatcher
+++++++++++
 
-..  automodule:: pyvdp.paai.request
+..  automodule:: pyvdp.paai.dispatcher
     :members:
 
 

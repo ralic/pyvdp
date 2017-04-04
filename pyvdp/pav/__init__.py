@@ -1,2 +1,2 @@
-from .request import VisaPavRequest
+from .dispatcher import VisaPavDispatcher
 from .data import PavData

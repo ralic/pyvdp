@@ -1,4 +1,4 @@
-from pyvdp.paai.request import PaaiRequest
+from pyvdp.paai.dispatcher import VisaPaaiDispatcher
 
 
 API = 'generalattinq'
@@ -11,5 +11,5 @@ def send(data):
     :param data: **Required**. Instance of :func:`~pyvdp.paai.generalattinq.cardattributes.GeneralInquiryData`
     :return: Dictionary with VDP response
     """
-    c = PaaiRequest(api=API, method=METHOD, http_verb='POST', data=data)
+    c = VisaPaaiDispatcher(api=API, method=METHOD, http_verb='POST', data=data)
     return c.send()

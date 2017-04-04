@@ -6,11 +6,11 @@ MerchantSearch
 
     https://developer.visa.com/products/merchant_search
 
-+++++++
-Request
-+++++++
+++++++++++
+Dispatcher
+++++++++++
 
-..  automodule:: pyvdp.merchantsearch.request
+..  automodule:: pyvdp.merchantsearch.dispatcher
     :members:
 
 +++++

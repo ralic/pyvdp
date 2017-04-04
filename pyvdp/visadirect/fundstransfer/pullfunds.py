@@ -1,4 +1,4 @@
-from pyvdp.visadirect import VisaDirectRequest
+from pyvdp.visadirect import VisaDirectDispatcher
 
 API = 'fundstransfer'
 METHOD = 'pullfundstransactions'
@@ -18,7 +18,7 @@ def send(data, multi=False):
     if multi:
         method = 'multipullfundstransactions'
 
-    c = VisaDirectRequest(api=API, method=method, http_verb='POST', data=data)
+    c = VisaDirectDispatcher(api=API, method=method, http_verb='POST', data=data)
     response = c.send()
 
     return response
@@ -44,5 +44,5 @@ def get(query, multi=False):
 
     query_string = '/' + query
 
-    c = VisaDirectRequest(api=API, method=method, http_verb='GET', query_string=query_string)
+    c = VisaDirectDispatcher(api=API, method=method, http_verb='GET', query_string=query_string)
     return c.send()
