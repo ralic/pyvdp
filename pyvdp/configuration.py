@@ -26,6 +26,9 @@ def get_config(config_path=None):
         variable value or `configuration.ini` file in current directory. 
     :return: configuration
     """
+    if os.getenv('PYVDP_TEST_MODE'):
+        return DEFAULT_CONFIG
+
     if not config_path:
         config_path = os.getenv('PYVDP_CONFIG', os.path.join(os.path.dirname(__file__), 'configuration.ini'))
 
