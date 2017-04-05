@@ -229,7 +229,7 @@ class PushFundsTransaction(VisaDirectTransaction):
     :param str account_type: **Optional**. Used to define account type of the sender PAN. Default '00' (Not applicable).
     :param str fee_program_indicator: **Optional**.
     :param str sender_dob: **Optional**. Sender's date of birth, YYYY-MM-DD.
-    :param PointOfServiceData pos: **Conditional**. Instance of :func:`~visa.visadirect.PointOfServiceData`.
+    :param PointOfServiceData pos: **Conditional**. Instance of :func:`~pyvdp.visadirect.PointOfServiceData`.
         Required for CardPresent transactions.
     :param float surcharge: **Optional**. Sender's surcharge as assessed by originator. Must be in the same format
         and currency as **amount**. 12 digits, 3 fractions float.

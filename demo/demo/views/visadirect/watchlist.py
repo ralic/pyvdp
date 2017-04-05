@@ -6,6 +6,10 @@ from pyvdp.visadirect.watchlist import WatchlistData
 from demo.forms.watchlist.watchlist import WlInquiryFormPost
 
 
+def index(request):
+    return render(request, template_name='visadirect/watchlist/index.html')
+
+
 def inquiry(request):
     if request.method == 'POST':
         form = WlInquiryFormPost(request.POST)
@@ -33,4 +37,4 @@ def inquiry(request):
             return render(request, template_name='success.html', context={'result': result})
     else:
         form_post = WlInquiryFormPost()
-        return render(request, template_name='watchlist/wl_inquiry.html', context={'form_post': form_post})
+        return render(request, template_name='visadirect/watchlist/wl_inquiry.html', context={'form_post': form_post})

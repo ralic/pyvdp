@@ -17,9 +17,9 @@ def merchantsearch(request):
     return render(request, template_name='merchantsearch/index.html')
 
 
-def watchlist(request):
-    return render(request, template_name='watchlist/index.html')
-
-
 def paai(request):
     return render(request, template_name='paai/index.html')
+
+
+def dcas(request):
+    return render(request, template_name='dcas/index.html')

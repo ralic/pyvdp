@@ -7,7 +7,7 @@ class VisaMerchantSearchDispatcher(VisaDispatcher):
     https://developer.visa.com/products/merchant_search/guides
 
     :param str query_string: **Conditional**. Query string to append to URL
-    :param MerchantSearch data: **Conditional**. Instance of :func:`~visa.merchantsearch.MerchantSearch` 
+    :param MerchantSearch data: **Conditional**. Instance of :func:`~pyvdp.merchantsearch.MerchantSearch` 
     :param dict headers: **Optional**. Additional headers as dictionary
     """
 

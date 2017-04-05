@@ -1,10 +1,10 @@
 from django.conf.urls import include, url
 
 from demo.views import common
-from demo.views.visadirect import fundstransfer, mvisa, reports
+from demo.views.visadirect import fundstransfer, mvisa, reports, watchlist
 from demo.views.pav import pav
+from demo.views.dcas import cardinquiry
 from demo.views.merchantsearch import search
-from demo.views.watchlist import watchlist
 from demo.views.paai.fundstransferattinq.cardattributes.fundstransferinquiry import funds_transfer_inquiry
 from demo.views.paai.generalattinq.cardattributes.generalinquiry import general_inquiry
 
@@ -25,6 +25,11 @@ urlpatterns = [
     url(r'^pav$', common.pav, name='pav'),
     url(r'^pav/', include([
         url(r'^cardvalidation$', pav.card_validation, name='pav_cardvalidation')
+    ])),
+    # Digital card and account services
+    url(r'^dcas$', common.dcas, name='dcas'),
+    url(r'^dcas/', include([
+        url(r'^cardinquiry$', cardinquiry.debit_card_inquiry, name='dcas_debitcardinquiry')
     ])),
     # VISA Direct methods urls
     url(r'^visadirect$', common.visa_direct, name='vd'),
@@ -48,10 +53,10 @@ urlpatterns = [
         url(r'^reports/', include([
             url(r'^transactiondata$', reports.transactiondata, name='vd_reports_transactiondata'),
         ])),
+        # WatchList Inquiry methods urls
+        url(r'^watchlist$', watchlist.index, name='vd_wl'),
+        url(r'^watchlist/', include([
+            url(r'^inquiry$', watchlist.inquiry, name='vd_wl_inquiry')
+        ]))
     ])),
-    # WatchList Inquiry methods urls
-    url(r'^watchlist$', common.watchlist, name='wl'),
-    url(r'^watchlist/', include([
-        url(r'^inquiry$', watchlist.inquiry, name='wl_inquiry')
-    ]))
 ]

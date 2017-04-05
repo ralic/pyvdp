@@ -12,4 +12,6 @@ API Documentation
     pyvdp/pav/card_validation
     pyvdp/merchantsearch/search
     pyvdp/paai/index
+    pyvdp/dcas/index
+
 
