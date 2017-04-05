@@ -27,9 +27,9 @@ Usage
 Data Objects
 ++++++++++++
 
--------
-PavData
--------
+------------------------
+PaymentAccountValidation
+------------------------
 
-.. autoclass:: pyvdp.pav.PavData
+.. autoclass:: pyvdp.pav.PaymentAccountValidation
    :members:

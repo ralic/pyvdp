@@ -3,13 +3,16 @@ import time
 from datetime import datetime
 
 
-class MerchantSearchData(object):
+class MerchantSearch(object):
     """Visa Merchant Search data object model.
     
-    :param MerchantSearchHeader header: **Required**. Instance of :func:`~pyvdp.merchantsearch.MerchantSearchData.MerchantSearchHeader`
-    :param MerchantSearchAttrList search_attrs: **Required**. Instance of :func:`~pyvdp.merchantsearch.MerchantSearchData.MerchantSearchAttrList`
+    :param MerchantSearchHeader header: **Required**. 
+        Instance of :func:`~pyvdp.merchantsearch.MerchantSearch.MerchantSearchHeader`
+    :param MerchantSearchAttrList search_attrs: **Required**. 
+        Instance of :func:`~pyvdp.merchantsearch.MerchantSearch.MerchantSearchAttrList`
     :param list response_attrs: **Required**. A list with attributes (Group Names) to include in response.
-    :param MerchantSearchOptions options: **Required**. Instance of :func:`~pyvdp.merchantsearch.MerchantSearchData.MerchantSearchOptions`
+    :param MerchantSearchOptions options: **Required**. 
+        Instance of :func:`~pyvdp.merchantsearch.MerchantSearch.MerchantSearchOptions`
 
     **Example:**
         ..  code-block:: json
@@ -62,7 +65,7 @@ class MerchantSearchData(object):
     class MerchantSearchHeader(object):
         """MerchantSearch header data object model.
 
-        Part of MerchantSearchData object.
+        Part of MerchantSearch object.
 
         :param str message_id: **Optional**. Unique string ID for service request. String 50 characters max. Default
             'Request_' + epoch
@@ -95,7 +98,7 @@ class MerchantSearchData(object):
     class MerchantSearchAttrList(object):
         """MerchantSearch searchAttrList data object model.
 
-        Part of MerchantSearchData object.
+        Part of MerchantSearch object.
 
         :param str merchant_name: **Conditional**. Name of the merchant. Optional when any one of VisaMerchantId or
             VisaStoreId or BusinessRegistrationId or MerchantUrl or AcquirerCardAcceptorId is provided.

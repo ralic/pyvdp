@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-class PaymentAccountAttributesInquiryData(object):
+class PaymentAccountAttributesInquiry(object):
     """Parent class for PAAI APIs.
     
     Implements generation of RRN and population of systemsTraceAuditNumber (STAN) attribute/

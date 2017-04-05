@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.pav import PavData
+from pyvdp.pav import PaymentAccountValidation
 from pyvdp.visadirect import CardAcceptor
 from pyvdp.pav import cardvalidation
 
@@ -38,10 +38,10 @@ def card_validation(request):
                 'card_expiry_date': expiry_date,
                 'cvv2': cvv2,
                 'card_acceptor': CardAcceptor(**ca_kwargs),
-                'avr': PavData.AddressVerificationResults(**avr_kwargs)
+                'avr': PaymentAccountValidation.AddressVerificationResults(**avr_kwargs)
             }
 
-            data = PavData(**pav_kwargs)
+            data = PaymentAccountValidation(**pav_kwargs)
 
             result = cardvalidation.send(data=data)
 

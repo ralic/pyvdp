@@ -13,7 +13,7 @@ from pyvdp.exceptions import (VisaTimeoutError,
                               VisaNotFoundError,
                               VisaGeneralError)
 from pyvdp.dispatcher import VisaDispatcher
-from pyvdp.visadirect.data import VisaDirectTransaction
+from pyvdp.visadirect import VisaDirectTransaction
 
 
 @requests_mock.Mocker()

@@ -1,6 +1,6 @@
 import unittest
 
-from pyvdp.pav import PavData
+from pyvdp.pav import PaymentAccountValidation
 
 
 class TestPavData(unittest.TestCase):
@@ -18,7 +18,7 @@ class TestPavData(unittest.TestCase):
             'card_acceptor': object
         }
 
-        data = PavData(**params)
+        data = PaymentAccountValidation(**params)
 
         attrs = [
             'systemsTraceAuditNumber',
@@ -44,7 +44,7 @@ class TestAddressVerificationResults(unittest.TestCase):
             'postal_code': '123456'
         }
 
-        data = PavData.AddressVerificationResults(**params)
+        data = PaymentAccountValidation.AddressVerificationResults(**params)
 
         attrs = [
             'street',

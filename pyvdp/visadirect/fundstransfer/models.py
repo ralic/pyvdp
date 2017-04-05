@@ -1,4 +1,4 @@
-from pyvdp.visadirect.data import VisaDirectTransaction, VisaDirectTransactionBatch
+from pyvdp.visadirect.models import VisaDirectTransaction, VisaDirectTransactionBatch
 
 
 class PullFundsTransaction(VisaDirectTransaction):

@@ -1,2 +1,2 @@
-from .data import MerchantSearchData
+from .models import MerchantSearch
 from .dispatcher import VisaMerchantSearchDispatcher

@@ -1,10 +1,10 @@
-class PavData(object):
+class PaymentAccountValidation(object):
     """Visa Payment Account Validation Object data object model.
 
     :param int stan: **Required**. Systems Trace Audit Number (STAN), 6-digits integer.
     :param str pan: **Required**. Primary Account Number (PAN), 13-19 digits string.
     :param str card_expiry_date: **Conditional**. Card expiration date, YYYY-MM. Required when cvv2 is present.
-    :param PavAddressVerificationResults avr: **Conditional**. Instance of :func:`~pyvdp.pav.PavData.PavAddressVerificationResults`
+    :param PavAddressVerificationResults avr: **Conditional**. Instance of :func:`~pyvdp.pav.PaymentAccountValidation.PavAddressVerificationResults`
     :param str cvv2: **Conditional**. Card CVV2 value. 3-4 characters string.
     :param int acquiring_bin: **Optional**. Bank identification number under which a funds transfer is registered.
         6-11 digits integer.
@@ -58,10 +58,10 @@ class PavData(object):
         
         A subclass for Payment Account Validation data object model.
         
-        :param str street: **Conditional**. Street address for card holder. Required when :func:`~pyvdp.pav.PavData.cvv2`
+        :param str street: **Conditional**. Street address for card holder. Required when :func:`~pyvdp.pav.PaymentAccountValidation.cvv2`
             is not present. 1-20 characters string.
         :param str postal_code: **Conditional**. Postal code for card holder address. Required when 
-            :func:`~pyvdp.pav.PavData.cvv2` is not present. 1-20 characters string. 
+            :func:`~pyvdp.pav.PaymentAccountValidation.cvv2` is not present. 1-20 characters string. 
         """
         ATTR_MAPPINGS = {
             'street': 'street',

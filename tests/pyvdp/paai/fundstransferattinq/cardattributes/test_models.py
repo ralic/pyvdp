@@ -1,6 +1,6 @@
 import unittest
 
-from pyvdp.paai.fundstransferattinq.cardattributes import FundsTransferInquiryData
+from pyvdp.paai.fundstransferattinq.cardattributes import FundsTransferInquiry
 
 
 class TestFundsTransferInquiryData(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestFundsTransferInquiryData(unittest.TestCase):
             'acquirer_country_code': 123,
         }
 
-        data = FundsTransferInquiryData(**params)
+        data = FundsTransferInquiry(**params)
 
         attrs = [
             'primaryAccountNumber',

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.paai.fundstransferattinq.cardattributes import fundstransferinquiry, FundsTransferInquiryData
+from pyvdp.paai.fundstransferattinq.cardattributes import fundstransferinquiry, FundsTransferInquiry
 
 from demo.forms.paai.fundstransferattinq.cardattributes.fundstransferinquiry import FundsTransferInquiryPostForm
 
@@ -16,7 +16,7 @@ def funds_transfer_inquiry(request):
                 'pan': pan,
             }
 
-            data = FundsTransferInquiryData(**ftid_kwargs)
+            data = FundsTransferInquiry(**ftid_kwargs)
 
             result = fundstransferinquiry.send(data=data)
 

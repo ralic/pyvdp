@@ -1,4 +1,4 @@
-class GeneralInquiryData(object):
+class GeneralInquiry(object):
     """General Card Attributes Inquiry data object model.
 
     :param str pan: **Required**. Primary account number (PAN). 13-19 characters string.

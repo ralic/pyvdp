@@ -20,7 +20,11 @@ Usage
 Data Objects
 ++++++++++++
 
-..  autoclass:: pyvdp.paai.generalattinq.cardattributes.GeneralInquiryData
+--------------
+GeneralInquiry
+--------------
+
+..  autoclass:: pyvdp.paai.generalattinq.cardattributes.GeneralInquiry
     :members:
 
 

@@ -20,13 +20,13 @@ Usage
 ..  automodule:: pyvdp.merchantsearch.search
     :members:
 
-++++++++++++
-Data objects
-++++++++++++
++++++++++++
+Data models
++++++++++++
 
-------------------
-MerchantSearchData
-------------------
+--------------
+MerchantSearch
+--------------
 
-..  autoclass:: pyvdp.merchantsearch.MerchantSearchData
+..  autoclass:: pyvdp.merchantsearch.MerchantSearch
     :members:

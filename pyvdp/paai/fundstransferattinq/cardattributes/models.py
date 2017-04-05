@@ -1,8 +1,8 @@
 from datetime import datetime
-from pyvdp.paai import PaymentAccountAttributesInquiryData
+from pyvdp.paai import PaymentAccountAttributesInquiry
 
 
-class FundsTransferInquiryData(PaymentAccountAttributesInquiryData):
+class FundsTransferInquiry(PaymentAccountAttributesInquiry):
     """Funds Transfer Inquiry data object model.
 
     :param str pan: **Required**. Primary account number (PAN). 13-19 characters string.
@@ -26,7 +26,7 @@ class FundsTransferInquiryData(PaymentAccountAttributesInquiryData):
     }
 
     def __init__(self, stan, **kwargs):
-        super(FundsTransferInquiryData, self).__init__(stan, **kwargs)
+        super(FundsTransferInquiry, self).__init__(stan, **kwargs)
         self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
 
         self.systemsTraceAuditNumber = stan

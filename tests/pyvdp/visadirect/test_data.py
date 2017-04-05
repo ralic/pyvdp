@@ -1,12 +1,12 @@
 import unittest
 from datetime import datetime
 
-from pyvdp.visadirect.data import CardAcceptor
-from pyvdp.visadirect.data import MerchantVerificationValue
-from pyvdp.visadirect.data import VisaDirectTransaction
-from pyvdp.visadirect.data import OriginalDataElements
-from pyvdp.visadirect.data import PointOfServiceCapability
-from pyvdp.visadirect.data import PointOfServiceData
+from pyvdp.visadirect.models import CardAcceptor
+from pyvdp.visadirect.models import MerchantVerificationValue
+from pyvdp.visadirect.models import VisaDirectTransaction
+from pyvdp.visadirect.models import OriginalDataElements
+from pyvdp.visadirect.models import PointOfServiceCapability
+from pyvdp.visadirect.models import PointOfServiceData
 
 STAN = '123456'
 

@@ -25,7 +25,11 @@ Usage
 Data Objects
 ++++++++++++
 
-..  autoclass:: pyvdp.paai.fundstransferattinq.cardattributes.FundsTransferInquiryData
+--------------------
+FundsTransferInquiry
+--------------------
+
+..  autoclass:: pyvdp.paai.fundstransferattinq.cardattributes.FundsTransferInquiry
     :members:
 
 ..  _PullFundsTransactions (AFT):

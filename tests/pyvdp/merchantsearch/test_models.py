@@ -1,6 +1,6 @@
 import unittest
 
-from pyvdp.merchantsearch import MerchantSearchData
+from pyvdp.merchantsearch import MerchantSearch
 
 
 class TestMerchantSearchData(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestMerchantSearchData(unittest.TestCase):
             'options': object
         }
 
-        data = MerchantSearchData(**params)
+        data = MerchantSearch(**params)
 
         attrs = [
             'header',
@@ -36,7 +36,7 @@ class TestMerchantSearchHeader(unittest.TestCase):
             'start_index': 0
         }
 
-        data = MerchantSearchData.MerchantSearchHeader(**params)
+        data = MerchantSearch.MerchantSearchHeader(**params)
 
         attrs = [
             'requestMessageId',
@@ -67,7 +67,7 @@ class TestMerchantSearchAttrList(unittest.TestCase):
             'acquiring_bin': '123',
         }
 
-        data = MerchantSearchData.MerchantSearchAttrList(**params)
+        data = MerchantSearch.MerchantSearchAttrList(**params)
 
         attrs = [
             'merchantName',
@@ -99,7 +99,7 @@ class TestMerchantSearchOptions(unittest.TestCase):
             'match_score': '123',
         }
 
-        data = MerchantSearchData.MerchantSearchOptions(**params)
+        data = MerchantSearch.MerchantSearchOptions(**params)
 
         attrs = [
             'maxRecords',

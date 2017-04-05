@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.paai.generalattinq.cardattributes import generalinquiry, GeneralInquiryData
+from pyvdp.paai.generalattinq.cardattributes import generalinquiry, GeneralInquiry
 
 from demo.forms.paai.generalattinq.cardattributes.generalinquiry import GeneralInquiryPostForm
 
@@ -15,7 +15,7 @@ def general_inquiry(request):
                 'pan': pan
             }
 
-            data = GeneralInquiryData(**gid_kwargs)
+            data = GeneralInquiry(**gid_kwargs)
 
             result = generalinquiry.send(data=data)
 

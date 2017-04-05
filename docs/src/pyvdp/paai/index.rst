@@ -25,9 +25,9 @@ Dispatcher
 Data objects
 ++++++++++++
 
------------------------------------
-PaymentAccountAttributesInquiryData
------------------------------------
+-------------------------------
+PaymentAccountAttributesInquiry
+-------------------------------
 
-.. autoclass:: pyvdp.paai.PaymentAccountAttributesInquiryData
+.. autoclass:: pyvdp.paai.PaymentAccountAttributesInquiry
    :members:

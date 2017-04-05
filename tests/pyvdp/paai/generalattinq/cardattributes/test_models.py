@@ -1,6 +1,6 @@
 import unittest
 
-from pyvdp.paai.generalattinq.cardattributes import GeneralInquiryData
+from pyvdp.paai.generalattinq.cardattributes import GeneralInquiry
 
 
 class TestGeneralInquiryData(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestGeneralInquiryData(unittest.TestCase):
             'pan': '1234567812345678',
         }
 
-        data = GeneralInquiryData(**params)
+        data = GeneralInquiry(**params)
 
         attrs = [
             'primaryAccountNumber',

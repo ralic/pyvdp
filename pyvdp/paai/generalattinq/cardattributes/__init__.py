@@ -1,1 +1,1 @@
-from .data import GeneralInquiryData
+from .models import GeneralInquiry
