@@ -33,10 +33,10 @@ I could have given a long marketing speech, instead here's an example on how to 
 Validation API](https://developer.visa.com/products/pav) using PyVDP:
 
 ```python
-from visa.pav.data import PavTransaction
-from visa.pav import cardvalidation 
+from pyvdp.pav import PaymentAccountValidation
+from pyvdp.pav import cardvalidation 
 
-data = PavTransaction(stan=123456, 
+data = PaymentAccountValidation(stan=123456, 
                       pan='1234567812345678', 
                       expiry_date='02-2020', 
                       cvv2='123')
@@ -139,8 +139,8 @@ etc.
 
 This is an example code for creating a data object for [FundsTransfer PushFundsTransaction](https://developer.visa.com/products/visa_direct/reference#visa_direct__funds_transfer__v1__pushfunds):
 ```python
-from visa.visadirect.data import CardAcceptor
-from visa.visadirect.fundstransfer.data import PushFundsTransaction
+from pyvdp.visadirect import CardAcceptor
+from pyvdp.visadirect.fundstransfer import PushFundsTransaction
 
 # CardAcceptor is nested within PushTransaction object. CardAcceptor is specific for VisaDirect APIs, so it is located 
 # in visadirect.data.card_acceptor module.
@@ -166,9 +166,9 @@ With PyVDP, all you need to do is to call a `send()` function from corresponding
 argument. Taking example above, your code will look like:
 
 ```python
-from visa.visadirect.fundstransfer import push_funds
+from pyvdp.visadirect.fundstransfer import pushfunds
 
-push_funds.send(transaction=t)
+pushfunds.send(data=t)
 ```
 
 Under the hood, instance of `PushTransaction` with nested `CardAcceptor` will be serialized to JSON and passed to VDP
@@ -199,9 +199,9 @@ Anyway, here's a snippet, that retrieves a status of specific PushFunds transact
 with `202` response:
 
 ```python
-from visa.visadirect.fundstransfer import push_funds
+from pyvdp.visadirect.fundstransfer import pushfunds
 
-push_funds.get(status_id='1488805457_180_64_l73c034_VDP_ARM')
+pushfunds.get(query='1488805457_180_64_l73c034_VDP_ARM')
 ```
 
 ### Advanced usage ###
