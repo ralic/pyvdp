@@ -13,5 +13,7 @@ API Documentation
     pyvdp/merchantsearch/search
     pyvdp/paai/index
     pyvdp/dcas/index
+    pyvdp/forexrates/index
+
 
 
