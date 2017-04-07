@@ -24,9 +24,9 @@ Usage
 Data models
 +++++++++++
 
---------------
-MerchantSearch
---------------
+-------------------
+MerchantSearchModel
+-------------------
 
-..  autoclass:: pyvdp.merchantsearch.MerchantSearch
+..  autoclass:: pyvdp.merchantsearch.MerchantSearchModel
     :members:

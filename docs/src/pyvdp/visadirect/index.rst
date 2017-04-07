@@ -26,9 +26,9 @@ Dispatcher
 Data objects
 ++++++++++++
 
----------------------
+--------------------------
 VisaDirectTransactionModel
----------------------
+--------------------------
 
 .. autoclass:: pyvdp.visadirect.VisaDirectTransactionModel
    :members:
@@ -36,16 +36,16 @@ VisaDirectTransactionModel
 .. autoclass:: pyvdp.visadirect.VisaDirectTransactionBatchModel
    :members:
 
-------------
+-----------------
 CardAcceptorModel
-------------
+-----------------
 
 .. autoclass:: pyvdp.visadirect.CardAcceptorModel
    :members:
 
---------------------
+-------------------------
 OriginalDataElementsModel
---------------------
+-------------------------
 
 .. autoclass:: pyvdp.visadirect.OriginalDataElementsModel
    :members:

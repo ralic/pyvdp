@@ -46,9 +46,9 @@ Data objects
 
 ..  _pull_funds_transaction:
 
---------------------
+-------------------------
 PullFundsTransactionModel
---------------------
+-------------------------
 
 .. autoclass:: pyvdp.visadirect.fundstransfer.PullFundsTransactionModel
    :members:

@@ -20,11 +20,11 @@ Usage
 Data Objects
 ++++++++++++
 
---------------
-GeneralInquiry
---------------
+-------------------
+GeneralInquiryModel
+-------------------
 
-..  autoclass:: pyvdp.paai.generalattinq.cardattributes.GeneralInquiry
+..  autoclass:: pyvdp.paai.generalattinq.cardattributes.GeneralInquiryModel
     :members:
 
 

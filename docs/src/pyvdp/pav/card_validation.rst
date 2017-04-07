@@ -27,9 +27,9 @@ Usage
 Data Objects
 ++++++++++++
 
-------------------------
+-----------------------------
 PaymentAccountValidationModel
-------------------------
+-----------------------------
 
 .. autoclass:: pyvdp.pav.PaymentAccountValidationModel
    :members:

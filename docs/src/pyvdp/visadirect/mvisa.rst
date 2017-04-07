@@ -62,9 +62,9 @@ MerchantPushPaymentTransactionModel
 .. autoclass:: pyvdp.visadirect.mvisa.MerchantPushPaymentTransactionModel
    :members:
 
-------------------
+-----------------------
 PurchaseIdentifierModel
-------------------
+-----------------------
 
 .. autoclass:: pyvdp.visadirect.mvisa.PurchaseIdentifierModel
    :members:

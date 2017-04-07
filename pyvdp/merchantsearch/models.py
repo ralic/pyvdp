@@ -69,8 +69,7 @@ class MerchantSearchModel(object):
 
         Part of MerchantSearch object.
 
-        :param str requestMessageId: **Optional**. Unique string ID for service request. String 50 characters max. Default
-            'Request_' + epoch
+        :param str requestMessageId: **Optional**. Unique string ID. String 50 characters max. 
         :param int startIndex: **Optional**. Starting records index in response.
         """
 
