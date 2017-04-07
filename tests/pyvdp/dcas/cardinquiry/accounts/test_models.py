@@ -7,39 +7,30 @@ class TestCardInquiryModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'direct_dan': '0987654321',
-            'routing_number': '0987654321',
-            'cardholder_name': object,
+        attrs = {
+            'directDebitAccountNumber': '0987654321',
+            'routingNumber': '0987654321',
+            'cardholderName': object,
         }
 
-        data = CardInquiryModel(**params)
+        model = CardInquiryModel(**attrs)
 
-        attrs = [
-            'directDebitAccountNumber',
-            'routingNumber',
-            'cardholderName',
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
 class TestCardholderName(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'first_name': 'John',
-            'last_name': 'Doe',
+        attrs = {
+            'firstName': 'John',
+            'lastName': 'Doe',
         }
 
-        data = CardInquiryModel.CardholderName(**params)
+        model = CardInquiryModel.CardholderName(**attrs)
 
-        attrs = [
-            'firstName',
-            'lastName',
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)

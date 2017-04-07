@@ -1,7 +1,7 @@
-class GeneralInquiry(object):
+class GeneralInquiryModel(object):
     """General Card Attributes Inquiry data object model.
 
-    :param str pan: **Required**. Primary account number (PAN). 13-19 characters string.
+    :param str primaryAccountNumber: **Required**. Primary account number (PAN). 13-19 characters string.
 
     **Example:**
         ..  code-block:: json
@@ -10,9 +10,11 @@ class GeneralInquiry(object):
                 "primaryAccountNumber": "4465390000029077"
             }
     """
-    ATTR_MAPPINGS = {
-        'pan': 'primaryAccountNumber'
-    }
+    ATTRS = [
+        'primaryAccountNumber'
+    ]
 
     def __init__(self, **kwargs):
-        self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
+        for attr, value in kwargs.items():
+            if attr in self.ATTRS and value:
+                self.__setattr__(attr, value)

@@ -1,4 +1,4 @@
-from pyvdp.merchantsearch import MerchantSearch, VisaMerchantSearchDispatcher
+from pyvdp.merchantsearch import VisaMerchantSearchDispatcher
 
 
 def send(data):

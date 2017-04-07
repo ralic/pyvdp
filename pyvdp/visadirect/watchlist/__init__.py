@@ -1,1 +1,1 @@
-from .models import WatchlistData
+from .models import WatchlistDataModel

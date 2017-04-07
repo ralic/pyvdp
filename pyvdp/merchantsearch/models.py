@@ -3,16 +3,16 @@ import time
 from datetime import datetime
 
 
-class MerchantSearch(object):
+class MerchantSearchModel(object):
     """Visa Merchant Search data object model.
     
     :param MerchantSearchHeader header: **Required**. 
-        Instance of :func:`~pyvdp.merchantsearch.MerchantSearch.MerchantSearchHeader`
-    :param MerchantSearchAttrList search_attrs: **Required**. 
-        Instance of :func:`~pyvdp.merchantsearch.MerchantSearch.MerchantSearchAttrList`
-    :param list response_attrs: **Required**. A list with attributes (Group Names) to include in response.
-    :param MerchantSearchOptions options: **Required**. 
-        Instance of :func:`~pyvdp.merchantsearch.MerchantSearch.MerchantSearchOptions`
+        Instance of :func:`~pyvdp.merchantsearch.MerchantSearchModel.MerchantSearchHeader`
+    :param MerchantSearchAttrList searchAttrList: **Required**. 
+        Instance of :func:`~pyvdp.merchantsearch.MerchantSearchModel.MerchantSearchAttrList`
+    :param list responseAttrList: **Required**. A list with attributes (Group Names) to include in response.
+    :param MerchantSearchOptions searchOptions: **Required**.
+        Instance of :func:`~pyvdp.merchantsearch.MerchantSearchModel.MerchantSearchOptions`
 
     **Example:**
         ..  code-block:: json
@@ -52,36 +52,38 @@ class MerchantSearch(object):
                 }
             }
     """
-    ATTR_MAPPINGS = {
-        'header': 'header',
-        'search_attr_list': 'searchAttrList',
-        'response_attr_list': 'responseAttrList',
-        'options': 'searchOptions'
-    }
+    ATTRS = [
+        'header',
+        'searchAttrList',
+        'responseAttrList',
+        'searchOptions'
+    ]
 
     def __init__(self, **kwargs):
-        self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
+        for attr, value in kwargs.items():
+            if attr in self.ATTRS and value:
+                self.__setattr__(attr, value)
 
     class MerchantSearchHeader(object):
         """MerchantSearch header data object model.
 
         Part of MerchantSearch object.
 
-        :param str message_id: **Optional**. Unique string ID for service request. String 50 characters max. Default
+        :param str requestMessageId: **Optional**. Unique string ID for service request. String 50 characters max. Default
             'Request_' + epoch
-        :param int start_index: **Optional**. Starting records index in response.
+        :param int startIndex: **Optional**. Starting records index in response.
         """
 
         def __init__(self, **kwargs):
             self.messageDateTime = self._get_datetime()
 
-            if kwargs and 'message_id' in kwargs:
-                self.requestMessageId = kwargs['message_id']
+            if kwargs and 'requestMessageId' in kwargs:
+                self.requestMessageId = kwargs['requestMessageId']
             else:
                 self.requestMessageId = self._get_message_id()
 
-            if kwargs and 'start_index' in kwargs:
-                self.startIndex = kwargs['start_index']
+            if kwargs and 'startIndex' in kwargs.items():
+                self.startIndex = kwargs['startIndex']
             else:
                 self.startIndex = 0
 
@@ -100,70 +102,76 @@ class MerchantSearch(object):
 
         Part of MerchantSearch object.
 
-        :param str merchant_name: **Conditional**. Name of the merchant. Optional when any one of VisaMerchantId or
+        :param str merchantName: **Conditional**. Name of the merchant. Optional when any one of VisaMerchantId or
             VisaStoreId or BusinessRegistrationId or MerchantUrl or AcquirerCardAcceptorId is provided.
-        :param str merchant_street_address: **Conditional**. Merchant street address.
-        :param str merchant_city: **Conditional**. City of the registered merchant.
-        :param str merchant_state: **Conditional**. Merchant state code. 2 characters string.
-        :param str merchant_postal_code: **Conditional**. Merchant postal code.
-        :param int merchant_country_code: **Conditional**. Merchant country code, mandatory with merchant_name.
-        :param int merchant_phone_number: **Conditional**. Merchant phone number.
-        :param str merchant_url: **Conditional**. Merchant registered URL. Optional when any one of MerchantName or
+        :param str merchantStreetAddress: **Conditional**. Merchant street address.
+        :param str merchantCity: **Conditional**. City of the registered merchant.
+        :param str merchantState: **Conditional**. Merchant state code. 2 characters string.
+        :param str merchantPostalCode: **Conditional**. Merchant postal code.
+        :param int merchantCountryCode: **Conditional**. Merchant country code, mandatory with merchant_name.
+        :param int merchantPhoneNumber: **Conditional**. Merchant phone number.
+        :param str merchantUrl: **Conditional**. Merchant registered URL. Optional when any one of MerchantName or
             VisaMerchantId or VisaStoreId or BusinessRegistrationId or AcquirerCardAcceptorId is provided.
-        :param int visa_merchant_id: **Conditional**. Merchant ID provided by VISA. Optional when any one of MerchantName
+        :param int visaMerchantId: **Conditional**. Merchant ID provided by VISA. Optional when any one of MerchantName
             or VisaStoreId or BusinessRegistrationId or MerchantUrl or AcquirerCardAcceptorId is provided. 8 characters
             double.
-        :param int visa_store_id: **Conditional**. Merchant store/branch ID, provided by VISA. Optional when any one of
+        :param int visaStoreId: **Conditional**. Merchant store/branch ID, provided by VISA. Optional when any one of
             MerchantName or VisaMerchantId or BusinessRegistrationId or MerchantUrl or AcquirerCardAcceptorId is provided.
             9 characters double.
-        :param str business_registration_id: **Conditional**. Merchant business/tax registration ID. Optional when any
-            one of MerchantName or VisaMerchantId or VisaStoreId or MerchantUrl or AcquirerCardAcceptorId is provided.
-        :param str merchant_url: **Required**. Merchant registered URL. Optional when any one of MerchantName or
-            VisaMerchantId or VisaStoreId or BusinessRegistrationId or AcquirerCardAcceptorId is provided.
-        :param str acquirer_card_acceptor_id: **Required**. Acquirer card acceptor ID. Optional when any one of
-            MerchantName or VisaMerchantId or VisaStoreId or BusinessRegistrationId or MerchantUrl is provided. 15 digits
+        :param str businessRegistrationId: **Conditional**. Merchant business/tax registration ID. Optional when any
+            one of merchantName or visaMerchantId or visaStoreId or merchantUrl or acquirerCardAcceptorId is provided.
+        :param str merchant_url: **Required**. Merchant registered URL. Optional when any one of merchantName or
+            visaMerchantId or visaStoreId or businessRegistrationId or acquirerCardAcceptorId is provided.
+        :param str acquirerCardAcceptorId: **Required**. Acquirer card acceptor ID. Optional when any one of
+            merchantName or visaMerchantId or visaStoreId or businessRegistrationId or merchantUrl is provided. 15 digits
             string. Prepend 0 if less than 15 digits.
-        :param int acquiring_bin: **Required**. Acquirer business identification number. Required when
-            AcquirerCardAcceptorId is provided.
+        :param int acquiringBin: **Required**. Acquirer business identification number. Required when
+            acquirerCardAcceptorId is provided.
         """
 
-        ATTR_MAPPINGS = {
-            'merchant_name': 'merchantName',
-            'merchant_street_address': 'merchantStreetAddress',
-            'merchant_city': 'merchantCity',
-            'merchant_state': 'merchantState',
-            'merchant_postal_code': 'merchantPostalCode',
-            'merchant_country_code': 'merchantCountryCode',
-            'merchant_phone_number': 'merchantPhoneNumber',
-            'merchant_url': 'merchantUrl',
-            'visa_merchant_id': 'visaMerchantId',
-            'visa_store_id': 'visaStoreId',
-            'business_registration_id': 'businessRegistrationId',
-            'acquirer_card_acceptor_id': 'acquirerCardAcceptorId',
-            'acquiring_bin': 'acquiringBin',
-        }
+        ATTRS = [
+            'merchantName',
+            'merchantStreetAddress',
+            'merchantCity',
+            'merchantState',
+            'merchantPostalCode',
+            'merchantCountryCode',
+            'merchantPhoneNumber',
+            'merchantUrl',
+            'visaMerchantId',
+            'visaStoreId',
+            'businessRegistrationId',
+            'acquirerCardAcceptorId',
+            'acquiringBin',
+        ]
 
         def __init__(self, **kwargs):
-            self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
+            for attr, value in kwargs.items():
+                if attr in self.ATTRS and value:
+                    self.__setattr__(attr, value)
 
     class MerchantSearchOptions(object):
         """MerchantSearch searchOptions data object model.
 
         Part of MerchantSearch data object.
 
-        :param int max_records: **Optional**. Maximum number of records in response. Default 25.
-        :param bool match_indicators: **Optional**. Show request attributes, that match a record.
-        :param bool match_score: **Optional**. Add matchScore and order response per matchScore.
+        :param int maxRecords: **Optional**. Maximum number of records in response. Default 25.
+        :param bool matchIndicators: **Optional**. Show request attributes, that match a record.
+        :param bool matchScore: **Optional**. Add matchScore and order response per matchScore.
         :param list proximity: **Optional**. Proximity search on merchant name. If wildcards are used, proximity is 
             ignored.
         :param list wildcards: **Optional**. Wildcard search on merchant name.
         """
 
-        ATTR_MAPPINGS = {
-            'max_records': 'maxRecords',
-            'match_indicators': 'matchIndicators',
-            'match_score': 'matchScore',
-        }
+        ATTRS = [
+            'maxRecords',
+            'matchIndicators',
+            'matchScore',
+            'proximity',
+            'wildcards'
+        ]
 
         def __init__(self, **kwargs):
-            self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
+            for attr, value in kwargs.items():
+                if attr in self.ATTRS and value:
+                    self.__setattr__(attr, value)

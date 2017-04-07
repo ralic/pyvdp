@@ -1,112 +1,83 @@
 import unittest
 
-from pyvdp.merchantsearch import MerchantSearch
+from pyvdp.merchantsearch import MerchantSearchModel
 
 
-class TestMerchantSearchData(unittest.TestCase):
+class TestMerchantSearchModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
+        attrs = {
             'header': object,
-            'search_attr_list': object,
-            'response_attr_list': list,
-            'options': object
+            'searchAttrList': object,
+            'responseAttrList': list,
+            'searchOptions': object
         }
 
-        data = MerchantSearch(**params)
+        model = MerchantSearchModel(**attrs)
 
-        attrs = [
-            'header',
-            'searchAttrList',
-            'responseAttrList',
-            'searchOptions',
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
 class TestMerchantSearchHeader(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'message_id': 'Request_007',
-            'start_index': 0
+        attrs = {
+            'requestMessageId': 'Request_007',
+            'startIndex': 0
         }
 
-        data = MerchantSearch.MerchantSearchHeader(**params)
+        model = MerchantSearchModel.MerchantSearchHeader(**attrs)
 
-        attrs = [
-            'requestMessageId',
-            'startIndex'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
 class TestMerchantSearchAttrList(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'merchant_name': 'ACME',
-            'merchant_street_address': 'ELm Street',
-            'merchant_city': 'LA',
-            'merchant_state': 'CA',
-            'merchant_postal_code': '12345',
-            'merchant_country_code': '1234',
-            'merchant_phone_number': '111111111',
-            'merchant_url': 'http://localhost',
-            'visa_merchant_id': '123',
-            'visa_store_id': '123',
-            'business_registration_id': '123',
-            'acquirer_card_acceptor_id': '123',
-            'acquiring_bin': '123',
+        attrs = {
+            'merchantName': 'ACME',
+            'merchantStreetAddress': 'ELm Street',
+            'merchantCity': 'LA',
+            'merchantState': 'CA',
+            'merchantPostalCode': '12345',
+            'merchantCountryCode': '1234',
+            'merchantPhoneNumber': '111111111',
+            'merchantUrl': 'http://localhost',
+            'visaMerchantId': '123',
+            'visaStoreId': '123',
+            'businessRegistrationId': '123',
+            'acquirerCardAcceptorId': '123',
+            'acquiringBin': '123',
         }
 
-        data = MerchantSearch.MerchantSearchAttrList(**params)
+        model = MerchantSearchModel.MerchantSearchAttrList(**attrs)
 
-        attrs = [
-            'merchantName',
-            'merchantStreetAddress',
-            'merchantCity',
-            'merchantState',
-            'merchantPostalCode',
-            'merchantCountryCode',
-            'merchantPhoneNumber',
-            'merchantUrl',
-            'visaMerchantId',
-            'visaStoreId',
-            'businessRegistrationId',
-            'acquirerCardAcceptorId',
-            'acquiringBin'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
 class TestMerchantSearchOptions(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'max_records': '123',
-            'match_indicators': '123',
-            'match_score': '123',
+        attrs = {
+            'maxRecords': '123',
+            'matchIndicators': '123',
+            'matchScore': '123',
+            'proximity': 'acme',
+            'wildcards': 'acme'
         }
 
-        data = MerchantSearch.MerchantSearchOptions(**params)
+        model = MerchantSearchModel.MerchantSearchOptions(**attrs)
 
-        attrs = [
-            'maxRecords',
-            'matchIndicators',
-            'matchScore'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
-
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)

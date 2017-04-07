@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.paai.generalattinq.cardattributes import generalinquiry, GeneralInquiry
+from pyvdp.paai.generalattinq.cardattributes import generalinquiry, GeneralInquiryModel
 
 from demo.forms.paai.generalattinq.cardattributes.generalinquiry import GeneralInquiryPostForm
 
@@ -12,10 +12,10 @@ def general_inquiry(request):
             pan = form.cleaned_data['pan']
 
             gid_kwargs = {
-                'pan': pan
+                'primaryAccountNumber': pan
             }
 
-            data = GeneralInquiry(**gid_kwargs)
+            data = GeneralInquiryModel(**gid_kwargs)
 
             result = generalinquiry.send(data=data)
 

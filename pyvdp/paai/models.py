@@ -1,20 +1,20 @@
 from datetime import datetime
 
 
-class PaymentAccountAttributesInquiry(object):
+class PaymentAccountAttributesInquiryModel(object):
     """Parent class for PAAI APIs.
     
     Implements generation of RRN and population of systemsTraceAuditNumber (STAN) attribute/
     
-    :param int stan: **Required**. Systems Trace Audit Number (STAN). 6 digits integer.
-    :param str rrn: **Optional**. Optional Retrieval Reference Number. 12 characters string. If not provided,
-        generated automatically.
+    :param int systemsTraceAuditNumber: **Required**. Systems Trace Audit Number (STAN). 6 digits integer.
+    :param str retrievalReferenceNumber: **Optional**. Optional Retrieval Reference Number. 12 characters string. 
+        If not provided, generated automatically.
     """
-    def __init__(self, stan, **kwargs):
-        self.systemsTraceAuditNumber = stan
+    def __init__(self, **kwargs):
+        self.systemsTraceAuditNumber = kwargs['systemsTraceAuditNumber']
 
         try:
-            self.retrievalReferenceNumber = kwargs['rrn']
+            self.retrievalReferenceNumber = kwargs['retrievalReferenceNumber']
         except KeyError:
             self.retrievalReferenceNumber = self._get_rrn()
 

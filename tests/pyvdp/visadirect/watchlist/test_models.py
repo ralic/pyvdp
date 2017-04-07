@@ -1,47 +1,38 @@
 import unittest
 
-from pyvdp.visadirect.watchlist import WatchlistData
+from pyvdp.visadirect.watchlist import WatchlistDataModel
 
 
-class TestWatchlistData(unittest.TestCase):
+class TestWatchlistDataModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
+        attrs = {
             'name': 'Mohammed',
-            'address': {},
-            'acquiring_bin': 12345,
-            'acquirer_country_code': 123
+            'address': object,
+            'acquiringBin': 12345,
+            'acquirerCountryCode': 123
         }
 
-        ca = WatchlistData(**params)
+        model = WatchlistDataModel(**attrs)
 
-        attrs = [
-            'name',
-            'address',
-            'acquiringBin',
-            'acquirerCountryCode'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(ca, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
 class TestWatchlistDataAddress(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
+        attrs = {
             'city': 'San Francisco',
-            'issuer_country_code': 'USA',
+            'cardIssuerCountryCode': 'USA',
         }
 
-        ca = WatchlistData.WatchlistDataAddress(**params)
+        model = WatchlistDataModel.WatchlistDataAddress(**attrs)
 
-        attrs = [
-            'city',
-            'cardIssuerCountryCode',
-        ]
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
-        for attr in attrs:
-            self.assertTrue(hasattr(ca, attr), 'missing %s attribute' % attr)

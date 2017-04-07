@@ -1,14 +1,16 @@
 from datetime import datetime
-from pyvdp.paai import PaymentAccountAttributesInquiry
+from pyvdp.paai import PaymentAccountAttributesInquiryModel
 
 
-class FundsTransferInquiry(PaymentAccountAttributesInquiry):
+class FundsTransferInquiryModel(PaymentAccountAttributesInquiryModel):
     """Funds Transfer Inquiry data object model.
 
-    :param str pan: **Required**. Primary account number (PAN). 13-19 characters string.
-    :param int stan: **Required**. Systems trace audit number.  6 digits integer.
-    :param int acquiring_bin: **Optional**. BIN under which FundsTransfer app is registered. 6-11 digits integer.
-    :param int acquirer_country_code: **Optional**. 3 digits acquirer country code.
+    :param str primaryAccountNumber: **Required**. Primary account number (PAN). 13-19 characters string.
+    :param int systemsTraceAuditNumber: **Required**. Systems trace audit number.  6 digits integer.
+    :param int acquiringBin: **Optional**. BIN under which FundsTransfer app is registered. 6-11 digits integer.
+    :param int acquirerCountryCode: **Optional**. 3 digits acquirer country code.
+    :param str retrievalReferenceNumber: **Optional**. RRN. If not provided, generated automatically based on STAN.
+        12 characters string.
 
     **Example:**
         ..  code-block:: json
@@ -19,22 +21,25 @@ class FundsTransferInquiry(PaymentAccountAttributesInquiry):
                 "systemsTraceAuditNumber": "451006"
             }
     """
-    ATTR_MAPPINGS = {
-        'pan': 'primaryAccountNumber',
-        'acquiring_bin': 'acquiringBin',
-        'acquirer_country_code': 'acquirerCountryCode',
-    }
+    ATTRS = [
+        'systemsTraceAuditNumber',
+        'primaryAccountNumber',
+        'acquiringBin',
+        'acquirerCountryCode',
+        'retrievalReferenceNumber'
+    ]
 
-    def __init__(self, stan, **kwargs):
-        super(FundsTransferInquiry, self).__init__(stan, **kwargs)
-        self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
-
-        self.systemsTraceAuditNumber = stan
+    def __init__(self, **kwargs):
+        super(FundsTransferInquiryModel, self).__init__(**kwargs)
 
         try:
-            self.retrievalReferenceNumber = kwargs['rrn']
+            self.retrievalReferenceNumber = kwargs['retrievalReferenceNumber']
         except KeyError:
             self.retrievalReferenceNumber = self._get_rrn()
+
+        for attr, value in kwargs.items():
+            if attr in self.ATTRS and value:
+                self.__setattr__(attr, value)
 
     def _get_rrn(self):
         """Generates RRN (retrievalReferenceNumber).

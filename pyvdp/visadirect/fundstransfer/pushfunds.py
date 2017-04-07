@@ -8,10 +8,10 @@ METHOD = 'pushfundstransactions'
 def send(data, multi=False):
     """Submits a PushFunds (OCT) request.
 
-    :param data: **Required**. Instance of :func:`~pyvdp.visadirect.fundstransfer.PushFundsTransaction` or 
-        :func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction`.
+    :param data: **Required**. Instance of :func:`~pyvdp.visadirect.fundstransfer.PushFundsTransactionModel` or 
+        :func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransactionModel`.
     :param bool multi: **Conditional**. Indicates that transaction is a batch 
-        (:func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction`).
+        (:func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransactionModel`).
     :return: Dictionary with VDP API response.
     """
     method = METHOD
@@ -26,13 +26,13 @@ def send(data, multi=False):
 def get(query, multi=False):
     """Fetches a status of previously submitted PushFunds request.
 
-    Returns a status of :func:`~pyvdp.visadirect.fundstransfer.PushFundsTransaction` or  
-    :func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction` request by transaction identifier, returned with 
-    202 response.
+    Returns a status of :func:`~pyvdp.visadirect.fundstransfer.PushFundsTransactionModel` or  
+    :func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransactionModel` request by transaction identifier, returned 
+    with  202 response.
 
     :param str query: **Required**. Transaction status identifier.
     :param bool multi: **Conditional**. Indicates that transaction is a batch 
-        (:func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction`)
+        (:func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransactionModel`)
     :return: Dictionary with VDP API response
     """
     method = METHOD

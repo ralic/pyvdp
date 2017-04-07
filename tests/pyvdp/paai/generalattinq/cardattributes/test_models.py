@@ -1,21 +1,18 @@
 import unittest
 
-from pyvdp.paai.generalattinq.cardattributes import GeneralInquiry
+from pyvdp.paai.generalattinq.cardattributes import GeneralInquiryModel
 
 
-class TestGeneralInquiryData(unittest.TestCase):
+class TestGeneralInquiryModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'pan': '1234567812345678',
+        attrs = {
+            'primaryAccountNumber': '1234567812345678',
         }
 
-        data = GeneralInquiry(**params)
+        model = GeneralInquiryModel(**attrs)
 
-        attrs = [
-            'primaryAccountNumber',
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)

@@ -1,147 +1,103 @@
 import unittest
 
-from pyvdp.visadirect.mvisa import CashinPushPaymentTransaction, CashoutPushPaymentTransaction, \
-    MerchantPushPaymentTransaction, PurchaseIdentifier
+from pyvdp.visadirect.mvisa import (CashinPushPaymentTransactionModel,
+                                    CashoutPushPaymentTransactionModel,
+                                    MerchantPushPaymentTransactionModel,
+                                    PurchaseIdentifierModel)
 
 
-class TestCashinPushPaymentTransaction(unittest.TestCase):
+class TestCashinPushPaymentTransactionModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'stan': 123456,
-            'recipient_pan': '1234567812345678',
+        attrs = {
+            'systemsTraceAuditNumber': 123456,
+            'recipientPrimaryAccountNumber': '1234567812345678',
             'amount': 123.45,
-            'mcc': '1234',
-            'acquiring_bin': 123456,
-            'acquirer_country_code': 123,
-            'card_acceptor': object,
-            'transaction_currency_code': 'USD',
-            'business_application_id': 'CI',
-            'sender_reference': 'Agent 007',
-            'sender_account_number': '09876543210987654321',
-            'sender_name': 'Smith Agent'
+            'merchantCategoryCode': '1234',
+            'acquiringBin': 123456,
+            'acquirerCountryCode': 123,
+            'cardAcceptor': object,
+            'transactionCurrencyCode': 'USD',
+            'businessApplicationId': 'CI',
+            'senderReference': 'Agent 007',
+            'senderAccountNumber': '09876543210987654321',
+            'senderName': 'Smith Agent'
         }
 
-        data = CashinPushPaymentTransaction(**params)
+        model = CashinPushPaymentTransactionModel(**attrs)
 
-        attrs = [
-            'recipientPrimaryAccountNumber',
-            'amount',
-            'merchantCategoryCode',
-            'acquiringBin',
-            'acquirerCountryCode',
-            'cardAcceptor',
-            'transactionCurrencyCode',
-            'businessApplicationId',
-            'senderReference',
-            'senderAccountNumber',
-            'senderName'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
-class TestCashoutPushPaymentTransaction(unittest.TestCase):
+class TestCashoutPushPaymentTransactionModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'stan': 123456,
-            'recipient_pan': '1234567812345678',
+        attrs = {
+            'systemsTraceAuditNumber': 123456,
+            'recipientPrimaryAccountNumber': '1234567812345678',
             'amount': 123.45,
-            'mcc': '1234',
-            'acquiring_bin': 123456,
-            'acquirer_country_code': 123,
-            'card_acceptor': object,
-            'transaction_currency_code': 'USD',
-            'business_application_id': 'CI',
-            'sender_reference': 'Agent 007',
-            'sender_account_number': '09876543210987654321',
-            'sender_name': 'Smith Agent'
+            'merchantCategoryCode': '1234',
+            'acquiringBin': 123456,
+            'acquirerCountryCode': 123,
+            'cardAcceptor': object,
+            'transactionCurrencyCode': 'USD',
+            'businessApplicationId': 'CI',
+            'senderReference': 'Agent 007',
+            'senderAccountNumber': '09876543210987654321',
+            'senderName': 'Smith Agent'
         }
 
-        data = CashoutPushPaymentTransaction(**params)
+        model = CashoutPushPaymentTransactionModel(**attrs)
 
-        attrs = [
-            'recipientPrimaryAccountNumber',
-            'amount',
-            'merchantCategoryCode',
-            'acquiringBin',
-            'acquirerCountryCode',
-            'cardAcceptor',
-            'transactionCurrencyCode',
-            'businessApplicationId',
-            'senderReference',
-            'senderAccountNumber',
-            'senderName'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
-class TestMerchantPushPaymentTransaction(unittest.TestCase):
+class TestMerchantPushPaymentTransactionModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'stan': 123456,
-            'recipient_pan': '1234567812345678',
+        attrs = {
+            'systemsTraceAuditNumber': 123456,
+            'recipientPrimaryAccountNumber': '1234567812345678',
             'amount': 123.45,
-            'mcc': '1234',
-            'acquiring_bin': 123456,
-            'acquirer_country_code': 123,
-            'transaction_fee_amount': 12.34,
-            'card_acceptor': object,
-            'transaction_currency_code': 'USD',
-            'purchase_id': object,
-            'secondary_id': 'mypurchase',
-            'business_application_id': 'MP',
-            'sender_reference': 'Agent 007',
-            'sender_account_number': '09876543210987654321',
-            'sender_name': 'Smith Agent'
+            'merchantCategoryCode': '1234',
+            'acquiringBin': 123456,
+            'acquirerCountryCode': 123,
+            'transactionFeeAmount': 12.34,
+            'cardAcceptor': object,
+            'transactionCurrencyCode': 'USD',
+            'purchaseIdentifier': object,
+            'secondaryId': 'mypurchase',
+            'businessApplicationId': 'MP',
+            'senderReference': 'Agent 007',
+            'senderAccountNumber': '09876543210987654321',
+            'senderName': 'Smith Agent'
         }
 
-        data = MerchantPushPaymentTransaction(**params)
+        model = MerchantPushPaymentTransactionModel(**attrs)
 
-        attrs = [
-            'recipientPrimaryAccountNumber',
-            'amount',
-            'merchantCategoryCode',
-            'acquiringBin',
-            'acquirerCountryCode',
-            'transactionFeeAmount',
-            'cardAcceptor',
-            'transactionCurrencyCode',
-            'purchaseIdentifier',
-            'secondaryId',
-            'businessApplicationId',
-            'senderReference',
-            'senderAccountNumber',
-            'senderName'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
-class TestPurchaseIdentifier(unittest.TestCase):
+class TestPurchaseIdentifierModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
+        attrs = {
             'type': '0',
-            'reference_number': 'ABC123'
+            'referenceNumber': 'ABC123'
         }
 
-        data = PurchaseIdentifier(**params)
+        model = PurchaseIdentifierModel(**attrs)
 
-        attrs = [
-            'type',
-            'referenceNumber'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)

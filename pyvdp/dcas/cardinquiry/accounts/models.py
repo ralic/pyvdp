@@ -1,9 +1,9 @@
 class CardInquiryModel(object):
     """Card Inquiry data model.
     
-    :param str direct_dan: **Required**. Direct debit account number. 6-22 characters string.
-    :param str routing_number: **Required**. Routing number. 6-12 characters string.
-    :param CardholderName cardholder_name: **Optional**. 
+    :param str directDebitAccountNumber: **Required**. Direct debit account number. 6-22 characters string.
+    :param str routingNumber: **Required**. Routing number. 6-12 characters string.
+    :param CardholderName cardholderName: **Optional**. 
         Instance of :func:`~pyvdp.dcas.cardinquiry.accounts.CardInquiryModel.CardholderName`
     
     **Example:**
@@ -18,27 +18,31 @@ class CardInquiryModel(object):
                 }
             }
     """
-    ATTR_MAPPINGS = {
-        'direct_dan': 'directDebitAccountNumber',
-        'routing_number': 'routingNumber',
-        'cardholder_name': 'cardholderName'
-    }
+    ATTRS = [
+        'directDebitAccountNumber',
+        'routingNumber',
+        'cardholderName'
+    ]
 
     def __init__(self, **kwargs):
-        self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
+        for attr, value in kwargs.items():
+            if attr in self.ATTRS and value:
+                self.__setattr__(attr, value)
 
     class CardholderName(object):
         """Cardholder name data model.
         
         Part of Card Inquiry data model.
         
-        :param str first_name: **Optional**. Cardholder first name.
-        :param str last_name: **Optional**. Cardholder last name.
+        :param str firstName: **Optional**. Cardholder first name.
+        :param str lastName: **Optional**. Cardholder last name.
         """
-        ATTR_MAPPINGS = {
-            'first_name': 'firstName',
-            'last_name': 'lastName'
-        }
+        ATTRS = [
+            'firstName',
+            'lastName'
+        ]
 
         def __init__(self, **kwargs):
-            self.__dict__.update((self.ATTR_MAPPINGS[k], v) for k, v in kwargs.items() if k in self.ATTR_MAPPINGS and v)
+            for attr, value in kwargs.items():
+                if attr in self.ATTRS and value:
+                    self.__setattr__(attr, value)

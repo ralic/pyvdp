@@ -1,55 +1,41 @@
 import unittest
 
-from pyvdp.pav import PaymentAccountValidation
+from pyvdp.pav import PaymentAccountValidationModel
 
 
-class TestPavData(unittest.TestCase):
+class TestPaymentAccountValidationModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'stan': 123456,
-            'pan': '1234567812345678',
-            'card_expiry_date': '2018-02',
-            'avr': object,
-            'cvv2': '123',
-            'acquiring_bin': 123456,
-            'acquirer_country_code': 123,
-            'card_acceptor': object
+        attrs = {
+            'systemsTraceAuditNumber': 123456,
+            'primaryAccountNumber': '1234567812345678',
+            'cardExpiryDate': '2018-02',
+            'addressVerificationResults': object,
+            'cardCvv2Value': '123',
+            'acquiringBin': 123456,
+            'acquirerCountryCode': 123,
+            'cardAcceptor': object
         }
 
-        data = PaymentAccountValidation(**params)
+        model = PaymentAccountValidationModel(**attrs)
 
-        attrs = [
-            'systemsTraceAuditNumber',
-            'primaryAccountNumber',
-            'cardExpiryDate',
-            'addressVerificationResults',
-            'cardCvv2Value',
-            'acquiringBin',
-            'acquirerCountryCode',
-            'cardAcceptor'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
 class TestAddressVerificationResults(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
+        attrs = {
             'street': 'Elm street',
-            'postal_code': '123456'
+            'postalCode': '123456'
         }
 
-        data = PaymentAccountValidation.AddressVerificationResults(**params)
+        model = PaymentAccountValidationModel.AddressVerificationResults(**attrs)
 
-        attrs = [
-            'street',
-            'postalCode'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)

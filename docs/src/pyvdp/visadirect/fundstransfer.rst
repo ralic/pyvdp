@@ -47,33 +47,33 @@ Data objects
 ..  _pull_funds_transaction:
 
 --------------------
-PullFundsTransaction
+PullFundsTransactionModel
 --------------------
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.PullFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.PullFundsTransactionModel
    :members:
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPullFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPullFundsTransactionModel
    :members:
 
 ..  _push_funds_transaction:
 
---------------------
-PushFundsTransaction
---------------------
+-------------------------
+PushFundsTransactionModel
+-------------------------
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.PushFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.PushFundsTransactionModel
    :members:
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPushFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPushFundsTransactionModel
    :members:
 
------------------------
-ReverseFundsTransaction
------------------------
+----------------------------
+ReverseFundsTransactionModel
+----------------------------
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.ReverseFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.ReverseFundsTransactionModel
    :members:
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.MultiReverseFundsTransaction
+.. autoclass:: pyvdp.visadirect.fundstransfer.MultiReverseFundsTransactionModel
    :members:

@@ -1,26 +1,22 @@
 import unittest
 
-from pyvdp.paai.fundstransferattinq.cardattributes import FundsTransferInquiry
+from pyvdp.paai.fundstransferattinq.cardattributes import FundsTransferInquiryModel
 
 
-class TestFundsTransferInquiryData(unittest.TestCase):
+class TestFundsTransferInquiryModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'stan': 123456,
-            'pan': '1234567812345678',
-            'acquiring_bin': 12345,
-            'acquirer_country_code': 123,
+        attrs = {
+            'systemsTraceAuditNumber': 123456,
+            'primaryAccountNumber': '1234567812345678',
+            'acquiringBin': 12345,
+            'acquirerCountryCode': 123,
+            'retrievalReferenceNumber': '123456123456'
         }
 
-        data = FundsTransferInquiry(**params)
+        model = FundsTransferInquiryModel(**attrs)
 
-        attrs = [
-            'primaryAccountNumber',
-            'acquiringBin',
-            'acquirerCountryCode'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)

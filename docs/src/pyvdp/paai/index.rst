@@ -26,8 +26,8 @@ Data objects
 ++++++++++++
 
 -------------------------------
-PaymentAccountAttributesInquiry
+PaymentAccountAttributesInquiryModel
 -------------------------------
 
-.. autoclass:: pyvdp.paai.PaymentAccountAttributesInquiry
+.. autoclass:: pyvdp.paai.PaymentAccountAttributesInquiryModel
    :members:

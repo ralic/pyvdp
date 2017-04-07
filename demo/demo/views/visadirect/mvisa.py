@@ -8,11 +8,11 @@ from pyvdp.visadirect.mvisa import (cashinpushpayments,
                                     cashoutpushpayments,
                                     merchantpushpayments)
 
-from pyvdp.visadirect import CardAcceptor
-from pyvdp.visadirect.mvisa import CashinPushPaymentTransaction
-from pyvdp.visadirect.mvisa import CashoutPushPaymentTransaction
-from pyvdp.visadirect.mvisa import MerchantPushPaymentTransaction
-from pyvdp.visadirect.mvisa import PurchaseIdentifier
+from pyvdp.visadirect import CardAcceptorModel
+from pyvdp.visadirect.mvisa import CashinPushPaymentTransactionModel
+from pyvdp.visadirect.mvisa import CashoutPushPaymentTransactionModel
+from pyvdp.visadirect.mvisa import MerchantPushPaymentTransactionModel
+from pyvdp.visadirect.mvisa import PurchaseIdentifierModel
 
 
 def index(request):
@@ -32,8 +32,8 @@ def cipp(request):
 
                 ca_kwargs = {
                     'name': 'Acceptor 1',
-                    'terminal_id': 'TID-9999',
-                    'id_code': 'CA-IDCode-77765',
+                    'terminalId': 'TID-9999',
+                    'idCode': 'CA-IDCode-77765',
                     'address': {
                         'country': 'IND',
                         'city': 'Bangalore',
@@ -41,19 +41,19 @@ def cipp(request):
                 }
 
                 cippt_kwargs = {
-                    'stan': 123456,
-                    'acquiring_bin': 400171,
-                    'acquirer_country_code': 643,
-                    'business_application_id': 'CI',
+                    'systemsTraceAuditNumber': 123456,
+                    'acquiringBin': 400171,
+                    'acquirerCountryCode': 643,
+                    'businessApplicationId': 'CI',
                     'amount': amount,
-                    'recipient_pan': recipient_pan,
-                    'sender_account_number': sender_account_number,
-                    'sender_name': sender_name,
-                    'transaction_currency_code': 'USD',
-                    'card_acceptor': CardAcceptor(**ca_kwargs)
+                    'recipientPrimaryAccountNumber': recipient_pan,
+                    'senderAccountNumber': sender_account_number,
+                    'senderName': sender_name,
+                    'transactionCurrencyCode': 'USD',
+                    'cardAcceptor': CardAcceptorModel(**ca_kwargs)
                 }
 
-                cippt = CashinPushPaymentTransaction(**cippt_kwargs)
+                cippt = CashinPushPaymentTransactionModel(**cippt_kwargs)
 
                 result = cashinpushpayments.send(data=cippt)
         else:
@@ -86,8 +86,8 @@ def copp(request):
 
                 ca_kwargs = {
                     'name': 'Acceptor 1',
-                    'terminal_id': 'TID-9999',
-                    'id_code': 'CA-IDCode-77765',
+                    'terminalId': 'TID-9999',
+                    'idCode': 'CA-IDCode-77765',
                     'address': {
                         'country': 'IND',
                         'city': 'Bangalore',
@@ -95,19 +95,19 @@ def copp(request):
                 }
 
                 coppt_kwargs = {
-                    'stan': 123456,
-                    'acquiring_bin': 400171,
-                    'acquirer_country_code': 643,
-                    'business_application_id': 'CI',
+                    'systemsTraceAuditNumber': 123456,
+                    'acquiringBin': 400171,
+                    'acquirerCountryCode': 643,
+                    'businessApplicationId': 'CI',
                     'amount': amount,
-                    'recipient_pan': recipient_pan,
-                    'sender_account_number': sender_account_number,
-                    'sender_name': sender_name,
-                    'transaction_currency_code': 'USD',
-                    'card_acceptor': CardAcceptor(**ca_kwargs)
+                    'recipientPrimaryAccountNumber': recipient_pan,
+                    'senderAccountNumber': sender_account_number,
+                    'senderName': sender_name,
+                    'transactionCurrencyCode': 'USD',
+                    'cardAcceptor': CardAcceptorModel(**ca_kwargs)
                 }
 
-                coppt = CashoutPushPaymentTransaction(**coppt_kwargs)
+                coppt = CashoutPushPaymentTransactionModel(**coppt_kwargs)
 
                 result = cashoutpushpayments.send(data=coppt)
         else:
@@ -139,8 +139,8 @@ def mpp(request):
 
                 ca_kwargs = {
                     'name': 'Acceptor 1',
-                    'terminal_id': 'TID-9999',
-                    'id_code': 'CA-IDCode-77765',
+                    'terminalId': 'TID-9999',
+                    'idCode': 'CA-IDCode-77765',
                     'address': {
                         'country': 'IND',
                         'city': 'Bangalore',
@@ -149,25 +149,25 @@ def mpp(request):
 
                 pi_kwargs = {
                     'type': '0',
-                    'reference_number': purchase_reference_number
+                    'referenceNumber': purchase_reference_number
                 }
 
                 mppt_kwargs = {
-                    'stan': 123456,
+                    'systemsTraceAuditNumber': 123456,
                     'amount': amount,
-                    'acquiring_bin': 408972,
-                    'acquirer_country_code': 356,
-                    'transaction_currency_code': 'USD',
-                    'recipient_pan': recipient_pan,
+                    'acquiringBin': 408972,
+                    'acquirerCountryCode': 356,
+                    'transactionCurrencyCode': 'USD',
+                    'recipientPrimaryAccountNumber': recipient_pan,
                     'recipient_name': 'Jasper',
-                    'sender_name': sender_name,
-                    'sender_account_number': sender_account_number,
-                    'card_acceptor': CardAcceptor(**ca_kwargs),
-                    'purchase_id': PurchaseIdentifier(**pi_kwargs),
-                    'business_application_id': 'MP'
+                    'senderName': sender_name,
+                    'senderAccountNumber': sender_account_number,
+                    'cardAcceptor': CardAcceptorModel(**ca_kwargs),
+                    'purchaseIdentifier': PurchaseIdentifierModel(**pi_kwargs),
+                    'businessApplicationId': 'MP'
                 }
 
-                mppt = MerchantPushPaymentTransaction(**mppt_kwargs)
+                mppt = MerchantPushPaymentTransactionModel(**mppt_kwargs)
 
                 result = merchantpushpayments.send(data=mppt)
         else:

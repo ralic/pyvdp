@@ -1,7 +1,6 @@
-from .models import (PushFundsTransaction,
-                     MultiPushFundsTransaction,
-                     PullFundsTransaction,
-                     MultiPullFundsTransaction,
-                     ReverseFundsTransaction,
-                     MultiReverseFundsTransaction)
-
+from .models import (PushFundsTransactionModel,
+                     MultiPushFundsTransactionModel,
+                     PullFundsTransactionModel,
+                     MultiPullFundsTransactionModel,
+                     ReverseFundsTransactionModel,
+                     MultiReverseFundsTransactionModel)

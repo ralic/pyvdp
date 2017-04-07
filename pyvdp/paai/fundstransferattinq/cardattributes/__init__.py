@@ -1,1 +1,1 @@
-from .models import FundsTransferInquiry
+from .models import FundsTransferInquiryModel

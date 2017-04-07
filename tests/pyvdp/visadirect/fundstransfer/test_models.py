@@ -1,258 +1,169 @@
 import unittest
 
-from pyvdp.visadirect.fundstransfer import PullFundsTransaction, MultiPullFundsTransaction
-from pyvdp.visadirect.fundstransfer import PushFundsTransaction, MultiPushFundsTransaction
-from pyvdp.visadirect.fundstransfer import ReverseFundsTransaction, MultiReverseFundsTransaction
+from pyvdp.visadirect.fundstransfer import PullFundsTransactionModel, MultiPullFundsTransactionModel
+from pyvdp.visadirect.fundstransfer import PushFundsTransactionModel, MultiPushFundsTransactionModel
+from pyvdp.visadirect.fundstransfer import ReverseFundsTransactionModel, MultiReverseFundsTransactionModel
 
 
-class TestPullFundsTransaction(unittest.TestCase):
+class TestPullFundsTransactionModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'stan': 123456,
-            'acquiring_bin': 123456,
-            'acquirer_country_code': 123,
+        attrs = {
+            'systemsTraceAuditNumber': 123456,
+            'acquiringBin': 123456,
+            'acquirerCountryCode': 123,
             'amount': 123.45,
-            'sender_pan': '1234123412341234',
-            'sender_expiration': '2020-02',
-            'sender_currency_code': 'USD',
-            'business_application_id': 'AA',
-            'card_acceptor': object,
+            'senderPrimaryAccountNumber': '1234123412341234',
+            'senderCardExpiryDate': '2020-02',
+            'senderCurrencyCode': 'USD',
+            'businessApplicationId': 'AA',
+            'cardAcceptor': object,
             'surcharge': 0.45,
-            'mcc': 1234,
+            'merchantCategoryCode': 1234,
             'cavv': '123456789123456789',
-            'cvv2': '123',
-            'foreign_exchange_fee_transaction': 0.45,
-            'msd': object,
-            'pos': object,
-            'posc': object,
-            'pin_data': object,
-            'fee_program_indicator': 'abc',
-            'merchant_pseudo_aba_number': '123456789',
-            'sharing_group_code': 'abc',
-            'mvv': object
+            'cardCvv2Value': '123',
+            'foreignExchangeFeeTransaction': 0.45,
+            'magneticStripeData': object,
+            'pointOfServiceData': object,
+            'pointOfServiceCapability': object,
+            'pinData': object,
+            'feeProgramIndicator': 'abc',
+            'merchantPseudoAbaNumber': '123456789',
+            'sharingGroupCode': 'abc',
+            'merchantVerificationValue': object
         }
 
-        data = PullFundsTransaction(**params)
+        model = PullFundsTransactionModel(**attrs)
 
-        attrs = [
-            'systemsTraceAuditNumber',
-            'acquiringBin',
-            'acquirerCountryCode',
-            'amount',
-            'senderPrimaryAccountNumber',
-            'senderCardExpiryDate',
-            'senderCurrencyCode',
-            'cardAcceptor',
-            'businessApplicationId',
-            'merchantCategoryCode',
-            'surcharge',
-            'cavv',
-            'cardCvv2Value',
-            'foreignExchangeFeeTransaction',
-            'magneticStripeData',
-            'pointOfServiceData',
-            'pointOfServiceCapability',
-            'pinData',
-            'feeProgramIndicator',
-            'merchantPseudoAbaNumber',
-            'sharingGroupCode',
-            'merchantVerificationValue'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
-class TestMultiPullFundsTransaction(unittest.TestCase):
+class TestMultiPullFundsTransactionModel(unittest.TestCase):
 
     def test_attributes(self):
-        params = {
-            'acquiring_bin': 123456789,
-            'acquirer_country_code': 853,
-            'business_application_id': 'AA',
+
+        attrs = {
+            'acquiringBin': 123456789,
+            'acquirerCountryCode': 853,
+            'businessApplicationId': 'AA',
             'request': [object, object]
         }
 
-        data = MultiPullFundsTransaction(**params)
+        model = MultiPullFundsTransactionModel(**attrs)
 
-        attrs = [
-            'acquiringBin',
-            'acquirerCountryCode',
-            'businessApplicationId',
-            'request'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
-class TestPushFundsTransaction(unittest.TestCase):
+class TestPushFundsTransactionModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'stan': 123456,
-            'acquiring_bin': 123456,
-            'acquirer_country_code': 123,
-            'transaction_currency_code': 'USD',
-            'recipient_pan': '1234567812345678',
+        attrs = {
+            'systemsTraceAuditNumber': 123456,
+            'acquiringBin': 123456,
+            'acquirerCountryCode': 123,
+            'transactionCurrencyCode': 'USD',
+            'recipientPrimaryAccountNumber': '1234567812345678',
             'amount': 123.45,
-            'business_application_id': 'AA',
-            'card_acceptor': object,
-            'sender_address': 'Elm Street 18',
-            'sender_name': 'Doe Jane',
-            'sender_reference': 'ABCDEFGH12345678',
-            'sender_account_number': '12345678901234567890',
-            'sender_country_code': 'USA',
-            'sender_city': 'San Francisco',
-            'sender_state_code': 'CA',
-            'recipient_name': 'Doe John',
-            'mcc': 123,
-            'transaction_identifier': 123456789012345,
-            'source_of_funds_code': 'ABC',
-            'recipient_expiration': '2020-12',
-            'account_type': '00',
-            'fee_program_indicator': 'wtf',
-            'sender_dob': '1981-02-04',
-            'pos': object,
+            'businessApplicationId': 'AA',
+            'cardAcceptor': object,
+            'senderAddress': 'Elm Street 18',
+            'senderName': 'Doe Jane',
+            'senderReference': 'ABCDEFGH12345678',
+            'senderAccountNumber': '12345678901234567890',
+            'senderCountryCode': 'USA',
+            'senderCity': 'San Francisco',
+            'senderStateCode': 'CA',
+            'recipientName': 'Doe John',
+            'merchantCategoryCode': 123,
+            'transactionIdentifier': 123456789012345,
+            'sourceOfFundsCode': 'ABC',
+            'recipientCardExpiryDate': '2020-12',
+            'accountType': '00',
+            'feeProgramIndicator': 'wtf',
+            'senderDateOfBirth': '1981-02-04',
+            'pointOfServiceData': object,
             'surcharge': 0.45,
-            'merchant_pseudo_aba_number': 123456789,
-            'sharing_group_code': '1234567812345678',
-            'mvv': object
+            'merchantPseudoAbaNumber': 123456789,
+            'sharingGroupCode': '1234567812345678',
+            'merchantVerificationValue': object
         }
 
-        data = PushFundsTransaction(**params)
+        model = PushFundsTransactionModel(**attrs)
 
-        attrs = [
-            'systemsTraceAuditNumber',
-            'acquiringBin',
-            'acquirerCountryCode',
-            'transactionCurrencyCode',
-            'recipientPrimaryAccountNumber',
-            'amount',
-            'businessApplicationId',
-            'cardAcceptor',
-            'senderReference',
-            'senderAccountNumber',
-            'senderAddress',
-            'senderCountryCode',
-            'senderName',
-            'senderCity',
-            'senderStateCode',
-            'recipientName',
-            'merchantCategoryCode',
-            'transactionIdentifier',
-            'sourceOfFundsCode',
-            'recipientCardExpiryDate',
-            'accountType',
-            'feeProgramIndicator',
-            'senderDateOfBirth',
-            'pointOfServiceData',
-            'surcharge',
-            'merchantPseudoAbaNumber',
-            'sharingGroupCode',
-            'merchantVerificationValue'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
-class TestMultiPushFundsTransaction(unittest.TestCase):
+class TestMultiPushFundsTransactionModel(unittest.TestCase):
 
     def test_attributes(self):
-        params = {
-            'acquiring_bin': 123456789,
-            'acquirer_country_code': 853,
-            'business_application_id': 'AA',
+
+        attrs = {
+            'acquiringBin': 123456789,
+            'acquirerCountryCode': 853,
+            'businessApplicationId': 'AA',
             'request': [object, object]
         }
 
-        data = MultiPushFundsTransaction(**params)
+        model = MultiPushFundsTransactionModel(**attrs)
 
-        attrs = [
-            'acquiringBin',
-            'acquirerCountryCode',
-            'businessApplicationId',
-            'request'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
-class TestReverseFundsTransaction(unittest.TestCase):
+class TestReverseFundsTransactionModel(unittest.TestCase):
 
     def test_attributes(self):
 
-        params = {
-            'stan': 123456,
-            'transaction_identifier': 123456,
-            'acquiring_bin': 123456,
-            'acquirer_country_code': 123,
-            'sender_pan': '1234567812345678',
-            'sender_expiration': '2020-12',
-            'sender_currency_code': 'USD',
+        attrs = {
+            'systemsTraceAuditNumber': 123456,
+            'transactionIdentifier': 123456,
+            'acquiringBin': 123456,
+            'acquirerCountryCode': 123,
+            'senderPrimaryAccountNumber': '1234567812345678',
+            'senderCardExpiryDate': '2020-12',
+            'senderCurrencyCode': 'USD',
             'amount': 123.45,
             'surcharge': 0.45,
-            'foreign_exchange_fee_transaction': 0.45,
-            'ode': object,
-            'card_acceptor': object,
-            'pos': object,
-            'posc': object,
-            'fee_program_indicator': 'wtf',
-            'merchant_pseudo_aba_number': '123',
-            'sharing_group_code': 'abc',
-            'network_id': 12,
-            'mvv': object
+            'foreignExchangeFeeTransaction': 0.45,
+            'originalDataElements': object,
+            'cardAcceptor': object,
+            'pointOfServiceData': object,
+            'pointOfServiceCapability': object,
+            'feeProgramIndicator': 'wtf',
+            'merchantPseudoAbaNumber': '123',
+            'sharingGroupCode': 'abc',
+            'networkId': 12,
+            'merchantVerificationValue': object
         }
 
-        data = ReverseFundsTransaction(**params)
+        model = ReverseFundsTransactionModel(**attrs)
 
-        attrs = [
-            'systemsTraceAuditNumber',
-            'transactionIdentifier',
-            'acquiringBin',
-            'acquirerCountryCode',
-            'senderPrimaryAccountNumber',
-            'senderCardExpiryDate',
-            'senderCurrencyCode',
-            'amount',
-            'surcharge',
-            'foreignExchangeFeeTransaction',
-            'originalDataElements',
-            'cardAcceptor',
-            'pointOfServiceData',
-            'pointOfServiceCapability',
-            'feeProgramIndicator',
-            'merchantPseudoAbaNumber',
-            'networkId',
-            'sharingGroupCode',
-            'merchantVerificationValue'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)
 
 
-class TestMultiReverseFundsTransaction(unittest.TestCase):
+class TestMultiReverseFundsTransactionModel(unittest.TestCase):
 
     def test_attributes(self):
-        params = {
-            'acquiring_bin': 123456789,
-            'acquirer_country_code': 853,
+
+        attrs = {
+            'acquiringBin': 123456789,
+            'acquirerCountryCode': 853,
             'request': [object, object]
         }
 
-        data = MultiReverseFundsTransaction(**params)
+        model = MultiReverseFundsTransactionModel(**attrs)
 
-        attrs = [
-            'acquiringBin',
-            'acquirerCountryCode',
-            'request'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)

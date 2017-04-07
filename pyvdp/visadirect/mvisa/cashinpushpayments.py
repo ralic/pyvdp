@@ -8,7 +8,7 @@ METHOD = 'cashinpushpayments'
 def send(data):
     """Submits VisaDirect mVISA CashinPushPayments request.
 
-    :param CashinPushPaymentTransaction data: **Required**. Instance of CashinPushPaymentTransaction.
+    :param CashinPushPaymentTransactionModel data: **Required**. Instance of CashinPushPaymentTransactionModel.
     :return: Dictionary with VDP API response.
     """
     c = VisaDirectDispatcher(api=API, method=METHOD, http_verb='POST', data=data)

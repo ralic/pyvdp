@@ -1,8 +1,8 @@
 from .dispatcher import VisaDirectDispatcher
-from .models import (CardAcceptor,
-                     OriginalDataElements,
-                     MerchantVerificationValue,
-                     PointOfServiceCapability,
-                     PointOfServiceData,
-                     VisaDirectTransaction,
-                     VisaDirectTransactionBatch)
+from .models import (CardAcceptorModel,
+                     OriginalDataElementsModel,
+                     MerchantVerificationValueModel,
+                     PointOfServiceCapabilityModel,
+                     PointOfServiceDataModel,
+                     VisaDirectTransactionModel,
+                     VisaDirectTransactionBatchModel)

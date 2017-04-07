@@ -28,8 +28,8 @@ Data Objects
 ++++++++++++
 
 ------------------------
-PaymentAccountValidation
+PaymentAccountValidationModel
 ------------------------
 
-.. autoclass:: pyvdp.pav.PaymentAccountValidation
+.. autoclass:: pyvdp.pav.PaymentAccountValidationModel
    :members:

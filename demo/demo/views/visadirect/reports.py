@@ -4,8 +4,10 @@ from demo.forms.visadirect.reports import TransactionDataFormGet
 
 from pyvdp.visadirect.reports import transaction_data
 
+
 def index(request):
     return render(request, template_name='visadirect/reports/index.html')
+
 
 def transactiondata(request):
     if request.method == 'POST':

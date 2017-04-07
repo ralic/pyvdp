@@ -41,30 +41,30 @@ MerchantPushPayments
 Data objects
 ++++++++++++
 
-----------------------------
-CashinPushPaymentTransaction
-----------------------------
+---------------------------------
+CashinPushPaymentTransactionModel
+---------------------------------
 
-.. autoclass:: pyvdp.visadirect.mvisa.CashinPushPaymentTransaction
+.. autoclass:: pyvdp.visadirect.mvisa.CashinPushPaymentTransactionModel
    :members:
 
------------------------------
-CashoutPushPaymentTransaction
------------------------------
+----------------------------------
+CashoutPushPaymentTransactionModel
+----------------------------------
 
-.. autoclass:: pyvdp.visadirect.mvisa.CashoutPushPaymentTransaction
+.. autoclass:: pyvdp.visadirect.mvisa.CashoutPushPaymentTransactionModel
    :members:
 
-------------------------------
-MerchantPushPaymentTransaction
-------------------------------
+-----------------------------------
+MerchantPushPaymentTransactionModel
+-----------------------------------
 
-.. autoclass:: pyvdp.visadirect.mvisa.MerchantPushPaymentTransaction
+.. autoclass:: pyvdp.visadirect.mvisa.MerchantPushPaymentTransactionModel
    :members:
 
 ------------------
-PurchaseIdentifier
+PurchaseIdentifierModel
 ------------------
 
-.. autoclass:: pyvdp.visadirect.mvisa.PurchaseIdentifier
+.. autoclass:: pyvdp.visadirect.mvisa.PurchaseIdentifierModel
    :members:

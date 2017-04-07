@@ -15,14 +15,14 @@ def debit_card_inquiry(request):
             ch_last_name = form.cleaned_data['ch_last_name']
 
             cn_kwargs = {
-                'first_name': ch_first_name,
-                'last_name': ch_last_name
+                'firstName': ch_first_name,
+                'lastName': ch_last_name
             }
 
             cim_kwargs = {
-                'direct_dan': direct_dan,
-                'routing_number': routing_number,
-                'cardholder_name': CardInquiryModel.CardholderName(**cn_kwargs)
+                'directDebitAccountNumber': direct_dan,
+                'routingNumber': routing_number,
+                'cardholderName': CardInquiryModel.CardholderName(**cn_kwargs)
             }
 
             data = CardInquiryModel(**cim_kwargs)

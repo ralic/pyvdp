@@ -1,1 +1,1 @@
-from .models import GeneralInquiry
+from .models import GeneralInquiryModel

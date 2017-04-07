@@ -13,13 +13,16 @@ from pyvdp.exceptions import (VisaTimeoutError,
                               VisaNotFoundError,
                               VisaGeneralError)
 from pyvdp.dispatcher import VisaDispatcher
-from pyvdp.visadirect import VisaDirectTransaction
+from pyvdp.visadirect import VisaDirectTransactionModel
 
 
 @requests_mock.Mocker()
 class TestVisaDispatcher(unittest.TestCase):
     def setUp(self):
-        self.t = VisaDirectTransaction(stan='123456')
+        kwargs = {
+            'systemsTraceAuditNumber': 123456
+        }
+        self.t = VisaDirectTransactionModel(**kwargs)
 
         self.vr = VisaDispatcher(resource='', api='', method='', http_verb='POST', data=self.t)
 

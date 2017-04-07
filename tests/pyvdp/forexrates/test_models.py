@@ -5,30 +5,20 @@ from pyvdp.forexrates import ForeignExchangeRatesModel
 class TestForeignExchangeRatesModel(unittest.TestCase):
 
     def test_attributes(self):
-        params = {
-            'destination_cur_code': '123',
-            'source_cur_code': '123',
-            'source_amount': 100.00,
-            'markup_rate': '0.07',
-            'stan': 123456,
-            'acquiring_bin': 123,
-            'acquirer_country_code': 456,
-            'card_acceptor': object
+
+        attrs = {
+            'destinationCurrencyCode': '123',
+            'sourceCurrencyCode': '123',
+            'sourceAmount': 100.00,
+            'markUpRate': '0.07',
+            'systemsTraceAuditNumber': 123456,
+            'acquiringBin': 123,
+            'acquirerCountryCode': 456,
+            'cardAcceptor': object
         }
 
-        data = ForeignExchangeRatesModel(**params)
+        model = ForeignExchangeRatesModel(**attrs)
 
-        attrs = [
-            'destinationCurrencyCode',
-            'sourceCurrencyCode',
-            'sourceAmount',
-            'markUpRate',
-            'systemsTraceAuditNumber',
-            'acquiringBin',
-            'acquirerCountryCode',
-            'cardAcceptor'
-        ]
-
-        for attr in attrs:
-            self.assertTrue(hasattr(data, attr), 'missing %s attribute' % attr)
-
+        for attr, value in attrs.items():
+            self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
+            self.assertEqual(model.__getattribute__(attr), value)

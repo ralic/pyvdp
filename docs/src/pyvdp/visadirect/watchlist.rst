@@ -30,5 +30,5 @@ Data Objects
 WatchlistObject
 ---------------
 
-.. autoclass:: pyvdp.visadirect.watchlist.WatchlistData
+.. autoclass:: pyvdp.visadirect.watchlist.WatchlistDataModel
    :members:

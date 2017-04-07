@@ -3,11 +3,11 @@ from django.shortcuts import render
 from demo.forms.visadirect.fundstransfer import (PullFundsFormGet, PullFundsFormPost, PushFundsFormGet,
                                                  PushFundsFormPost, ReverseFundsFormGet, ReverseFundsFormPost)
 
-from pyvdp.visadirect import CardAcceptor, OriginalDataElements
+from pyvdp.visadirect import CardAcceptorModel, OriginalDataElementsModel
 
-from pyvdp.visadirect.fundstransfer import PullFundsTransaction, MultiPullFundsTransaction
-from pyvdp.visadirect.fundstransfer import PushFundsTransaction, MultiPushFundsTransaction
-from pyvdp.visadirect.fundstransfer import ReverseFundsTransaction, MultiReverseFundsTransaction
+from pyvdp.visadirect.fundstransfer import PullFundsTransactionModel, MultiPullFundsTransactionModel
+from pyvdp.visadirect.fundstransfer import PushFundsTransactionModel, MultiPushFundsTransactionModel
+from pyvdp.visadirect.fundstransfer import ReverseFundsTransactionModel, MultiReverseFundsTransactionModel
 
 from pyvdp.visadirect.fundstransfer import pushfunds, pullfunds, reversefunds
 
@@ -31,47 +31,47 @@ def pull(request):
                     'name': 'Acceptor 1',
                     'address': {
                         'country': 'USA',
-                        'zip_code': '12345',
+                        'zipCode': '12345',
                         'state': 'CA'
                     },
-                    'terminal_id': 'TID-9999',
-                    'id_code': 'CA-IDCode-77765'
+                    'terminalId': 'TID-9999',
+                    'idCode': 'CA-IDCode-77765'
                 }
 
                 pft_kwargs = {
-                    'stan': 123456,
+                    'systemsTraceAuditNumber': 123456,
                     'amount': amount,
-                    'sender_pan': sender_pan,
-                    'sender_expiration': sender_expiry_date,
-                    'card_acceptor': CardAcceptor(**ca_kwargs),
-                    'sender_currency_code': 'USD',
-                    'acquiring_bin': 408999,
-                    'acquirer_country_code': 840,
-                    'business_application_id': 'AA'
+                    'senderPrimaryAccountNumber': sender_pan,
+                    'senderCardExpiryDate': sender_expiry_date,
+                    'cardAcceptor': CardAcceptorModel(**ca_kwargs),
+                    'senderCurrencyCode': 'USD',
+                    'acquiringBin': 408999,
+                    'acquirerCountryCode': 840,
+                    'businessApplicationId': 'AA'
                 }
 
-                pft = PullFundsTransaction(**pft_kwargs)
+                pft = PullFundsTransactionModel(**pft_kwargs)
 
                 if is_multi:
                     pft_kwargs = {
                         'stan': 123456,
                         'amount': amount,
-                        'sender_pan': sender_pan,
-                        'sender_expiration': sender_expiry_date,
-                        'card_acceptor': CardAcceptor(**ca_kwargs),
-                        'sender_currency_code': 'USD',
+                        'senderPrimaryAccountNumber': sender_pan,
+                        'senderCardExpiryDate': sender_expiry_date,
+                        'cardAcceptor': CardAcceptorModel(**ca_kwargs),
+                        'senderCurrencyCode': 'USD',
                     }
 
                     mpft_kwargs = {
-                        'acquiring_bin': 408999,
-                        'acquirer_country_code': 840,
-                        'business_application_id': 'AA',
+                        'acquiringBin': 408999,
+                        'acquirerCountryCode': 840,
+                        'businessApplicationId': 'AA',
                         'request': [
-                            PullFundsTransaction(**pft_kwargs)
+                            PullFundsTransactionModel(**pft_kwargs)
                         ]
                     }
 
-                    mpft = MultiPullFundsTransaction(**mpft_kwargs)
+                    mpft = MultiPullFundsTransactionModel(**mpft_kwargs)
                     result = pullfunds.send(data=mpft, multi=True)
                 else:
                     result = pullfunds.send(data=pft)
@@ -102,57 +102,57 @@ def push(request):
 
             ca_kwargs = {
                 'name': 'Acceptor 1',
-                'terminal_id': 'TID-9999',
-                'id_code': 'CA-IDCode-77765',
+                'terminalId': 'TID-9999',
+                'idCode': 'CA-IDCode-77765',
                 'address': {
                     'country': 'USA',
-                    'zip_code': '12345',
+                    'zipCode': '12345',
                     'state': 'CA'
                 }
             }
 
             pft_kwargs = {
-                'stan': 123456,
-                'acquiring_bin': 408999,
-                'acquirer_country_code': 840,
-                'business_application_id': 'AA',
+                'systemsTraceAuditNumber': 123456,
+                'acquiringBin': 408999,
+                'acquirerCountryCode': 840,
+                'businessApplicationId': 'AA',
                 'amount': amount,
-                'card_acceptor': CardAcceptor(**ca_kwargs),
-                'sender_account_number': sender_pan,
-                'recipient_pan': recipient_pan,
-                'recipient_name': 'Doe John',
-                'transaction_currency_code': 'USD'
+                'cardAcceptor': CardAcceptorModel(**ca_kwargs),
+                'senderAccountNumber': sender_pan,
+                'recipientPrimaryAccountNumber': recipient_pan,
+                'recipientName': 'Doe John',
+                'transactionCurrencyCode': 'USD'
             }
 
-            data = PushFundsTransaction(**pft_kwargs)
+            data = PushFundsTransactionModel(**pft_kwargs)
 
             if is_multi:
 
                 pft_kwargs = {
-                    'stan': 123456,
+                    'systemsTraceAuditNumber': 123456,
                     'amount': amount,
-                    'card_acceptor': CardAcceptor(**ca_kwargs),
-                    'sender_account_number': sender_pan,
-                    'sender_name': 'Doe Jane',
-                    'sender_address': 'Home',
-                    'sender_city': 'San Francisco',
-                    'sender_country_code': 'USA',
-                    'sender_state_code': 'CA',
-                    'recipient_pan': recipient_pan,
-                    'recipient_name': 'Doe John',
-                    'transaction_currency_code': 'USD'
+                    'cardAcceptor': CardAcceptorModel(**ca_kwargs),
+                    'senderAccountNumber': sender_pan,
+                    'senderName': 'Doe Jane',
+                    'senderAddress': 'Home',
+                    'senderCity': 'San Francisco',
+                    'senderCountryCode': 'USA',
+                    'senderStateCode': 'CA',
+                    'recipientPrimaryAccountNumber': recipient_pan,
+                    'recipientName': 'Doe John',
+                    'transactionCurrencyCode': 'USD'
                 }
 
                 mpft_kwargs = {
-                    'acquiring_bin': 408999,
-                    'acquirer_country_code': 840,
-                    'business_application_id': 'AA',
+                    'acquiringBin': 408999,
+                    'acquirerCountryCode': 840,
+                    'businessApplicationId': 'AA',
                     'request': [
-                        PushFundsTransaction(**pft_kwargs)
+                        PushFundsTransactionModel(**pft_kwargs)
                     ]
                 }
 
-                mpft = MultiPushFundsTransaction(**mpft_kwargs)
+                mpft = MultiPushFundsTransactionModel(**mpft_kwargs)
                 result = pushfunds.send(data=mpft, multi=True)
             else:
                 result = pushfunds.send(data=data)
@@ -178,59 +178,59 @@ def reverse(request):
 
             ca_kwargs = {
                 'name': 'Acceptor 1',
-                'terminal_id': 'TID-9999',
-                'id_code': 'CA-IDCode-77765',
+                'terminalId': 'TID-9999',
+                'idCode': 'CA-IDCode-77765',
                 'address': {
                     'country': 'USA',
-                    'zip_code': '12345',
+                    'zipCode': '12345',
                     'state': 'CA'
                 }
             }
 
             ode_kwargs = {
-                'stan': 123456,
-                'acquiring_bin': 408999,
-                'approval_code': '20304B',
-                'transmission_datetime': '2017-02-16T12:59:23'
+                'systemsTraceAuditNumber': 123456,
+                'acquiringBin': 408999,
+                'approvalCode': '20304B',
+                'transmissionDateTime': '2017-02-16T12:59:23'
             }
 
             rft_kwargs = {
-                'stan': 123456,
-                'acquiring_bin': 408999,
-                'acquirer_country_code': 608,
-                'ode': OriginalDataElements(**ode_kwargs),
-                'card_acceptor': CardAcceptor(**ca_kwargs),
-                'sender_pan': sender_pan,
-                'sender_currency_code': 'USD',
+                'systemsTraceAuditNumber': 123456,
+                'acquiringBin': 408999,
+                'acquirerCountryCode': 608,
+                'originalDataElements': OriginalDataElementsModel(**ode_kwargs),
+                'cardAcceptor': CardAcceptorModel(**ca_kwargs),
+                'senderPrimaryAccountNumber': sender_pan,
+                'senderCurrencyCode': 'USD',
                 'amount': amount,
-                'sender_expiration': sender_card_expiry_date,
-                'transaction_identifier': transaction_identifier
+                'senderCardExpiryDate': sender_card_expiry_date,
+                'transactionIdentifier': transaction_identifier
             }
 
-            rft = ReverseFundsTransaction(**rft_kwargs)
+            rft = ReverseFundsTransactionModel(**rft_kwargs)
 
             if is_multi:
 
                 rft_kwargs = {
-                    'stan': 123456,
-                    'ode': OriginalDataElements(**ode_kwargs),
-                    'card_acceptor': CardAcceptor(**ca_kwargs),
+                    'systemsTraceAuditNumber': 123456,
+                    'originalDataElements': OriginalDataElementsModel(**ode_kwargs),
+                    'cardAcceptor': CardAcceptorModel(**ca_kwargs),
                     'sender_pan': sender_pan,
-                    'sender_currency_code': 'USD',
+                    'senderPrimaryAccountNumber': 'USD',
                     'amount': amount,
-                    'sender_expiration': sender_card_expiry_date,
-                    'transaction_identifier': transaction_identifier
+                    'senderCardExpiryDate': sender_card_expiry_date,
+                    'transactionIdentifier': transaction_identifier
                 }
 
                 mrft_kwargs = {
-                    'acquiring_bin': 408999,
-                    'acquirer_country_code': 608,
+                    'acquiringBin': 408999,
+                    'acquirerCountryCode': 608,
                     'request': [
-                        ReverseFundsTransaction(**rft_kwargs)
+                        ReverseFundsTransactionModel(**rft_kwargs)
                     ]
                 }
 
-                mrft = MultiReverseFundsTransaction(**mrft_kwargs)
+                mrft = MultiReverseFundsTransactionModel(**mrft_kwargs)
 
                 result = reversefunds.send(data=mrft, multi=True)
 

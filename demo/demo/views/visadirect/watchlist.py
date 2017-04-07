@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.visadirect.watchlist import watchlistinquiry
-from pyvdp.visadirect.watchlist import WatchlistData
+from pyvdp.visadirect.watchlist import watchlistinquiry, WatchlistDataModel
 
 from demo.forms.watchlist.watchlist import WlInquiryFormPost
 
@@ -19,18 +18,18 @@ def inquiry(request):
             issuer_country_code = form.cleaned_data['issuer_country_code']
 
             wda_kwargs = {
-                'issuer_country_code': issuer_country_code,
+                'issuerCountryCode': issuer_country_code,
                 'city': city
             }
 
             wd_kwargs = {
                 'name': name,
-                'acquirer_country_code': 840,
-                'acquiring_bin': 408999,
+                'acquirerCountryCode': 840,
+                'acquiringBin': 408999,
                 'address': wda_kwargs
             }
 
-            data = WatchlistData(**wd_kwargs)
+            data = WatchlistDataModel(**wd_kwargs)
 
             result = watchlistinquiry.send(data)
 

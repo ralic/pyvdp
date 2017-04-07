@@ -36,7 +36,7 @@ Validation API](https://developer.visa.com/products/pav) using PyVDP:
 from pyvdp.pav import PaymentAccountValidation
 from pyvdp.pav import cardvalidation 
 
-data = PaymentAccountValidation(stan=123456, 
+data = PaymentAccountValidationModel(stan=123456, 
                       pan='1234567812345678', 
                       expiry_date='02-2020', 
                       cvv2='123')
@@ -137,21 +137,20 @@ Please note that this and further examples won't necessarily work in your enviro
 validation of specific transactions  depends on horde of various properties, including geolocation, account properties 
 etc. 
 
-This is an example code for creating a data object for [FundsTransfer PushFundsTransaction](https://developer.visa.com/products/visa_direct/reference#visa_direct__funds_transfer__v1__pushfunds):
+This is an example code for creating a data object for [FundsTransfer PushFundsTransactionModel](https://developer.visa.com/products/visa_direct/reference#visa_direct__funds_transfer__v1__pushfunds):
 ```python
 from pyvdp.visadirect import CardAcceptor
 from pyvdp.visadirect.fundstransfer import PushFundsTransaction
 
-# CardAcceptor is nested within PushTransaction object. CardAcceptor is specific for VisaDirect APIs, so it is located 
+CardAcceptorModels located 
 # in visadirect.data.card_acceptor module.
-ca = CardAcceptor(name='Acceptor 1', 
+ca = CardAcceptorModel(name='Acceptor 1', 
                   country='RU', 
                   terminal_id='TID-9999', 
-                  id_code='CA-IDCode-77765')
-
-# This is an actual PushTransaction object. Please note, that instance of CardAcceptor is passed with card_acceptor
+                  id_code='CA-CardAcceptorMod
+eld with card_acceptor
 # argument
-t = PushFundsTransaction(stan=123456, 
+t = PushFundsTransactionModelM(stan=123456, 
                          amount=123.45, 
                          sender_pan='1234567812345678', 
                          sender_card_expiry_date='12-2020',
@@ -171,7 +170,7 @@ from pyvdp.visadirect.fundstransfer import pushfunds
 pushfunds.send(data=t)
 ```
 
-Under the hood, instance of `PushTransaction` with nested `CardAcceptor` will be serialized to JSON and passed to VDP
+Under the hood, instance of `PushTransaction` with nested `CardAcceptorModel` will be serialized to JSON and passed to VDP
 as a payload of POST request.
 
 A response will contain HTTP code and some JSON payload. `200 Success` is the only successful HTTP code, all other codes 

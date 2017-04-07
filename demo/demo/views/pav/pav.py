@@ -1,8 +1,7 @@
 from django.shortcuts import render
 
-from pyvdp.pav import PaymentAccountValidation
-from pyvdp.visadirect import CardAcceptor
-from pyvdp.pav import cardvalidation
+from pyvdp.pav import cardvalidation, PaymentAccountValidationModel
+from pyvdp.visadirect import CardAcceptorModel
 
 from demo.forms.pav.pav import CardValidationFormPost
 
@@ -16,7 +15,7 @@ def card_validation(request):
             cvv2 = form.cleaned_data['cvv2']
 
             avr_kwargs = {
-                "postal_code": "T4B 3G5",
+                "postalCode": "T4B 3G5",
                 "street": "2881 Main Street Sw"
             }
 
@@ -28,20 +27,20 @@ def card_validation(request):
                     "state": "CA",
                     "zipCode": "94404"
                 },
-                "id_code": "111111",
+                "idCode": "111111",
                 "name": "rohan",
-                "terminal_id": "123"
+                "terminalId": "123"
             }
 
             pav_kwargs = {
-                'pan': pan,
-                'card_expiry_date': expiry_date,
-                'cvv2': cvv2,
-                'card_acceptor': CardAcceptor(**ca_kwargs),
-                'avr': PaymentAccountValidation.AddressVerificationResults(**avr_kwargs)
+                'primaryAccountNumber': pan,
+                'cardExpiryDate': expiry_date,
+                'cardCvv2Value': cvv2,
+                'cardAcceptor': CardAcceptorModel(**ca_kwargs),
+                'addressVerificationResults': PaymentAccountValidationModel.AddressVerificationResults(**avr_kwargs)
             }
 
-            data = PaymentAccountValidation(**pav_kwargs)
+            data = PaymentAccountValidationModel(**pav_kwargs)
 
             result = cardvalidation.send(data=data)
 
