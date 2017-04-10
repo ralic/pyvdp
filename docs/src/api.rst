@@ -11,6 +11,7 @@ API Documentation
     pyvdp/visadirect/index
     pyvdp/pav/card_validation
     pyvdp/merchantsearch/search
+    pyvdp/merchantmeasurement/merchantbenchmark
     pyvdp/paai/index
     pyvdp/dcas/index
     pyvdp/forexrates/index
