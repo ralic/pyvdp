@@ -9,9 +9,9 @@ from pyvdp.visadirect.mvisa import (cashinpushpayments,
                                     merchantpushpayments)
 
 from pyvdp.visadirect import CardAcceptorModel
-from pyvdp.visadirect.mvisa import CashinPushPaymentTransactionModel
-from pyvdp.visadirect.mvisa import CashoutPushPaymentTransactionModel
-from pyvdp.visadirect.mvisa import MerchantPushPaymentTransactionModel
+from pyvdp.visadirect.mvisa import CashinPushPaymentsModel
+from pyvdp.visadirect.mvisa import CashoutPushPaymentsModel
+from pyvdp.visadirect.mvisa import MerchantPushPaymentsModel
 from pyvdp.visadirect.mvisa import PurchaseIdentifierModel
 
 
@@ -53,7 +53,7 @@ def cipp(request):
                     'cardAcceptor': CardAcceptorModel(**ca_kwargs)
                 }
 
-                cippt = CashinPushPaymentTransactionModel(**cippt_kwargs)
+                cippt = CashinPushPaymentsModel(**cippt_kwargs)
 
                 result = cashinpushpayments.send(data=cippt)
         else:
@@ -107,7 +107,7 @@ def copp(request):
                     'cardAcceptor': CardAcceptorModel(**ca_kwargs)
                 }
 
-                coppt = CashoutPushPaymentTransactionModel(**coppt_kwargs)
+                coppt = CashoutPushPaymentsModel(**coppt_kwargs)
 
                 result = cashoutpushpayments.send(data=coppt)
         else:
@@ -167,7 +167,7 @@ def mpp(request):
                     'businessApplicationId': 'MP'
                 }
 
-                mppt = MerchantPushPaymentTransactionModel(**mppt_kwargs)
+                mppt = MerchantPushPaymentsModel(**mppt_kwargs)
 
                 result = merchantpushpayments.send(data=mppt)
         else:

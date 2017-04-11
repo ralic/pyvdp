@@ -1,3 +1,25 @@
+"""This module implements configuration management.
+
+Configuration management is done through reading configuration file. The location if configuration file is defined
+with **PYVDP_CONFIG** environment variable, containing absolute path and file name of logfile, e.g.
+/home/user/pyvdp/configuration.ini
+
+Configuration file is a standard INI-file with sections, keys and their corresponding values.
+
+**Usage:**
+
+..  code-block:: ini
+ 
+    [VISA]
+    url = https://sandbox.api.visa.com
+    username = {your VDP app username}
+    password = {your VDP app password}
+    version = v1
+    cert = {path and filename to certificate file, relative to configuration file directory}
+    key = {path and filename to key file, relative to configuration file directory}
+    loglevel = DEBUG
+    logfile = pyvdp.log
+"""
 import os
 
 try:

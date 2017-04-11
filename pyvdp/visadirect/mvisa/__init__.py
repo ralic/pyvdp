@@ -1,4 +1,4 @@
-from .models import (CashinPushPaymentTransactionModel,
-                     CashoutPushPaymentTransactionModel,
-                     MerchantPushPaymentTransactionModel,
+from .models import (CashinPushPaymentsModel,
+                     CashoutPushPaymentsModel,
+                     MerchantPushPaymentsModel,
                      PurchaseIdentifierModel)

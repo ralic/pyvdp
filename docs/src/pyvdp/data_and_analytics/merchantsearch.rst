@@ -1,23 +1,23 @@
-==============
-MerchantSearch
-==============
+===============
+Merchant Search
+===============
 
 ..  seealso::
 
     https://developer.visa.com/products/merchant_search
-
-++++++++++
-Dispatcher
-++++++++++
-
-..  automodule:: pyvdp.merchantsearch.dispatcher
-    :members:
 
 +++++
 Usage
 +++++
 
 ..  automodule:: pyvdp.merchantsearch.search
+    :members:
+
+++++++++++
+Dispatcher
+++++++++++
+
+..  automodule:: pyvdp.merchantsearch.dispatcher
     :members:
 
 +++++++++++

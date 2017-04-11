@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.visadirect.watchlist import watchlistinquiry, WatchlistDataModel
+from pyvdp.visadirect.watchlist import watchlistinquiry, WatchListInquiryModel
 
 from demo.forms.watchlist.watchlist import WlInquiryFormPost
 
@@ -29,7 +29,7 @@ def inquiry(request):
                 'address': wda_kwargs
             }
 
-            data = WatchlistDataModel(**wd_kwargs)
+            data = WatchListInquiryModel(**wd_kwargs)
 
             result = watchlistinquiry.send(data)
 

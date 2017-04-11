@@ -6,15 +6,10 @@ API Documentation
     :maxdepth: 1
     :caption: Contents:
 
-    pyvdp/dispatcher
-    pyvdp/exceptions
-    pyvdp/visadirect/index
-    pyvdp/pav/card_validation
-    pyvdp/merchantsearch/search
-    pyvdp/merchantmeasurement/merchantbenchmark
-    pyvdp/paai/index
-    pyvdp/dcas/index
-    pyvdp/forexrates/index
+    pyvdp/commons/index
+    pyvdp/data_and_analytics/index
+    pyvdp/payment_methods/index
+    pyvdp/risk_and_fraud/index
 
 
 

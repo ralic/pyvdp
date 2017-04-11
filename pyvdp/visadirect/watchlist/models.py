@@ -2,11 +2,11 @@ import string
 import random
 
 
-class WatchlistDataModel(object):
+class WatchListInquiryModel(object):
     """VisaDirect WatchlistScreening WatchlistInquiry data object model.
 
     :param str name: **Required**. Name of the person, to receive WLM score. Max 255 characters latin string.
-    :param WatchlistDataAddress address: **Required**. Instance of :func:`~pyvdp.visadirect.watchlist.WatchlistDataModel.WatchlistDataAddress`.
+    :param WatchListInquiryAddress address: **Required**. Instance of :func:`~pyvdp.visadirect.watchlist.WatchListInquiryModel.WatchListInquiryAddress`.
     :param int acquiringBin: **Conditional**.  This field is required if acquirerCountryCode field is provided. Bank
         Identification Number provided during enrollment. 6-11 digits integer.
     :param int acquirerCountryCode: **Optional**. Acquirer ISO country code, provided during enrollment. 3 digits
@@ -49,8 +49,8 @@ class WatchlistDataModel(object):
         """
         return ''.join(random.choice(string.digits) for _ in range(12))
 
-    class WatchlistDataAddress(object):
-        """Watchlist address object model, part of :func:`~pyvdp.visadirect.watchlist.WatchlistObject`.
+    class WatchListInquiryAddress(object):
+        """Watchlist address object model, part of :func:`~pyvdp.visadirect.watchlist.WatchListInquiryModel`.
     
         :param str city: **Required**. Client city name.
         :param str cardIssuerCountryCode: **Required**. Card issuer 3 characters ISO country code.

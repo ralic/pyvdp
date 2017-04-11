@@ -1,6 +1,6 @@
 import unittest
 
-from pyvdp.visadirect.watchlist import WatchlistDataModel
+from pyvdp.visadirect.watchlist import WatchListInquiryModel
 
 
 class TestWatchlistDataModel(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestWatchlistDataModel(unittest.TestCase):
             'acquirerCountryCode': 123
         }
 
-        model = WatchlistDataModel(**attrs)
+        model = WatchListInquiryModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -30,7 +30,7 @@ class TestWatchlistDataAddress(unittest.TestCase):
             'cardIssuerCountryCode': 'USA',
         }
 
-        model = WatchlistDataModel.WatchlistDataAddress(**attrs)
+        model = WatchListInquiryModel.WatchListInquiryAddress(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)

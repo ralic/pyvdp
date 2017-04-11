@@ -1,8 +1,8 @@
 import unittest
 
-from pyvdp.visadirect.mvisa import (CashinPushPaymentTransactionModel,
-                                    CashoutPushPaymentTransactionModel,
-                                    MerchantPushPaymentTransactionModel,
+from pyvdp.visadirect.mvisa import (CashinPushPaymentsModel,
+                                    CashoutPushPaymentsModel,
+                                    MerchantPushPaymentsModel,
                                     PurchaseIdentifierModel)
 
 
@@ -25,7 +25,7 @@ class TestCashinPushPaymentTransactionModel(unittest.TestCase):
             'senderName': 'Smith Agent'
         }
 
-        model = CashinPushPaymentTransactionModel(**attrs)
+        model = CashinPushPaymentsModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -51,7 +51,7 @@ class TestCashoutPushPaymentTransactionModel(unittest.TestCase):
             'senderName': 'Smith Agent'
         }
 
-        model = CashoutPushPaymentTransactionModel(**attrs)
+        model = CashoutPushPaymentsModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -80,7 +80,7 @@ class TestMerchantPushPaymentTransactionModel(unittest.TestCase):
             'senderName': 'Smith Agent'
         }
 
-        model = MerchantPushPaymentTransactionModel(**attrs)
+        model = MerchantPushPaymentsModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)

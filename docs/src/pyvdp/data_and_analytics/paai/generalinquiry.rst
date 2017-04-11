@@ -16,9 +16,9 @@ Usage
 ..  automodule:: pyvdp.paai.generalattinq.cardattributes.generalinquiry
     :members:
 
-++++++++++++
-Data Objects
-++++++++++++
++++++++++++
+Data models
++++++++++++
 
 -------------------
 GeneralInquiryModel

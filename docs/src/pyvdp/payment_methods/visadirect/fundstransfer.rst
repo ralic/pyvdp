@@ -1,8 +1,8 @@
-========================
-VisaDirect FundsTransfer
-========================
+==================
+Funds Transfer API
+==================
 
-.. seealso::
+..  seealso::
 
     https://developer.visa.com/products/visa_direct/reference#visa_direct__funds_transfer
 
@@ -10,41 +10,30 @@ VisaDirect FundsTransfer
 Usage
 +++++
 
-A collection of functional call for VisaDirect FundsTransfer APIs, including:
-
-* PullFundsTransactions (GET, POST)
-* MultiPullFundsTransactions (GET, POST)
-* PushFundsTransactions (GET, POST)
-* MultiPushFundsTransactions (GET, POST)
-* ReverseFundsTransactions (GET, POST)
-* MultiReverseFundsTransactions (GET, POST)
-
 ---------
 PullFunds
 ---------
 
-.. automodule:: pyvdp.visadirect.fundstransfer.pullfunds
-   :members:
+..  automodule:: pyvdp.visadirect.fundstransfer.pullfunds
+    :members:
 
 ---------
 PushFunds
 ---------
 
-.. automodule:: pyvdp.visadirect.fundstransfer.pushfunds
-   :members:
+..  automodule:: pyvdp.visadirect.fundstransfer.pushfunds
+    :members:
 
 ------------
 ReverseFunds
 ------------
 
-.. automodule:: pyvdp.visadirect.fundstransfer.reversefunds
-   :members:
+..  automodule:: pyvdp.visadirect.fundstransfer.reversefunds
+    :members:
 
-++++++++++++
-Data objects
-++++++++++++
-
-..  _pull_funds_transaction:
++++++++++++
+Data models
++++++++++++
 
 -------------------------
 PullFundsTransactionModel
@@ -55,8 +44,6 @@ PullFundsTransactionModel
 
 .. autoclass:: pyvdp.visadirect.fundstransfer.MultiPullFundsTransactionModel
    :members:
-
-..  _push_funds_transaction:
 
 -------------------------
 PushFundsTransactionModel

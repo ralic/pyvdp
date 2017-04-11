@@ -4,7 +4,8 @@ class PaymentAccountValidationModel(object):
     :param int systemsTraceAuditNumber: **Required**. Systems Trace Audit Number (STAN), 6-digits integer.
     :param str primaryAccountNumber: **Required**. Primary Account Number (PAN), 13-19 digits string.
     :param str cardExpiryDate: **Conditional**. Card expiration date, YYYY-MM. Required when cvv2 is present.
-    :param PavAddressVerificationResults addressVerificationResults: **Conditional**. Instance of :func:`~pyvdp.pav.PaymentAccountValidationModel.PavAddressVerificationResults`
+    :param AddressVerificationResults addressVerificationResults: **Conditional**. 
+        Instance of :func:`~pyvdp.pav.PaymentAccountValidationModel.AddressVerificationResults`.
     :param str cardCvv2Value: **Conditional**. Card CVV2 value. 3-4 characters string.
     :param int acquiringBin: **Optional**. Bank identification number under which a funds transfer is registered.
         6-11 digits integer.

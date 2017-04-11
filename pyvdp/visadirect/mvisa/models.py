@@ -1,7 +1,7 @@
 from pyvdp.visadirect import VisaDirectTransactionModel
 
 
-class CashinPushPaymentTransactionModel(VisaDirectTransactionModel):
+class CashinPushPaymentsModel(VisaDirectTransactionModel):
     """VisaDirect mVISA CashinPushPayments data object model.
 
     :param int systemsTraceAuditNumber: **Required**. Systems trace audit number. 6 digits integer.
@@ -63,13 +63,13 @@ class CashinPushPaymentTransactionModel(VisaDirectTransactionModel):
     ]
 
     def __init__(self, **kwargs):
-        super(CashinPushPaymentTransactionModel, self).__init__(**kwargs)
+        super(CashinPushPaymentsModel, self).__init__(**kwargs)
         for attr, value in kwargs.items():
             if attr in self.ATTRS and value:
                 self.__setattr__(attr, value)
 
 
-class CashoutPushPaymentTransactionModel(VisaDirectTransactionModel):
+class CashoutPushPaymentsModel(VisaDirectTransactionModel):
     """VisaDirect mVISA CashoutPushPayments data object model.
 
     :param int systemsTraceAuditNumber: **Required**. Systems trace audit number. 6 digits integer.
@@ -136,28 +136,33 @@ class CashoutPushPaymentTransactionModel(VisaDirectTransactionModel):
     ]
 
     def __init__(self, **kwargs):
-        super(CashoutPushPaymentTransactionModel, self).__init__(**kwargs)
+        super(CashoutPushPaymentsModel, self).__init__(**kwargs)
         for attr, value in kwargs.items():
             if attr in self.ATTRS and value:
                 self.__setattr__(attr, value)
 
 
-class MerchantPushPaymentTransactionModel(VisaDirectTransactionModel):
+class MerchantPushPaymentsModel(VisaDirectTransactionModel):
     """VisaDirect mVISA MerchantPushPayments data object model.
 
     :param int systemsTraceAuditNumber: **Required**. Systems trace audit number. 6 digits integer.
-    :param str recipientPrimaryAccountNumber: **Required**. Recipient primary account number (PAN). 13-19 characters string.
+    :param str recipientPrimaryAccountNumber: **Required**. Recipient primary account number (PAN). 
+        13-19 characters string.
     :param float amount: **Required**. Transaction amount. 12 digits, 3 fractions.
-    :param int merchantCategoryCode: **Optional**. Merchant category code, populated by Originator. 4 digits integer. **6012** for mVISA.
+    :param int merchantCategoryCode: **Optional**. Merchant category code, populated by Originator. 
+        4 digits integer. **6012** for mVISA.
     :param int acquiringBin: **Required**. Business identification number. 6-11 digits integer.
-    :param int acquirerCountryCode: **Required**. Country `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_ 
-        of originator BIN. 3 digits integer.
+    :param int acquirerCountryCode: **Required**. 
+        Country `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_  of originator BIN. 
+        3 digits integer.
     :param float transactionFeeAmount: **Required**. Convenience fee amount. 8 digits, 3 fractions. 
-    :param CardAcceptorModel cardAcceptor: **Required**. Instance of :func:`~pyvdp.visadirect.CardAcceptorModel` data object.
-    :param str transactionCurrencyCode: **Required**. Transaction currency `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_.
-        3 characters string.
-    :param PurchaseIdentifierModel purchaseIdentifier: **Required**. Instance of :func:`~pyvdp.visadirect.mvisa.PurchaseIdentifier` 
-        data object.
+    :param CardAcceptorModel cardAcceptor: **Required**. 
+        Instance of :func:`~pyvdp.visadirect.CardAcceptorModel` data object.
+    :param str transactionCurrencyCode: **Required**. 
+        Transaction currency `ISO code <https://developer.visa.com/request_response_codes#isoCodes>`_. 3 characters 
+        string.
+    :param PurchaseIdentifierModel purchaseIdentifier: **Required**. 
+        Instance of :func:`~pyvdp.visadirect.mvisa.PurchaseIdentifier`.
     :param str recipientName: Recipient name.
     :param str secondaryId: **Conditional**. Second field with additional transaction data. Max 28 characters string. 
     :param str businessApplicationId: **Required**. Business application identifier. **MP** for merchant payments 
@@ -220,7 +225,7 @@ class MerchantPushPaymentTransactionModel(VisaDirectTransactionModel):
     ]
 
     def __init__(self, **kwargs):
-        super(MerchantPushPaymentTransactionModel, self).__init__(**kwargs)
+        super(MerchantPushPaymentsModel, self).__init__(**kwargs)
         for attr, value in kwargs.items():
             if attr in self.ATTRS and value:
                 self.__setattr__(attr, value)
@@ -229,7 +234,7 @@ class MerchantPushPaymentTransactionModel(VisaDirectTransactionModel):
 class PurchaseIdentifierModel(object):
     """VisaDirect mVISA PurchaseIdentifierModel data object model.
 
-    Used as a part of :func:`~pyvdp.visadirect.mvisa.MerchantPushPaymentTransactionModel`.
+    Used as a part of :func:`~pyvdp.visadirect.mvisa.MerchantPushPaymentsModel`.
 
     :param str type: **Required**. Primary ID as defined by mVISA. 1 character string.
     :param str referenceNumber: **Required**. Key data element for matching a message to others within a given

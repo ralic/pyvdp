@@ -1,3 +1,34 @@
+"""This module implements event logging.
+
+Event logging is implemented via *@log_event* and *@log_exception* decorators.
+
+Logging level is configured via *loglevel* parameter in configuration file, which may take one of the following values:
+
+* INFO
+* ERROR
+* DEBUG
+
+Default loglevel is **ERROR**. With this loglevel, exceptions are logged with request URL and response code, no sensitive
+information is logged. 
+
+A path and file name of the logfile is defined by *logfile* parameter in configuration file which takes full absolute
+path and filename to configuration file. Default logfile location is **pyvdp.log** in the same directory, where 
+configuration file is located.
+
+**Usage:**
+
+    ..  code-block:: python
+    
+        from pyvdp import logger
+        
+        @logger.log_event
+        def foo(bar):
+            return baz
+            
+        @logger.log_exception
+        def xyz(abc):
+            return True
+"""
 import functools
 import logging
 import uuid
@@ -8,7 +39,7 @@ config = configuration.get_config()
 
 
 def get_logger():
-    """Creates an instance of logger. See "Logging" chapter in docs for details.
+    """Creates an instance of logger.
     
     :return: logger 
     """

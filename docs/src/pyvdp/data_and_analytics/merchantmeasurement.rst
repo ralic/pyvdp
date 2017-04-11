@@ -1,6 +1,6 @@
-===================
-MerchantMeasurement
-===================
+====================
+Merchant Measurement
+====================
 
 ..  seealso::
 
@@ -20,9 +20,9 @@ Dispatcher
 ..  automodule:: pyvdp.merchantmeasurement.dispatcher
     :members:
 
-++++++
-Models
-++++++
++++++++++++
+Data models
++++++++++++
 
 ---------------------------
 RetrieveMetricsPayloadModel

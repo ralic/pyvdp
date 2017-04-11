@@ -10,8 +10,8 @@ Payment Account Attributes Inquiry
     :maxdepth: 1
     :caption: Payment Account Attributes Inquiry
 
-    fundstransferattinq/cardattributes/fundstransferinquiry
-    generalattinq/cardattributes/generalinquiry
+    fundstransferinquiry
+    generalinquiry
 
 ++++++++++
 Dispatcher
@@ -20,14 +20,13 @@ Dispatcher
 ..  automodule:: pyvdp.paai.dispatcher
     :members:
 
-
-++++++++++++
-Data objects
-++++++++++++
++++++++++++
+Data models
++++++++++++
 
 ------------------------------------
 PaymentAccountAttributesInquiryModel
 ------------------------------------
 
-.. autoclass:: pyvdp.paai.PaymentAccountAttributesInquiryModel
-   :members:
+..  automodule:: pyvdp.paai.models
+    :members:

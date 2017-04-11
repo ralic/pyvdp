@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from demo.forms.visadirect.reports import TransactionDataFormGet
 
-from pyvdp.visadirect.reports import transaction_data
+from pyvdp.visadirect.reports import transactiondata
 
 
 def index(request):
@@ -16,7 +16,7 @@ def transactiondata(request):
             from_date = form.cleaned_data['from_date']
             to_date = form.cleaned_data['to_date']
 
-            result = transaction_data.get(from_date=from_date, to_date=to_date)
+            result = transactiondata.get(from_date=from_date, to_date=to_date)
             return render(request, template_name='success.html', context={'result': result})
     else:
         form_get = TransactionDataFormGet()
