@@ -5,14 +5,15 @@ with **PYVDP_CONFIG** environment variable, containing absolute path and file na
 
 Configuration file is a standard INI-file with sections, keys and their corresponding values.
 
-If no configuration file found or configuration file is invalid, VisaConfigurationError exception is raised.
+If no configuration file found or configuration file is invalid, :func:`~pyvdp.configuration.PyvdpConfigurationError`
+exception is raised.
 
 **Usage:**
 
 ..  code-block:: ini
  
     [VISA]
-    url = https://sandbox.api.visa.com
+    url = {Visa Developer Program API Enpoint URL, e.g. https://sandbox.api.visa.com}
     username = {your VDP app username}
     password = {your VDP app password}
     version = v1
@@ -59,7 +60,7 @@ def get_config(config_path=None):
     if not os.path.exists(config_path):
         message = "Could not find configuration file in %s. " \
                   "See \"Configuration\" chapter in docs for details." % config_path
-        raise VisaConfigurationError(message)
+        raise PyvdpConfigurationError(message)
 
     config = parser.ConfigParser()
     config.read(config_path)
@@ -72,7 +73,7 @@ def get_config(config_path=None):
     return configuration
 
 
-class VisaConfigurationError(Exception):
+class PyvdpConfigurationError(Exception):
     """Raised with invalid configuration"""
     def __init__(self, message):
         self.message = message

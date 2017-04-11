@@ -133,7 +133,7 @@ class VisaDispatcher(object):
             message = "Could not load certificate or keyfile." \
                       "Make sure that certficate and keyfile are stored in %s and %s respectively." \
                       % (self._config['cert'], self._config['key'])
-            raise configuration.VisaConfigurationError(message)
+            raise configuration.PyvdpConfigurationError(message)
 
         return self._handle_response(response)
 
