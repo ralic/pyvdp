@@ -11,3 +11,5 @@ Data and Analytics
     forexrates
     merchantmeasurement
     merchantsearch
+    merchantlocator
+
