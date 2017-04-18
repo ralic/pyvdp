@@ -2,7 +2,7 @@ from pyvdp.dispatcher import VisaDispatcher
 
 
 class VisaPavDispatcher(VisaDispatcher):
-    """Instantiates connection to PaymentAccountValidationModel VDP API endpoint.
+    """Instantiates connection to CardValidationModel VDP API endpoint.
 
     :param str method: **Required**. VDP method name.
     :param str http_verb: **Required**. HTTP verb (GET, POST).

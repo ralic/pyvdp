@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.pav import cardvalidation, PaymentAccountValidationModel
+from pyvdp.pav import cardvalidation, CardValidationModel
 from pyvdp.visadirect import CardAcceptorModel
 
 from demo.forms.pav.pav import CardValidationFormPost
@@ -37,10 +37,10 @@ def card_validation(request):
                 'cardExpiryDate': expiry_date,
                 'cardCvv2Value': cvv2,
                 'cardAcceptor': CardAcceptorModel(**ca_kwargs),
-                'addressVerificationResults': PaymentAccountValidationModel.AddressVerificationResults(**avr_kwargs)
+                'addressVerificationResults': CardValidationModel.AddressVerificationResults(**avr_kwargs)
             }
 
-            data = PaymentAccountValidationModel(**pav_kwargs)
+            data = CardValidationModel(**pav_kwargs)
 
             result = cardvalidation.send(data=data)
 

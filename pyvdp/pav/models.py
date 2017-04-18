@@ -1,11 +1,11 @@
-class PaymentAccountValidationModel(object):
-    """Visa Payment Account Validation Object data object model.
+class CardValidationModel(object):
+    """Visa Card Validation data object model.
 
     :param int systemsTraceAuditNumber: **Required**. Systems Trace Audit Number (STAN), 6-digits integer.
     :param str primaryAccountNumber: **Required**. Primary Account Number (PAN), 13-19 digits string.
     :param str cardExpiryDate: **Conditional**. Card expiration date, YYYY-MM. Required when cvv2 is present.
     :param AddressVerificationResults addressVerificationResults: **Conditional**. 
-        Instance of :func:`~pyvdp.pav.PaymentAccountValidationModel.AddressVerificationResults`.
+        Instance of :func:`~pyvdp.pav.CardValidationModel.AddressVerificationResults`.
     :param str cardCvv2Value: **Conditional**. Card CVV2 value. 3-4 characters string.
     :param int acquiringBin: **Optional**. Bank identification number under which a funds transfer is registered.
         6-11 digits integer.
@@ -59,7 +59,7 @@ class PaymentAccountValidationModel(object):
     class AddressVerificationResults(object):
         """AddressVerificationResults data object model.
         
-        A subclass for Payment Account Validation data object model.
+        A subclass for Card Validation data object model.
         
         :param str street: **Conditional**. Street address for card holder. Required when cardCvv2Value
             is not present. 1-20 characters string.

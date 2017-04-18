@@ -1,9 +1,9 @@
 import unittest
 
-from pyvdp.pav import PaymentAccountValidationModel
+from pyvdp.pav import CardValidationModel
 
 
-class TestPaymentAccountValidationModel(unittest.TestCase):
+class TestCardValidationModel(unittest.TestCase):
 
     def test_attributes(self):
 
@@ -18,7 +18,7 @@ class TestPaymentAccountValidationModel(unittest.TestCase):
             'cardAcceptor': object
         }
 
-        model = PaymentAccountValidationModel(**attrs)
+        model = CardValidationModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -34,7 +34,7 @@ class TestAddressVerificationResults(unittest.TestCase):
             'postalCode': '123456'
         }
 
-        model = PaymentAccountValidationModel.AddressVerificationResults(**attrs)
+        model = CardValidationModel.AddressVerificationResults(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)

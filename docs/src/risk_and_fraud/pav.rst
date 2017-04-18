@@ -24,9 +24,9 @@ Dispatcher
 Data models
 +++++++++++
 
------------------------------
-PaymentAccountValidationModel
------------------------------
+-------------------
+CardValidationModel
+-------------------
 
-..  autoclass:: pyvdp.pav.PaymentAccountValidationModel
+..  autoclass:: pyvdp.pav.CardValidationModel
     :members:

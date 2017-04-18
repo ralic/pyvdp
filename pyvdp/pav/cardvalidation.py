@@ -1,10 +1,10 @@
-from pyvdp.pav import VisaPavDispatcher
+from pyvdp.pav.dispatcher import VisaPavDispatcher
 
 
 def send(data):
     """Submits a payment account validation request.
 
-    :param PavTransaction data: **Required**. Instance of :func:`~pyvdp.pav.PaymentAccountValidationModel`.
+    :param PavTransaction data: **Required**. Instance of :func:`~pyvdp.pav.CardValidationModel`.
     :return: A response from VDP.
     
     **Usage:**
@@ -12,7 +12,7 @@ def send(data):
     ..  code-block:: python
     
         from pyvdp.visadirect import CardAcceptorModel
-        from pyvdp.pav import cardvalidation, PaymentAccountValidationModel
+        from pyvdp.pav import cardvalidation, CardValidationModel
         
         ca_address_kwargs = {
             "city": "fostr city",
@@ -35,7 +35,7 @@ def send(data):
         }
         
         pav_kwargs = {
-            "addressVerificationResults": PaymentAccountValidationModel.AddressVerificationResults(**avr_kwargs),
+            "addressVerificationResults": CardValidationModel.AddressVerificationResults(**avr_kwargs),
             "cardAcceptor": CardAcceptorModel(**ca_kwargs),
             "cardCvv2Value": "672",
             "cardExpiryDate": "2018-06",
@@ -44,7 +44,7 @@ def send(data):
             "systemsTraceAuditNumber": "743720"            
         }
         
-        data = PaymentAccountValidationModel(**pav_kwargs)        
+        data = CardValidationModel(**pav_kwargs)        
         result = cardvalidation.send(data=data)        
         print(result)
     """

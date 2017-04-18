@@ -35,7 +35,7 @@ Validation API](https://developer.visa.com/products/pav) using PyVDP:
 ```python
 from pyvdp.pav import cardvalidation, PaymentAccountValidationModel
 
-data = PaymentAccountValidationModel(stan=123456, 
+data = CardValidationModel(stan=123456, 
                                      pan='1234567812345678', 
                                      expiry_date='02-2020', 
                                      cvv2='123')
@@ -61,14 +61,14 @@ With PyVDP, `POST` requests are reflected with `send()` function, `GET` requests
 wrong, a meaningful exception is raised.
 
 So taking example above, under the hood, following magic occurs:
-* `PaymentAccountValidationModel` object is instantiated with required attributes
+* `CardValidationModel` object is instantiated with required attributes
 * `cardvalidation.send()` function is called with `PavTransaction` passed as an argument
 * `VisaPavDispatcher` is instantiated with `PavTransaction` passed as an argument along wв?dith `http_verb`, `resource` 
 and `api` argument values
 * `VisaPavDispatcher` inherits from `VisaDispatcher` which is an abstract class, that implements all logic, related to
 construction of request to VDP (including HTTP headers, authentication, url construction etc)
-* `PaymentAccountValidationModel` is serialized to JSON 
-* `PaymentAccountValidationModel` JSON is POSTed to [cardValidation](https://developer.visa.com/products/pav/reference#pav__pav__v1__cardvalidation)
+* `CardValidationModel` is serialized to JSON 
+* `CardValidationModel` JSON is POSTed to [cardValidation](https://developer.visa.com/products/pav/reference#pav__pav__v1__cardvalidation)
 *  If a request is valid, a response is returned as a JSON object, in case request is invalid, an exception is raised.
 
 Also please note, that this documentation relies heavily on the [official VDP documentation](https://developer.visa.com/guides/vdpguide#get-started-overview) so be prepared to dig through tons of methods and specs there.
