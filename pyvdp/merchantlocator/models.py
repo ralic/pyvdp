@@ -8,7 +8,8 @@ class MerchantLocatorModel(object):
     
     https://developer.visa.com/products/merchant_locator/reference
     
-    :param Header header: **Optional**. Instance of :func:`~pyvdp.merchantlocator.MerchantLocatorModel.Header`.
+    :param pyvdp.merchantlocator.MerchantLocatorModel.Header header: **Optional**. 
+        Instance of :func:`~pyvdp.merchantlocator.MerchantLocatorModel.Header`.
         If not provided, will be set automatically. See docs for Header subclass.
     :param SearchAttrList searchAttrList: **Required**. 
         Instance of :func:`~pyvdp.merchantlocator.MerchantLocatorModel.SearchAttrList`.
