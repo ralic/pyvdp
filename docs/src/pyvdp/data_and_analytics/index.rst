@@ -7,6 +7,7 @@ Data and Analytics
     :caption: Contents:
 
     paai/index
+    globalatmlocator/index
     dcas
     forexrates
     merchantmeasurement

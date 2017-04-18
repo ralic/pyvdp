@@ -6,9 +6,9 @@ from datetime import datetime
 class RetrieveMetricsPayloadModel(object):
     """RetriveMetricsPayload data object model for Merchant Measurement APIs.
     
-    :param RequestHeader requestHeader: **Optional**. 
+    :param pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel.RequestHeader requestHeader: **Optional**. 
         Instance of :func:`~pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel.RequestHeader`
-    :param RequestData requestData: **Required**.
+    :param pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel.RequestData requestData: **Required**.
         Instance of :func:`~pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel.RequestData`
     """
     ATTRS = [
