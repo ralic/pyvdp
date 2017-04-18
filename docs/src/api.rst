@@ -6,9 +6,9 @@ API Documentation
     :maxdepth: 1
     :caption: Contents:
 
-    pyvdp/data_and_analytics/index
-    pyvdp/payment_methods/index
-    pyvdp/risk_and_fraud/index
+    data_and_analytics/index
+    payment_methods/index
+    risk_and_fraud/index
 
 +++++++++++++
 Configuration
