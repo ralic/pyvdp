@@ -1,6 +1,8 @@
-======================================================
-PyVDP - Visa Developer Program APIs, wrapped in Python
-======================================================
+:github_url: https://www.github.com/ppokrovsky/pyvdp
+
+================================================
+PyVDP: Visa Developer Program, wrapped by Python
+================================================
 
 ..  note::
 
@@ -10,16 +12,10 @@ PyVDP - Visa Developer Program APIs, wrapped in Python
     :maxdepth: 1
     :caption: Contents:
 
-    api
+    data_and_analytics/index
+    payment_methods/index
+    risk_and_fraud/index
     glossary
-
-++++++++++++
-Installation
-++++++++++++
-
-..  code-block:: bash
-
-    $ pip install pyvdp
 
 ++++++++++++
 Introduction
@@ -71,3 +67,33 @@ With any unexpected outcome, a corresponding exception is raised. Generally, any
 with *Visa* (e.g. :func:`~pyvdp.exceptions.VisaMessageValidationError` that represents HTTP 400 code).
 Internal PyVDP errors are also handled by exceptions. Names of such exceptions start with *Pyvdp*, e.g.
 :func:`~pyvdp.configuration.PyvdpConfigurationError`.
+
+++++++++++++
+Installation
+++++++++++++
+
+..  code-block:: bash
+
+    $ pip install pyvdp
+
++++++++++++++
+Configuration
++++++++++++++
+
+..  warning::
+
+    Since configuration file contains sensitive data, such as user credentials, the configuration file itself and
+    corresponding certificate/keyfiles should be kept safely and ignored by version control.
+
+..  automodule:: pyvdp.configuration
+
++++++++
+Logging
++++++++
+
+..  warning::
+
+    **DEBUG** should not be used in production environment because logs may (and will) contain sensitive data, such
+    as VDP authentication credentials and card details.
+
+..  automodule:: pyvdp.logger
