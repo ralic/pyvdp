@@ -33,15 +33,15 @@ I could have given a long marketing speech, instead here's an example on how to 
 Validation API](https://developer.visa.com/products/pav) using PyVDP:
 
 ```python
-from pyvdp.pav import PaymentAccountValidation
-from pyvdp.pav import cardvalidation 
+from pyvdp.pav import cardvalidation, PaymentAccountValidationModel
 
 data = PaymentAccountValidationModel(stan=123456, 
-                      pan='1234567812345678', 
-                      expiry_date='02-2020', 
-                      cvv2='123')
+                                     pan='1234567812345678', 
+                                     expiry_date='02-2020', 
+                                     cvv2='123')
                       
-r = cardvalidation.send(data=data)
+result = cardvalidation.send(data)
+print(result)
 ```
 
 That's it. So basically all you need to do is to construct a data object (typically some sort of transaction) and pass 
@@ -61,14 +61,14 @@ With PyVDP, `POST` requests are reflected with `send()` function, `GET` requests
 wrong, a meaningful exception is raised.
 
 So taking example above, under the hood, following magic occurs:
-* `PavTransaction` object is instantiated with required attributes
+* `PaymentAccountValidationModel` object is instantiated with required attributes
 * `cardvalidation.send()` function is called with `PavTransaction` passed as an argument
-* `VisaPavRequest` is instantiated with `PavTransaction` passed as an argument along wв?dith `http_verb`, `resource` and
-`api` argument values
-* `VisaPavRequest` inherits from `VisaRequest` which is an abstract class, that implements all logic, related to
+* `VisaPavDispatcher` is instantiated with `PavTransaction` passed as an argument along wв?dith `http_verb`, `resource` 
+and `api` argument values
+* `VisaPavDispatcher` inherits from `VisaDispatcher` which is an abstract class, that implements all logic, related to
 construction of request to VDP (including HTTP headers, authentication, url construction etc)
-* `PavTransaction` is serialized to JSON 
-* `PavTransaction` JSON is POSTed to [cardValidation](https://developer.visa.com/products/pav/reference#pav__pav__v1__cardvalidation)
+* `PaymentAccountValidationModel` is serialized to JSON 
+* `PaymentAccountValidationModel` JSON is POSTed to [cardValidation](https://developer.visa.com/products/pav/reference#pav__pav__v1__cardvalidation)
 *  If a request is valid, a response is returned as a JSON object, in case request is invalid, an exception is raised.
 
 Also please note, that this documentation relies heavily on the [official VDP documentation](https://developer.visa.com/guides/vdpguide#get-started-overview) so be prepared to dig through tons of methods and specs there.
@@ -92,7 +92,7 @@ example)
 
 PyVDP reflects a structure of RESTful resources through Python modules. That said, if you want to interact with, say,
 [VisaDirect FundsTransfer API](https://developer.visa.com/products/visa_direct/guides#using_the_funds_transfer_api), 
-you need to make yourself familiar with `visa.visadirect.fundstransfer` module. This approach is more or less
+you need to make yourself familiar with `pyvdp.visadirect.fundstransfer` module. This approach is more or less
 implemented throughout the whole library with respect to PEP naming conventions.
 
 Below are described general use-case scenarios. I'm assuming, that you already registered an application with VDP, 
@@ -112,7 +112,7 @@ query string depending on specific API requirements
 
 Data object is an instance of one or more modules, located in `data` module of corresponding API. This modules contain
 blueprints of data objects, that can be submitted to corresponding API. For example, module 
-`visa.visadirect.fundstransfer.data` implements all possible kinds of transactions, that may be used for 
+`pyvdp.visadirect.fundstransfer.models` implements all possible kinds of transactions, that may be used for 
 `FundsTransfer` API. Essentially, a data object is nothing more, but a simple Python class, which sets a list of 
 attributes within its constructor. Attributes are passed as `**kwargs`. With respect to attribute names, generally
 VDP follows a camelCase convention, while PEP8 recommends underscore_naming. Therefore, prior to assigning attributes,
@@ -139,23 +139,20 @@ etc.
 
 This is an example code for creating a data object for [FundsTransfer PushFundsTransactionModel](https://developer.visa.com/products/visa_direct/reference#visa_direct__funds_transfer__v1__pushfunds):
 ```python
-from pyvdp.visadirect import CardAcceptor
-from pyvdp.visadirect.fundstransfer import PushFundsTransaction
+from pyvdp.visadirect import CardAcceptorModel
+from pyvdp.visadirect.fundstransfer import PushFundsTransactionModel
 
-CardAcceptorModels located 
-# in visadirect.data.card_acceptor module.
 ca = CardAcceptorModel(name='Acceptor 1', 
-                  country='RU', 
-                  terminal_id='TID-9999', 
-                  id_code='CA-CardAcceptorMod
-eld with card_acceptor
-# argument
-t = PushFundsTransactionModelM(stan=123456, 
-                         amount=123.45, 
-                         sender_pan='1234567812345678', 
-                         sender_card_expiry_date='12-2020',
-                         sender_currency_code='USD', 
-                         card_acceptor=ca)
+                       country='RU', 
+                       terminal_id='TID-9999', 
+                       id_code='CA-CardAcceptorModel')
+                       
+t = PushFundsTransactionModel(stan=123456, 
+                              amount=123.45, 
+                              sender_pan='1234567812345678', 
+                              sender_card_expiry_date='12-2020',
+                              sender_currency_code='USD', 
+                              card_acceptor=ca)
 ```
 
 #### Sending data to VDP ####  
@@ -170,8 +167,8 @@ from pyvdp.visadirect.fundstransfer import pushfunds
 pushfunds.send(data=t)
 ```
 
-Under the hood, instance of `PushTransaction` with nested `CardAcceptorModel` will be serialized to JSON and passed to VDP
-as a payload of POST request.
+Under the hood, instance of `PushFundsTransactionModel` with nested `CardAcceptorModel` will be serialized to JSON and 
+passed to VDP as a payload of POST request.
 
 A response will contain HTTP code and some JSON payload. `200 Success` is the only successful HTTP code, all other codes 
 are considered errors and handled through corresponding exceptions. The only (and big) exception from this rule is 
@@ -210,10 +207,11 @@ preconfigured requests. If necessary, you may further customize behavior and imp
 existing. To do so, you need to take a look at `request` modules, that implement a connection to a specific API endpoint 
 and all related logic, such as HTTP headers, query strings etc. 
 
-All `request` modules inherit from `visa.request.VisaRequest` class. This class is a mastermind of interaction with VDP.
+All `dispatcher` modules inherit from `pyvdp.dispatcher.VisaDispatcher` class. This class is a mastermind of 
+interaction with VDP.
 It implements construction of HTTP request, including serialization of data objects, construction of HTTP headers,
 submission with corresponding HTTP method and handling exceptions.
-`VisaRequest` is considered abstract and it should not be instantiated on its own. Instead, it should be inherited by
+`VisaDispatcher` is considered abstract and it should not be instantiated on its own. Instead, it should be inherited by
 concrete implementation for specific APIs.
 
 Check out [API documentation](https://ppokrovsky.github.io/pyvdp/index.html) for further details.
