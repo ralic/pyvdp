@@ -1,8 +1,8 @@
 :github_url: https://www.github.com/ppokrovsky/pyvdp
 
-====================================
-PyVDP: VISA APIs. Wrapped by Python.
-====================================
+======================================
+PyVDP: VISA APIs. Wrapped with Python.
+======================================
 
 ..  note::
 
