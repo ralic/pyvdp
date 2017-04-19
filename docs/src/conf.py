@@ -97,11 +97,11 @@ html_theme_path = ["_themes", ]
 # documentation.
 #
 # html_theme_options = {}
+# gaid = 'google_analytics_id': 'UA-97634987-1'
 html_theme_options = {
     'collapse_navigation': False,
     'display_version': True,
     'navigation_depth': 3,
-    'google_analytics_id': 'UA-97634987-1'
 }
 html_copy_source = False
 html_show_sphinx = False
