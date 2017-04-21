@@ -29,7 +29,7 @@ Features
   * Data and Analytics:
     * Merchant Search
     * Merchant Locator
-    * Visa Global AT Locator
+    * Visa Global ATM Locator
     * Merchant Measurement
     * Payment Account Attibutes Inquiry
     * Foreign Exchange Rates
