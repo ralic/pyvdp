@@ -24,9 +24,13 @@ Features
 * Can be used with any web framework.
 * Includes demo Django application, demonstrating basic principles.
 * Full support for following APIs:
+
   * Payment Methods:
+
     * VisaDirect
+
   * Data and Analytics:
+
     * Merchant Search
     * Merchant Locator
     * Visa Global ATM Locator
@@ -34,7 +38,9 @@ Features
     * Payment Account Attibutes Inquiry
     * Foreign Exchange Rates
     * Digital Card and Account Services
+
   * Risk and Fraud
+
     * Mobile Location Confirmation
     * Payment Account Validation
 
