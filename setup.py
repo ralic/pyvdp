@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-DESCRIPTION = 'A collection of wrappers for Visa Developer Program APIs (https://developer.visa.com/)'
+DESCRIPTION = 'PyVDP: VISA APIs. Wrapped in Python.'
 
 
 CLASSIFIERS = [
@@ -19,7 +19,7 @@ CLASSIFIERS = [
 
 setup(
     name='pyvdp',
-    version='1.1.6dev1',
+    version='1.2.0',
     author='Pavel Pokrovskiy',
     author_email='ppokrovsky@gmail.com',
     license='MIT',
@@ -27,8 +27,7 @@ setup(
     keywords=['visa', 'vdp', 'payment'],
     platforms=['OS Independent'],
     classifiers=CLASSIFIERS,
-    test_suite='tests',
-    packages=find_packages('.', exclude=['tests']),
+    packages=find_packages(exclude=["tests", "tests.*"]),
     install_requires=[
         'setuptools',
         'six',
@@ -37,5 +36,5 @@ setup(
     ],
     url='https://www.github.com/ppokrovsky/pyvdp',
     include_package_data=True,
-    package_data={'': ['LICENSE.txt', 'README.md'], 'pyvdp': ['configuration.ini.example']},
+    package_data={'': ['LICENSE.txt', 'README.rst'], 'pyvdp': ['configuration.ini.example']},
 )
