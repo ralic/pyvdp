@@ -6,13 +6,11 @@ def send(data):
     
     :param GeocodesInquiryModel data: **Required**. 
         Instance of :func:`~pyvdp.globalatmlocator.localatms.GeocodesInquiryModel`.
-    :return: Response from VDP
+    :return: Response from VDP.
      
     **Usage:**
     
-    ..  code-block:: python
-    
-        
+    ..  code:: python
 
         header_kwargs = {
             "applicationId": "GEOCODE",
@@ -70,8 +68,12 @@ def send(data):
         }
         
         data = GeocodesInquiryModel(**data_kwargs)
-        result = geocodesinquiry.send(data=data)
+        result = geocodesinquiry.send(data)
         print(result)
     """
-    c = VisaGlobalAtmLocatorDispatcher(method='localatms/geocodesinquiry', data=data)
+    c = VisaGlobalAtmLocatorDispatcher(resource='globalatmlocator',
+                                       api='',
+                                       method='localatms/geocodesinquiry',
+                                       http_verb='POST',
+                                       data=data)
     return c.send()

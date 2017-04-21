@@ -3,54 +3,174 @@ import time
 from datetime import datetime
 
 
-class MerchantSearchModel(object):
+class SearchModel(object):
     """Visa Merchant Search data object model.
     
     :param MerchantSearchHeader header: **Required**. 
-        Instance of :func:`~pyvdp.merchantsearch.MerchantSearchModel.MerchantSearchHeader`
+        Instance of :func:`~pyvdp.merchantsearch.SearchModel.MerchantSearchHeader`
     :param MerchantSearchAttrList searchAttrList: **Required**. 
-        Instance of :func:`~pyvdp.merchantsearch.MerchantSearchModel.MerchantSearchAttrList`
+        Instance of :func:`~pyvdp.merchantsearch.SearchModel.MerchantSearchAttrList`
     :param list responseAttrList: **Required**. A list with attributes (Group Names) to include in response.
     :param MerchantSearchOptions searchOptions: **Required**.
-        Instance of :func:`~pyvdp.merchantsearch.MerchantSearchModel.MerchantSearchOptions`
+        Instance of :func:`~pyvdp.merchantsearch.SearchModel.MerchantSearchOptions`
 
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+    
+    ..  code:: json
 
-            {
-                "header": {
-                    "messageDateTime": "2017-03-18T03:39:08.903",
-                    "requestMessageId": "Request_001",
-                    "startIndex": "0"
-                },
-                "searchAttrList": {
-                    "merchantName": "cmu edctn materials cntr",
-                    "merchantStreetAddress": "802 industrial dr",
-                    "merchantCity": "Mount Pleasant",
-                    "merchantState": "MI",
-                    "merchantPostalCode": "48858",
-                    "merchantCountryCode": "840",
-                    "merchantPhoneNumber": "19897747123",
-                    "merchantUrl": "http://www.emc.cmich.edu",
-                    "businessRegistrationId": "386004447",
-                    "acquirerCardAcceptorId": "424295031886",
-                    "acquiringBin": "476197"
-                },
-                "responseAttrList": [
-                    "GNSTANDARD"
+        {
+            "header": {
+                "messageDateTime": "2017-03-18T03:39:08.903",
+                "requestMessageId": "Request_001",
+                "startIndex": "0"
+            },
+            "searchAttrList": {
+                "merchantName": "cmu edctn materials cntr",
+                "merchantStreetAddress": "802 industrial dr",
+                "merchantCity": "Mount Pleasant",
+                "merchantState": "MI",
+                "merchantPostalCode": "48858",
+                "merchantCountryCode": "840",
+                "merchantPhoneNumber": "19897747123",
+                "merchantUrl": "http://www.emc.cmich.edu",
+                "businessRegistrationId": "386004447",
+                "acquirerCardAcceptorId": "424295031886",
+                "acquiringBin": "476197"
+            },
+            "responseAttrList": [
+                "GNSTANDARD"
+            ],
+            "searchOptions": {
+                "maxRecords": "5",
+                "matchIndicators": "true",
+                "matchScore": "true",
+                "proximity": [
+                    "merchantName"
                 ],
-                "searchOptions": {
-                    "maxRecords": "5",
-                    "matchIndicators": "true",
-                    "matchScore": "true",
-                    "proximity": [
-                        "merchantName"
-                    ],
-                    "wildCard": [
-                        "merchantName"
-                    ]
+                "wildCard": [
+                    "merchantName"
+                ]
+            }
+        }
+        
+    **Response:**
+    
+    ..  code:: json
+    
+        {
+            "merchantSearchServiceResponse": {
+                "response": [
+                    {
+                        "responseValues": {
+                            "merchantStreetAddress": "802 INDUSTRIAL DR",
+                            "merchantCity": "MOUNT PLEASANT",
+                            "merchantState": "MI",
+                            "merchantPostalCode": "48858-4646",
+                            "visaStoreName": "SCHOOL OF EXTENDED LEARNING",
+                            "visaMerchantName": "CMU EDCTN MATERIALS CN",
+                            "dbaname": [
+                                "CMU GLOBAL CAMPUS ADMISS",
+                                "CMU EDCTN MATERIALS CNTR",
+                                "CMU GLOBAL CAMPUS PROGMS",
+                                "CMU GLOBAL CAMPUS NONCRD",
+                                "CMU GLOBAL CAMPUS PYMNTS"
+                            ],
+                            "businessLegalName": [
+                                "CENTRAL MICHIGAN UNIV",
+                                "CENTRAL MICHIGAN UNIVERSITY",
+                                "CENTRAL MICHIGAN UNVRSTY"
+                            ],
+                            "paymentFacilitatorName": [],
+                            "visaEnterpriseName": "CMU",
+                            "merchantCategoryCode": [
+                                "8220"
+                            ],
+                            "merchantCategoryCodeDesc": [
+                                "COLLEGES/UNIV/JC/PROFESSION"
+                            ],
+                            "paymentAcceptanceMethod": [
+                                "F2F",
+                                "EC",
+                                "MOTO"
+                            ],
+                            "terminalType": [
+                                "SWIPE"
+                            ],
+                            "firstTranDateRange": "In more than 365 days",
+                            "lastTranDateRange": "In last 365 days",
+                            "fleetIndicator": "",
+                            "level2Indicator": "Y",
+                            "level3SummaryIndicator": "Y",
+                            "level3LineItemIndicator": "N",
+                            "disabledVeteranOwned": "N",
+                            "hubzoneCertified": "N",
+                            "minorityOwned": "N",
+                            "sbaregistered": "N",
+                            "veteranOwned": "N",
+                            "smallDisadvantagedBusiness": "N",
+                            "vietnamVeteranOwned": "N",
+                            "womenOwned": "N",
+                            "merchantPhoneNumber": [
+                                {
+                                    "type": "O",
+                                    "number": "9897747123"
+                                },
+                                {
+                                    "type": "O",
+                                    "number": "8006642681"
+                                },
+                                {
+                                    "type": "O",
+                                    "number": "8772684636"
+                                },
+                                {
+                                    "type": "O",
+                                    "number": "9897743986"
+                                },
+                                {
+                                    "type": "O",
+                                    "number": "9897747121"
+                                }
+                            ],
+                            "visaMerchantId": "34619535",
+                            "visaStoreId": "166156429",
+                            "merchantUrl": [ ],
+                            "merchantCountryCode": "840",
+                            "8AClassified": "N",
+                            "primaryMerchantCategoryCode": "",
+                            "visaPartnerProgramMerchant": [ ]
+                        },
+                        "matchIndicators": {
+                            "merchantStreetAddress": "Y",
+                            "merchantCity": "Y",
+                            "merchantState": "Y",
+                            "merchantPostalCode": "Y",
+                            "merchantName": "Y",
+                            "acquirerCardAcceptorId": "N",
+                            "acquiringBin": "N",
+                            "merchantPhoneNumber": "N",
+                            "businessRegistrationId": "N",
+                            "merchantUrl": "N",
+                            "merchantCountryCode": "Y"
+                        },
+                        "matchScore": "2.344385"
+                    }
+                ],
+                "header": {
+                    "responseMessageId": "64VDP877520170419115525215",
+                    "startIndex": "0",
+                    "numRecordsMatched": 1,
+                    "numRecordsReturned": 1,
+                    "requestMessageId": "Request_001",
+                    "messageDateTime": "2017-04-19T11:55:25.215",
+                    "endIndex": "0"
+                },
+                "status": {
+                    "statusDescription": "Success",
+                    "statusCode": "CDI000"
                 }
             }
+        }    
     """
     ATTRS = [
         'header',

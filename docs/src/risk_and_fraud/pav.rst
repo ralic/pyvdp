@@ -6,18 +6,15 @@ Payment Account Validation
 
         https://developer.visa.com/products/pav/reference
 
-+++++
-Usage
-+++++
++++++++
+Actions
++++++++
+
+--------------
+cardvalidation
+--------------
 
 ..  automodule:: pyvdp.pav.cardvalidation
-    :members:
-
-++++++++++
-Dispatcher
-++++++++++
-
-..  automodule:: pyvdp.pav.dispatcher
     :members:
 
 +++++++++++
@@ -29,4 +26,11 @@ CardValidationModel
 -------------------
 
 ..  autoclass:: pyvdp.pav.CardValidationModel
+    :members:
+
+++++++++++
+Dispatcher
+++++++++++
+
+..  automodule:: pyvdp.pav.dispatcher
     :members:

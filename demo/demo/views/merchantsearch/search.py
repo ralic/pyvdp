@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.merchantsearch import search, MerchantSearchModel
+from pyvdp.merchantsearch import search, SearchModel
 
 from demo.forms.merchantsearch.search import MerchantSearchFormPost
 
@@ -38,13 +38,13 @@ def merchant_search(request):
             }
 
             ms_kwargs = {
-                'header': MerchantSearchModel.MerchantSearchHeader(),
-                'searchAttrList': MerchantSearchModel.MerchantSearchAttrList(**msal_kwargs),
+                'header': SearchModel.MerchantSearchHeader(),
+                'searchAttrList': SearchModel.MerchantSearchAttrList(**msal_kwargs),
                 'responseAttrList': ["GNSTANDARD"],
-                'searchOptions': MerchantSearchModel.MerchantSearchOptions(**mso_kwargs)
+                'searchOptions': SearchModel.MerchantSearchOptions(**mso_kwargs)
             }
 
-            data = MerchantSearchModel(**ms_kwargs)
+            data = SearchModel(**ms_kwargs)
 
             result = search.send(data=data)
 

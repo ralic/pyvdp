@@ -9,7 +9,7 @@ def send(data):
     
     **Usage:**
     
-    ..  code-block:: python
+    ..  code:: python
         
         from pyvdp.mlc.enrollment import enrollments, EnrollmentsModel
         
@@ -29,5 +29,9 @@ def send(data):
         result = enrollments.send(data)
         print(result)
     """
-    c = VisaMobileLocationConfirmationDispatcher(api='enrollment', method='enrollments', data=data)
+    c = VisaMobileLocationConfirmationDispatcher(resource='mlc',
+                                                 api='enrollment',
+                                                 method='enrollments',
+                                                 http_verb='POST',
+                                                 data=data)
     return c.send()

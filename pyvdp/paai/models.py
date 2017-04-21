@@ -1,10 +1,12 @@
 from datetime import datetime
 
 
-class PaymentAccountAttributesInquiryModel(object):
-    """Parent class for PAAI APIs.
+class AbstractPaymentAccountAttributesInquiryModel(object):
+    """Abstract model for PAAI APIs.
     
-    Implements generation of RRN and population of systemsTraceAuditNumber (STAN) attribute/
+    Inherited by concrete models.
+    
+    Implements generation of RRN and population of systemsTraceAuditNumber (STAN) attribute.
     
     :param int systemsTraceAuditNumber: **Required**. Systems Trace Audit Number (STAN). 6 digits integer.
     :param str retrievalReferenceNumber: **Optional**. Optional Retrieval Reference Number. 12 characters string. 

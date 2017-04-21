@@ -1,7 +1,7 @@
 from pyvdp.visadirect.models import VisaDirectTransactionModel, VisaDirectTransactionBatchModel
 
 
-class PullFundsTransactionModel(VisaDirectTransactionModel):
+class PullFundsTransactionsModel(VisaDirectTransactionModel):
     """VisaDirect FundsTransfer PullFunds data object model.
 
     :param int systemsTraceAuditNumber: **Required**. Systems trace audit number.  6 digits integer.
@@ -44,38 +44,51 @@ class PullFundsTransactionModel(VisaDirectTransactionModel):
     :param MerchantVerificationValueModel merchantVerificationValue: **Optional**. 
         Instance of :func:`~pyvdp.visadirect.MerchantVerificationValueModel`.
     :param bool multi: **Conditional**. If True, this transaction is a part of batch. 
-        See :func:`~pyvdp.visadirect.fundstransfer.MultiPullFundsTransactionModel`
+        See :func:`~pyvdp.visadirect.fundstransfer.MultiPullFundsTransactionsModel`
 
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+    
+    ..  code:: json
 
-            {
-                "acquirerCountryCode": 840,
-                "acquiringBin": 408999,
-                "amount": 124.02,
-                "businessApplicationId": "AA",
-                "cardAcceptor": {
-                    "address": {
-                        "country": "USA",
-                        "county": "San Mateo",
-                        "state": "CA",
-                        "zipCode": "94404"
-                    },
-                    "idCode": "ABCD1234ABCD123",
-                    "name": "Visa Inc. USA-Foster City",
-                    "terminalId": "ABCD1234"
-                    },
-                "cavv": "0700100038238906000013405823891061668252",
-                "foreignExchangeFeeTransaction": "11.99",
-                "localTransactionDateTime": "2017-03-17T08:20:42",
-                "retrievalReferenceNumber": "330000550000",
-                "senderCardExpiryDate": "2015-10",
-                "senderCurrencyCode": "USD",
-                "senderPrimaryAccountNumber": "4895142232120006",
-                "surcharge": "11.99",
-                "systemsTraceAuditNumber": "451001"
-            }
+        {
+            "acquirerCountryCode": 840,
+            "acquiringBin": 408999,
+            "amount": 124.02,
+            "businessApplicationId": "AA",
+            "cardAcceptor": {
+                "address": {
+                    "country": "USA",
+                    "county": "San Mateo",
+                    "state": "CA",
+                    "zipCode": "94404"
+                },
+                "idCode": "ABCD1234ABCD123",
+                "name": "Visa Inc. USA-Foster City",
+                "terminalId": "ABCD1234"
+            },
+            "cavv": "0700100038238906000013405823891061668252",
+            "foreignExchangeFeeTransaction": "11.99",
+            "localTransactionDateTime": "2017-03-17T08:20:42",
+            "retrievalReferenceNumber": "330000550000",
+            "senderCardExpiryDate": "2015-10",
+            "senderCurrencyCode": "USD",
+            "senderPrimaryAccountNumber": "4895142232120006",
+            "surcharge": "11.99",
+            "systemsTraceAuditNumber": "451001"
+        }
 
+    **Response:**
+    
+    ..  code:: json
+    
+        {
+            "transactionIdentifier": 587010322176104,
+            "actionCode": "00",
+            "approvalCode": "98765X",
+            "responseCode": "5",
+            "transmissionDateTime": "2017-04-20T04:41:12.000Z",
+            "cavvResultCode": "8"
+        }    
     """
     ATTRS = [
         'acquiringBin',
@@ -102,23 +115,23 @@ class PullFundsTransactionModel(VisaDirectTransactionModel):
     ]
 
     def __init__(self, **kwargs):
-        super(PullFundsTransactionModel, self).__init__(**kwargs)
+        super(PullFundsTransactionsModel, self).__init__(**kwargs)
         for attr, value in kwargs.items():
             if attr in self.ATTRS and value:
                 self.__setattr__(attr, value)
 
 
-class MultiPullFundsTransactionModel(VisaDirectTransactionBatchModel):
+class MultiPullFundsTransactionsModel(VisaDirectTransactionBatchModel):
     """VisaDirect FundsTransfer MultiPullFunds data object model.
 
-    It is container object, which incorporate PullFundsTransactionModel objects under the same acquirer
+    It is container object, which incorporate PullFundsTransactionsModel objects under the same acquirer
     credentials.
     
     ..  note::
         
-        When instance of PullFundsTransactionModel incorporated in MultiPullFundsTransactionModel, 
+        When instance of PullFundsTransactionsModel incorporated in MultiPullFundsTransactionsModel, 
         attributes `acquirerBin`, `acquiringCountryCode` and `businessApplicationId` are migrating from 
-        PullFundsTransactionModel to  MultiPullFundsTransactionModel level.    
+        PullFundsTransactionsModel to  MultiPullFundsTransactionsModel level.    
 
     :param int acquiringBin: **Required**. Bank identification number (BIN) for VisaDirect acquiring. 6-11 digits
         integer.
@@ -126,63 +139,71 @@ class MultiPullFundsTransactionModel(VisaDirectTransactionBatchModel):
         `ISO country code <https://developer.visa.com/request_response_codes#isoCodes>`_ for acquiring institution.
     :param str businessApplicationId: **Required**. `Program business application type 
         <https://developer.visa.com/request_response_codes#businessApplicationId>`_. 2 characters string.
-    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.PullFundsTransactionModel`
+    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.PullFundsTransactionsModel`
         objects. 
 
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+    
+    ..  code:: json
 
-            {
-                "acquirerCountryCode": "608",
-                "acquiringBin": "408999",
-                "businessApplicationId": "AA",
-                "localTransactionDateTime": "2017-03-17T09:11:08",
-                "merchantCategoryCode": "6012",
-                "request": [
-                    {
-                        "amount": "100.00",
-                        "cardAcceptor": {
-                            "address": {
-                                "country": "USA",
-                                "county": "00",
-                                "state": "CA",
+        {
+            "acquirerCountryCode": "608",
+            "acquiringBin": "408999",
+            "businessApplicationId": "AA",
+            "localTransactionDateTime": "2017-03-17T09:11:08",
+            "merchantCategoryCode": "6012",
+            "request": [
+                {
+                    "amount": "100.00",
+                    "cardAcceptor": {
+                        "address": {
+                            "country": "USA",
+                            "county": "00",
+                            "state": "CA",
                                 "zipCode": "94454"
-                            },
-                            "idCode": "5678",
-                            "name": "Mr Smith",
-                            "terminalId": "1234"
                         },
-                        "cavv": "0700020718799100000002980179911000000000",
-                        "localTransactionDateTime": "2017-03-17T09:11:08",
-                        "retrievalReferenceNumber": "401010101011",
-                        "senderCardExpiryDate": "2020-12",
-                        "senderCurrencyCode": "USD",
-                        "senderPrimaryAccountNumber": "4895140000066666",
-                        "systemsTraceAuditNumber": "101011"
+                        "idCode": "5678",
+                        "name": "Mr Smith",
+                        "terminalId": "1234"
                     },
-                    {
-                        "amount": "100.00",
-                        "cardAcceptor": {
-                            "address": {
-                                "country": "USA",
-                                "county": "00",
-                                "state": "CA",
-                                "zipCode": "94454"
-                            },
-                            "idCode": "5678",
-                            "name": "Mr Smith",
-                            "terminalId": "1234"
+                    "cavv": "0700020718799100000002980179911000000000",
+                    "localTransactionDateTime": "2017-03-17T09:11:08",
+                    "retrievalReferenceNumber": "401010101011",
+                    "senderCardExpiryDate": "2020-12",
+                    "senderCurrencyCode": "USD",
+                    "senderPrimaryAccountNumber": "4895140000066666",
+                    "systemsTraceAuditNumber": "101011"
+                },
+                {
+                    "amount": "100.00",
+                    "cardAcceptor": {
+                        "address": {
+                            "country": "USA",
+                            "county": "00",
+                            "state": "CA",
+                            "zipCode": "94454"
                         },
-                        "cavv": "0700020718799100000002980179911000000000",
-                        "localTransactionDateTime": "2017-03-17T09:11:08",
-                        "retrievalReferenceNumber": "401010101011",
-                        "senderCardExpiryDate": "2020-12",
-                        "senderCurrencyCode": "USD",
-                        "senderPrimaryAccountNumber": "4895140000066666",
-                        "systemsTraceAuditNumber": "101011"
-                    }
-                ]
-            }
+                        "idCode": "5678",
+                        "name": "Mr Smith",
+                        "terminalId": "1234"
+                    },
+                    "cavv": "0700020718799100000002980179911000000000",
+                    "localTransactionDateTime": "2017-03-17T09:11:08",
+                    "retrievalReferenceNumber": "401010101011",
+                    "senderCardExpiryDate": "2020-12",
+                    "senderCurrencyCode": "USD",
+                    "senderPrimaryAccountNumber": "4895140000066666",
+                    "systemsTraceAuditNumber": "101011"
+                }
+            ]
+        }
+        
+    **Response:**
+    
+    ..  code:: text
+    
+        "1492665372_866_68_l73c002_VDP_ARM"
+    
     """
     ATTRS = [
         'acquiringBin',
@@ -192,14 +213,14 @@ class MultiPullFundsTransactionModel(VisaDirectTransactionBatchModel):
     ]
 
     def __init__(self, **kwargs):
-        super(MultiPullFundsTransactionModel, self).__init__(request=kwargs['request'])
+        super(MultiPullFundsTransactionsModel, self).__init__(request=kwargs['request'])
         for attr, value in kwargs.items():
             if attr in self.ATTRS and value:
                 self.__setattr__(attr, value)
 
 
-class PushFundsTransactionModel(VisaDirectTransactionModel):
-    """VisaDirect FundsTransfer PushFunds data object model.
+class PushFundsTransactionsModel(VisaDirectTransactionModel):
+    """VisaDirect FundsTransfer PushFundsTransactions data object model.
 
     :param int systemsTraceAuditNumber: **Required**. Systems trace audit number.  6 digits integer.
     :param int acquiringBin: **Required**. Bank identification number (BIN) for VisaDirect acquiring.
@@ -254,50 +275,61 @@ class PushFundsTransactionModel(VisaDirectTransactionModel):
         string.
     :param MerchantVerificationValueModel merchantVerificationValue: **Optional**. 
         Instance of :func:`~pyvdp.visadirect.MerchantVerificationValueModel`.
-    :param bool multi: **Conditional**. If True, this transaction is a part of batch. 
-        See :func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransactionModel`
 
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+    
+    ..  code:: json
 
-            {
-                "acquirerCountryCode": "840",
-                "acquiringBin": "408999",
-                "amount": "124.05",
-                "businessApplicationId": "AA",
-                "cardAcceptor": {
-                    "address": {
-                        "country": "USA",
-                        "county": "San Mateo",
-                        "state": "CA",
-                        "zipCode": "94404"
-                    },
-                    "idCode": "CA-IDCode-77765",
-                    "name": "Visa Inc. USA-Foster City",
-                    "terminalId": "TID-9999"
+        {
+            "acquirerCountryCode": "840",
+            "acquiringBin": "408999",
+            "amount": "124.05",
+            "businessApplicationId": "AA",
+            "cardAcceptor": {
+                "address": {
+                    "country": "USA",
+                    "county": "San Mateo",
+                    "state": "CA",
+                    "zipCode": "94404"
                 },
-                "localTransactionDateTime": "2017-03-17T09:01:14",
-                "merchantCategoryCode": "6012",
-                "pointOfServiceData": {
-                    "motoECIIndicator": "0",
-                    "panEntryMode": "90",
-                    "posConditionCode": "00"
-                },
-                "recipientName": "rohan",
-                "recipientPrimaryAccountNumber": "4957030420210462",
-                "retrievalReferenceNumber": "412770451018",
-                "senderAccountNumber": "4957030420210454",
-                "senderAddress": "901 Metro Center Blvd",
-                "senderCity": "Foster City",
-                "senderCountryCode": "124",
-                "senderName": "Mohammed Qasim",
-                "senderReference": "",
-                "senderStateCode": "CA",
-                "sourceOfFundsCode": "05",
-                "systemsTraceAuditNumber": "451018",
-                "transactionCurrencyCode": "USD",
-                "transactionIdentifier": "381228649430015"
-            }
+                "idCode": "CA-IDCode-77765",
+                "name": "Visa Inc. USA-Foster City",
+                "terminalId": "TID-9999"
+            },
+            "localTransactionDateTime": "2017-03-17T09:01:14",
+            "merchantCategoryCode": "6012",
+            "pointOfServiceData": {
+                "motoECIIndicator": "0",
+                "panEntryMode": "90",
+                "posConditionCode": "00"
+            },
+            "recipientName": "rohan",
+            "recipientPrimaryAccountNumber": "4957030420210462",
+            "retrievalReferenceNumber": "412770451018",
+            "senderAccountNumber": "4957030420210454",
+            "senderAddress": "901 Metro Center Blvd",
+            "senderCity": "Foster City",
+            "senderCountryCode": "124",
+            "senderName": "Mohammed Qasim",
+            "senderReference": "",
+            "senderStateCode": "CA",
+            "sourceOfFundsCode": "05",
+            "systemsTraceAuditNumber": "451018",
+            "transactionCurrencyCode": "USD",
+            "transactionIdentifier": "381228649430015"
+        }
+        
+    **Response:**
+    
+    ..  code:: json
+        
+        {
+            "transactionIdentifier": 587010322176105,
+            "actionCode": "00",
+            "approvalCode": "21324K",
+            "responseCode": "5",
+            "transmissionDateTime": "2017-04-21T03:47:49.000Z"
+        }        
     """
     ATTRS = [
         'amount',
@@ -330,23 +362,23 @@ class PushFundsTransactionModel(VisaDirectTransactionModel):
     ]
 
     def __init__(self, **kwargs):
-        super(PushFundsTransactionModel, self).__init__(**kwargs)
+        super(PushFundsTransactionsModel, self).__init__(**kwargs)
         for attr, value in kwargs.items():
             if attr in self.ATTRS and value:
                 self.__setattr__(attr, value)
 
 
-class MultiPushFundsTransactionModel(VisaDirectTransactionBatchModel):
-    """VisaDirect FundsTransfer MultiPushFunds data object model.
+class MultiPushFundsTransactionsModel(VisaDirectTransactionBatchModel):
+    """VisaDirect FundsTransfer MultiPushFundsTransactions data object model.
 
-    It is container object, which incorporate PushFundsTransactionModel objects under the same acquirer
+    It is container object, which incorporate PushFundsTransactionsModel objects under the same acquirer
     credentials. 
     
     ..  note::
         
-        When instance of PushFundsTransactionModel incorporated in MultiPushFundsTransactionModel, attributes 
+        When instance of PushFundsTransactionsModel incorporated in MultiPushFundsTransactionsModel, attributes 
         `acquirerBin`, `acquiringCountryCode` and `businessApplicationId` are migrating from 
-        PushFundsTransactionModel to MultiPushFundsTransactionModel level.
+        PushFundsTransactionsModel to MultiPushFundsTransactionsModel level.
 
     :param int acquiringBin: **Required**. Bank identification number (BIN) for VisaDirect acquiring. 6-11 digits
         integer.
@@ -355,81 +387,60 @@ class MultiPushFundsTransactionModel(VisaDirectTransactionBatchModel):
     :param str businessApplicationId: **Required**. 
         `Program business application type <https://developer.visa.com/request_response_codes#businessApplicationId>`_.
         2 characters string.
-    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.PushFundsTransactionModel`
+    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.PushFundsTransactionsModel`
         instances. 
 
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+    
+    ..  code:: json
 
-            {
-                "acquirerCountryCode": "840",
-                "acquiringBin": "408999",
-                "businessApplicationId": "AA",
-                "localTransactionDateTime": "2017-03-17T09:12:46",
-                "merchantCategoryCode": "6012",
-                "request": [
-                    {
-                        "amount": "100.00",
-                        "cardAcceptor": {
-                            "address": {
-                                "country": "USA",
-                                "county": "00",
-                                "state": "CA",
-                                "zipCode": "94454"
-                            },
-                            "idCode": "5678",
-                            "name": "Mr Smith",
-                            "terminalId": "1234"
+        {
+            "acquirerCountryCode": "840",
+            "acquiringBin": "408999",
+            "businessApplicationId": "AA",
+            "localTransactionDateTime": "2017-03-17T09:12:46",
+            "merchantCategoryCode": "6012",
+            "request": [
+                {
+                    "amount": "100.00",
+                    "cardAcceptor": {
+                        "address": {
+                            "country": "USA",
+                            "county": "00",
+                            "state": "CA",
+                            "zipCode": "94454"
                         },
-                        "feeProgramIndicator": "123",
-                        "localTransactionDateTime": "2017-03-17T09:12:46",
-                        "recipientName": "Akhila",
-                        "recipientPrimaryAccountNumber": "4957030420210454",
-                        "retrievalReferenceNumber": "401010101011",
-                        "senderAccountNumber": "4005520000011126",
-                        "senderAddress": "My Address",
-                        "senderCity": "My City",
-                        "senderCountryCode": "USA",
-                        "senderName": "Mr Name",
-                        "senderReference": "",
-                        "senderStateCode": "CA",
-                        "sourceOfFundsCode": "01",
-                        "systemsTraceAuditNumber": "101011",
-                        "transactionCurrencyCode": "USD",
-                        "transactionIdentifier": "234234234234234"
+                        "idCode": "5678",
+                        "name": "Mr Smith",
+                        "terminalId": "1234"
                     },
-                    {
-                        "amount": "100.00",
-                        "cardAcceptor": {
-                            "address": {
-                                "country": "USA",
-                                "county": "00",
-                                "state": "CA",
-                                "zipCode": "94454"
-                            },
-                            "idCode": "5678",
-                            "name": "Mr Smith",
-                            "terminalId": "1234"
-                        },
-                        "feeProgramIndicator": "123",
-                        "localTransactionDateTime": "2017-03-17T09:12:46",
-                        "recipientName": "Akhila",
-                        "recipientPrimaryAccountNumber": "4957030420210454",
-                        "retrievalReferenceNumber": "401010101012",
-                        "senderAccountNumber": "4840920103511221",
-                        "senderAddress": "My Address",
-                        "senderCity": "My City",
-                        "senderCountryCode": "USA",
-                        "senderName": "Mr Name",
-                        "senderReference": "",
-                        "senderStateCode": "CA",
-                        "sourceOfFundsCode": "01",
-                        "systemsTraceAuditNumber": "101012",
-                        "transactionCurrencyCode": "USD",
-                        "transactionIdentifier": "234234234234234"
-                    }
-                ]
-            }
+                    "feeProgramIndicator": "123",
+                    "localTransactionDateTime": "2017-03-17T09:12:46",
+                    "recipientName": "Akhila",
+                    "recipientPrimaryAccountNumber": "4957030420210454",
+                    "retrievalReferenceNumber": "401010101011",
+                    "senderAccountNumber": "4005520000011126",
+                    "senderAddress": "My Address",
+                    "senderCity": "My City",
+                    "senderCountryCode": "USA",
+                    "senderName": "Mr Name",
+                    "senderReference": "",
+                    "senderStateCode": "CA",
+                    "sourceOfFundsCode": "01",
+                    "systemsTraceAuditNumber": "101011",
+                    "transactionCurrencyCode": "USD",
+                    "transactionIdentifier": "234234234234234"
+                },
+                { ... }
+            ]
+        }
+        
+    **Response:**
+    
+    ..  code:: text
+    
+        "1492746769_916_89_l73c001_VDP_ARM"
+    
     """
     ATTRS = [
         'acquiringBin',
@@ -439,14 +450,14 @@ class MultiPushFundsTransactionModel(VisaDirectTransactionBatchModel):
     ]
 
     def __init__(self, **kwargs):
-        super(MultiPushFundsTransactionModel, self).__init__(request=kwargs['request'])
+        super(MultiPushFundsTransactionsModel, self).__init__(request=kwargs['request'])
         for attr, value in kwargs.items():
             if attr in self.ATTRS and value:
                 self.__setattr__(attr, value)
 
 
-class ReverseFundsTransactionModel(PullFundsTransactionModel):
-    """VisaDirect FundsTransfer ReverseFunds data object model.
+class ReverseFundsTransactionsModel(PullFundsTransactionsModel):
+    """VisaDirect FundsTransfer ReverseFundsTransactions data object model.
 
     :param int systemsTraceAuditNumber: **Required**. Systems trace audit number.  6 digits integer.
     :param int transactionIdentifier: **Required**. VisaNet transaction ID. This field must be populated with
@@ -480,50 +491,61 @@ class ReverseFundsTransactionModel(PullFundsTransactionModel):
         integer.
     :param MerchantVerificationValueModel merchantVerificationValue: **Optional**. 
         Instance of :func:`~pyvdp.visadirect.MerchantVerificationValueModel`.
-    :param bool multi: **Conditional**. If True, this transaction is a part of batch. 
-        See :func:`~pyvdp.visadirect.fundstransfer.MultiPushFundsTransactionModel`
 
-    **Example:**
-        ..  code-block:: json
-
-            {
-                "acquirerCountryCode": "608",
+    **Request:**
+    
+    ..  code:: json
+        
+        {
+            "acquirerCountryCode": "608",
+            "acquiringBin": "408999",
+            "amount": "24.01",
+            "cardAcceptor": {
+                "address": {
+                    "country": "USA",
+                    "county": "San Mateo",
+                    "state": "CA",
+                    "zipCode": "94404"
+                },
+                "idCode": "VMT200911026070",
+                "name": "Visa Inc. USA-Foster City",
+                "terminalId": "365539"
+            },
+            "localTransactionDateTime": "2017-04-21T03:53:39",
+            "originalDataElements": {
                 "acquiringBin": "408999",
-                "amount": "24.01",
-                "cardAcceptor": {
-                    "address": {
-                        "country": "USA",
-                        "county": "San Mateo",
-                        "state": "CA",
-                        "zipCode": "94404"
-                    },
-                    "idCode": "VMT200911026070",
-                    "name": "Visa Inc. USA-Foster City",
-                    "terminalId": "365539"
-                },
-                "localTransactionDateTime": "2017-03-17T09:02:32",
-                "originalDataElements": {
-                    "acquiringBin": "408999",
-                    "approvalCode": "20304B",
-                    "systemsTraceAuditNumber": "897825",
-                    "transmissionDateTime": "2017-03-17T09:02:32"
-                },
-                "pointOfServiceCapability": {
-                    "posTerminalEntryCapability": "2",
-                    "posTerminalType": "4"
-                },
-                "pointOfServiceData": {
-                    "motoECIIndicator": "0",
-                    "panEntryMode": "90",
-                    "posConditionCode": "00"
-                },
-                "retrievalReferenceNumber": "330000550000",
-                "senderCardExpiryDate": "2015-10",
-                "senderCurrencyCode": "USD",
-                "senderPrimaryAccountNumber": "4895100000055127",
-                "systemsTraceAuditNumber": "451050",
-                "transactionIdentifier": "381228649430011"
-            }
+                "approvalCode": "20304B",
+                "systemsTraceAuditNumber": "897825",
+                "transmissionDateTime": "2017-04-21T03:53:39"
+            },
+            "pointOfServiceCapability": {
+                "posTerminalEntryCapability": "2",
+                "posTerminalType": "4"
+            },
+            "pointOfServiceData": {
+                "motoECIIndicator": "0",
+                "panEntryMode": "90",
+                "posConditionCode": "00"
+            },
+            "retrievalReferenceNumber": "330000550000",
+            "senderCardExpiryDate": "2015-10",
+            "senderCurrencyCode": "USD",
+            "senderPrimaryAccountNumber": "4895100000055127",
+            "systemsTraceAuditNumber": "451050",
+            "transactionIdentifier": "381228649430011"
+        }        
+
+    **Response:**
+    
+    ..  code:: json
+    
+        {
+            "transactionIdentifier": 587010322176103,
+            "approvalCode": "23456M",
+            "actionCode": "00",
+            "responseCode": "5",
+            "transmissionDateTime": "2017-04-21T03:54:36.000Z"
+        }    
     """
     ATTRS = [
         'transactionIdentifier',
@@ -547,88 +569,70 @@ class ReverseFundsTransactionModel(PullFundsTransactionModel):
     ]
 
     def __init__(self, **kwargs):
-        super(ReverseFundsTransactionModel, self).__init__(**kwargs)
+        super(ReverseFundsTransactionsModel, self).__init__(**kwargs)
         for attr, value in kwargs.items():
             if attr in self.ATTRS and value:
                 self.__setattr__(attr, value)
 
 
-class MultiReverseFundsTransactionModel(MultiPullFundsTransactionModel):
-    """VisaDirect FundsTransfer MultiReverseFunds data object model.
+class MultiReverseFundsTransactionsModel(MultiPullFundsTransactionsModel):
+    """VisaDirect FundsTransfer MultiReverseFundsTransactions data object model.
 
-    It is container object, which incorporate ReverseFundsTransactionModel objects under the same acquirer credentials.
+    It is container object, which incorporate ReverseFundsTransactionsModel objects under the same acquirer credentials.
 
     :param int acquiringBin: **Required**. Bank identification number (BIN) for VisaDirect acquiring. 6-11 digits
         integer.
     :param int acquirerCountryCode: **Required**. 
         `ISO country code <https://developer.visa.com/request_response_codes#isoCodes>`_ for acquiring institution.
-    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.ReverseFundsTransactionModel`
+    :param list request: **Required**. List of :func:`~pyvdp.visadirect.fundstransfer.ReverseFundsTransactionsModel`
         instances. 
         
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+    
+    ..  code:: json
 
-            {
-                "acquirerCountryCode": "840",
-                "acquiringBin": "408999",
-                "localTransactionDateTime": "2017-03-17T09:09:05",
-                "request": [
-                    {
-                        "amount": "100.00",
-                        "cardAcceptor": {
-                            "address": {
-                                "country": "USA",
-                                "county": "00",
-                                "state": "CA",
-                                "zipCode": "94454"
-                            },
-                            "idCode": "5678",
-                            "name": "Mr Smith",
-                            "terminalId": "1234"
+        {
+            "acquirerCountryCode": "840",
+            "acquiringBin": "408999",
+            "localTransactionDateTime": "2017-04-21T03:56:17",
+            "request": [
+                {
+                    "amount": "100.00",
+                    "cardAcceptor": {
+                        "address": {
+                            "country": "USA",
+                            "county": "00",
+                            "state": "CA",
+                            "zipCode": "94454"
                         },
-                        "localTransactionDateTime": "2017-03-17T09:09:05",
-                        "originalDataElements": {
-                            "acquiringBin": "408999",
-                            "approvalCode": "1ABCDE",
-                            "systemsTraceAuditNumber": "228112",
-                            "transmissionDateTime": "2017-03-17T09:09:05"
-                        },
-                        "retrievalReferenceNumber": "401010101011",
-                        "senderCardExpiryDate": "2020-12",
-                        "senderCurrencyCode": "USD",
-                        "senderPrimaryAccountNumber": "4485810000000131",
-                        "systemsTraceAuditNumber": "101011",
-                        "transactionIdentifier": "101010101010"
+                        "idCode": "5678",
+                        "name": "Mr Smith",
+                        "terminalId": "1234"
                     },
-                    {
-                        "amount": "100.00",
-                        "cardAcceptor": {
-                            "address": {
-                                "country": "USA",
-                                "county": "00",
-                                "state": "CA",
-                                "zipCode": "94454"
-                            },
-                            "idCode": "5678",
-                            "name": "Mr Smith",
-                            "terminalId": "1234"
-                        },
-                        "localTransactionDateTime": "2017-03-17T09:09:05",
-                        "originalDataElements": {
-                            "acquiringBin": "408999",
-                            "approvalCode": "1ABCDE",
-                            "systemsTraceAuditNumber": "228112",
-                            "transmissionDateTime": "2017-03-17T09:09:05"
-                        },
-                        "retrievalReferenceNumber": "401010101011",
-                        "senderCardExpiryDate": "2020-12",
-                        "senderCurrencyCode": "USD",
-                        "senderPrimaryAccountNumber": "4485810000000131",
-                        "systemsTraceAuditNumber": "101011",
-                        "transactionIdentifier": "101010101010"
-                    }
-                ]
-            }
+                    "localTransactionDateTime": "2017-04-21T03:56:17",
+                    "originalDataElements": {
+                        "acquiringBin": "408999",
+                        "approvalCode": "1ABCDE",
+                        "systemsTraceAuditNumber": "228112",
+                        "transmissionDateTime": "2017-04-21T03:56:17"
+                    },
+                    "retrievalReferenceNumber": "401010101011",
+                    "senderCardExpiryDate": "2020-12",
+                    "senderCurrencyCode": "USD",
+                    "senderPrimaryAccountNumber": "4485810000000131",
+                    "systemsTraceAuditNumber": "101011",
+                    "transactionIdentifier": "101010101010"
+                },
+                { ... }
+            ]
+        }
+        
+    **Response:**
+    
+    ..  code:: text
+    
+        "1492747084_010_78_l73c037_VDP_ARM"
+    
     """
     ATTRS = [
         'acquiringBin',
@@ -637,7 +641,7 @@ class MultiReverseFundsTransactionModel(MultiPullFundsTransactionModel):
     ]
 
     def __init__(self, **kwargs):
-        super(MultiReverseFundsTransactionModel, self).__init__(request=kwargs['request'])
+        super(MultiReverseFundsTransactionsModel, self).__init__(request=kwargs['request'])
         for attr, value in kwargs.items():
             if attr in self.ATTRS and value:
                 self.__setattr__(attr, value)

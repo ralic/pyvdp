@@ -1,6 +1,6 @@
 import unittest
 
-from pyvdp.merchantsearch import MerchantSearchModel
+from pyvdp.merchantsearch import SearchModel
 
 
 class TestMerchantSearchModel(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestMerchantSearchModel(unittest.TestCase):
             'searchOptions': object
         }
 
-        model = MerchantSearchModel(**attrs)
+        model = SearchModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -30,7 +30,7 @@ class TestMerchantSearchHeader(unittest.TestCase):
             'startIndex': 0
         }
 
-        model = MerchantSearchModel.MerchantSearchHeader(**attrs)
+        model = SearchModel.MerchantSearchHeader(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -57,7 +57,7 @@ class TestMerchantSearchAttrList(unittest.TestCase):
             'acquiringBin': '123',
         }
 
-        model = MerchantSearchModel.MerchantSearchAttrList(**attrs)
+        model = SearchModel.MerchantSearchAttrList(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -76,7 +76,7 @@ class TestMerchantSearchOptions(unittest.TestCase):
             'wildcards': 'acme'
         }
 
-        model = MerchantSearchModel.MerchantSearchOptions(**attrs)
+        model = SearchModel.MerchantSearchOptions(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)

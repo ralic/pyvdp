@@ -6,12 +6,8 @@ This module implements a collection of convenience functions for [Visa Developer
 initiative.
 
 [![Code Climate](https://lima.codeclimate.com/github/ppokrovsky/pyvdp/badges/gpa.svg)](https://lima.codeclimate.com/github/ppokrovsky/pyvdp)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5a119e1aafb9480c87736df4d0ab2a24)](https://www.codacy.com/app/ppokrovsky/pyvdp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ppokrovsky/pyvdp&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5a119e1aafb9480c87736df4d0ab2a24)](https://www.codacy.com/app/ppokrovsky/pyvdp)
 [![Build Status](https://travis-ci.org/ppokrovsky/pyvdp.svg?branch=master)](https://travis-ci.org/ppokrovsky/pyvdp)
-
-## New in 1.1 ##
-
-* Support for [Payment Account Attributes Inquiry (PAAI)](https://developer.visa.com/products/paai)
 
 ## Features ##
 
@@ -23,29 +19,57 @@ initiative.
 
 ## Introduction ##
 
+
 Visa Developer Program (or VDP in short) is a collection of public RESTful APIs, maintained by VISA payment system. 
 It implements a number of features, provided by VISA, such as eCommerce checkout, fraud management, loyalty programs,
 money transfers etc. 
 PyVDP is a library, written in Python, that provides wrappers for VDP methods in a functional way thus removing
 a necessity for manual construction of HTTP requests (which is quite a boring and tedious process anyway).
 
-I could have given a long marketing speech, instead here's an example on how to perform a call to [Payment Account 
-Validation API](https://developer.visa.com/products/pav) using PyVDP:
+Here's an example on how to perform a call to [Payment Account  Validation API](https://developer.visa.com/products/pav) 
+using PyVDP:
 
 ```python
-from pyvdp.pav import cardvalidation, PaymentAccountValidationModel
+from pyvdp.visadirect import CardAcceptorModel
+from pyvdp.pav import cardvalidation, CardValidationModel
 
-data = CardValidationModel(stan=123456, 
-                                     pan='1234567812345678', 
-                                     expiry_date='02-2020', 
-                                     cvv2='123')
-                      
-result = cardvalidation.send(data)
+address_kwargs = {
+    "city": "fostr city",
+    "country": "PAKISTAN",
+    "county": "CA",
+    "state": "CA",
+    "zipCode": "94404"
+}
+
+card_acceptor_kwargs = {
+    "address": CardAcceptorModel.CardAcceptorAddress(**address_kwargs),
+    "idCode": "111111",
+    "name": "rohan",
+    "terminalId": "123"            
+}
+
+avr_kwargs = {
+    "postalCode": "T4B 3G5",
+    "street": "2881 Main Street Sw"        
+}
+
+data_kwargs = {
+    "addressVerificationResults": CardValidationModel.AddressVerificationResults(**avr_kwargs),
+    "cardAcceptor": CardAcceptorModel(**card_acceptor_kwargs),
+    "cardCvv2Value": "672",
+    "cardExpiryDate": "2018-06",
+    "primaryAccountNumber": "4957030000313108",
+    "retrievalReferenceNumber": "015221743720",
+    "systemsTraceAuditNumber": "743720"            
+}
+
+data = CardValidationModel(**data_kwargs)        
+result = cardvalidation.send(data)        
 print(result)
 ```
 
 That's it. So basically all you need to do is to construct a data object (typically some sort of transaction) and pass 
-this object as an argument to corresponding function. Pretty easy, right?
+this object as an argument to corresponding function.
 
 Since VDP is RESTful, it implements common RESTful logic, such as using HTTP verbs fo read/write operations. 
 Generally, following logic is applied:
@@ -137,17 +161,18 @@ Please note that this and further examples won't necessarily work in your enviro
 validation of specific transactions  depends on horde of various properties, including geolocation, account properties 
 etc. 
 
-This is an example code for creating a data object for [FundsTransfer PushFundsTransactionModel](https://developer.visa.com/products/visa_direct/reference#visa_direct__funds_transfer__v1__pushfunds):
+This is an example code for creating a data object for [FundsTransfer PushFundsTransactionsModel](https://developer.visa.com/products/visa_direct/reference#visa_direct__funds_transfer__v1__pushfunds):
+
 ```python
 from pyvdp.visadirect import CardAcceptorModel
-from pyvdp.visadirect.fundstransfer import PushFundsTransactionModel
+from pyvdp.visadirect.fundstransfer import PushFundsTransactionsModel
 
 ca = CardAcceptorModel(name='Acceptor 1', 
                        country='RU', 
                        terminal_id='TID-9999', 
                        id_code='CA-CardAcceptorModel')
                        
-t = PushFundsTransactionModel(stan=123456, 
+t = PushFundsTransactionsModel(stan=123456, 
                               amount=123.45, 
                               sender_pan='1234567812345678', 
                               sender_card_expiry_date='12-2020',
@@ -167,7 +192,7 @@ from pyvdp.visadirect.fundstransfer import pushfunds
 pushfunds.send(data=t)
 ```
 
-Under the hood, instance of `PushFundsTransactionModel` with nested `CardAcceptorModel` will be serialized to JSON and 
+Under the hood, instance of `PushFundsTransactionsModel` with nested `CardAcceptorModel` will be serialized to JSON and 
 passed to VDP as a payload of POST request.
 
 A response will contain HTTP code and some JSON payload. `200 Success` is the only successful HTTP code, all other codes 

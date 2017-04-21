@@ -10,7 +10,7 @@ def send(data):
 
     **Usage:**
 
-    ..  code-block:: python
+    ..  code:: python
     
         from pyvdp.globalatmlocator.localatms import totalsinquiry, TotalsInquiryModel
     
@@ -117,5 +117,9 @@ def send(data):
         result = totalsinquiry.send(data)
         print(result)
     """
-    c = VisaGlobalAtmLocatorDispatcher(method='localatms/totalsinquiry', data=data)
+    c = VisaGlobalAtmLocatorDispatcher(resource='globalatmlocator',
+                                       api='',
+                                       method='localatms/totalsinquiry',
+                                       http_verb='POST',
+                                       data=data)
     return c.send()

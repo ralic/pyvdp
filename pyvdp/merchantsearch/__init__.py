@@ -1,2 +1,2 @@
-from .models import MerchantSearchModel
+from .models import SearchModel
 from .dispatcher import VisaMerchantSearchDispatcher

@@ -1,6 +1,6 @@
 import unittest
 
-from pyvdp.merchantlocator import MerchantLocatorModel
+from pyvdp.merchantlocator import LocatorModel
 
 
 class TestMerchantLocatorModel(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestMerchantLocatorModel(unittest.TestCase):
             'searchOptions': object
         }
 
-        model = MerchantLocatorModel(**attrs)
+        model = LocatorModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -31,7 +31,7 @@ class TestMerchantLocatorHeader(unittest.TestCase):
             'startIndex': int,
         }
 
-        model = MerchantLocatorModel.Header(**attrs)
+        model = LocatorModel.Header(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -50,7 +50,7 @@ class TestMerchantLocatorSearchAttrList(unittest.TestCase):
             'distanceUnit': str
         }
 
-        model = MerchantLocatorModel.SearchAttrList(**attrs)
+        model = LocatorModel.SearchAttrList(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -67,7 +67,7 @@ class TestMerchantLocatorSearchOptions(unittest.TestCase):
             'matchScore': bool
         }
 
-        model = MerchantLocatorModel.SearchOptions(**attrs)
+        model = LocatorModel.SearchOptions(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)

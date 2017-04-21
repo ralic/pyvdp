@@ -6,11 +6,26 @@ Merchant Measurement
 
     https://developer.visa.com/products/merchant_measurement
 
-+++++
-Usage
-+++++
++++++++
+Actions
++++++++
+
+-----------------
+merchantbenchmark
+-----------------
 
 ..  automodule:: pyvdp.merchantmeasurement.merchantbenchmark
+    :members:
+
++++++++++++
+Data models
++++++++++++
+
+----------------------
+MerchantBenchmarkModel
+----------------------
+
+..  autoclass:: pyvdp.merchantmeasurement.MerchantBenchmarkModel
     :members:
 
 ++++++++++
@@ -18,15 +33,4 @@ Dispatcher
 ++++++++++
 
 ..  automodule:: pyvdp.merchantmeasurement.dispatcher
-    :members:
-
-+++++++++++
-Data models
-+++++++++++
-
----------------------------
-RetrieveMetricsPayloadModel
----------------------------
-
-..  autoclass:: pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel
     :members:

@@ -10,7 +10,7 @@ def send(data):
     
     **Usage:**
     
-    ..  code-block:: python
+    ..  code:: python
 
         from pyvdp.visadirect.watchlist import watchlistinquiry, WatchListInquiryModel
         
@@ -19,7 +19,7 @@ def send(data):
             "city": "San Francisco"        
         }
         
-        wli_kwargs = {
+        data_kwargs = {
             "acquirerCountryCode": "840",
             "acquiringBin": "408999",
             "address": WatchListInquiryModel.WatchListInquiryAddress(**wli_address_kwargs),
@@ -27,10 +27,14 @@ def send(data):
             "referenceNumber": "330000550000"            
         }
         
-        data = WatchListInquiryModel(**wli_kwargs)
+        data = WatchListInquiryModel(**data_kwargs)
         
-        result = watchlistinquiry.send(data=data)
+        result = watchlistinquiry.send(data)
         print(result)
     """
-    c = VisaDirectDispatcher(api='watchlistscreening', method='watchlistinquiry', http_verb='post', data=data)
+    c = VisaDirectDispatcher(resource='visadirect',
+                             api='watchlistscreening',
+                             method='watchlistinquiry',
+                             http_verb='POST',
+                             data=data)
     return c.send()

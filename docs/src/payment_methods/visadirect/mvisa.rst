@@ -6,26 +6,26 @@ mVISA API
 
     https://developer.visa.com/products/visa_direct/reference#visa_direct__mvisa
 
-+++++
-Usage
-+++++
++++++++
+Actions
++++++++
 
 ------------------
-CashInPushPayments
+cashinpushpayments
 ------------------
 
 ..  automodule:: pyvdp.visadirect.mvisa.cashinpushpayments
     :members:
 
 -------------------
-CashOutPushPayments
+cashoutpushpayments
 -------------------
 
 ..  automodule:: pyvdp.visadirect.mvisa.cashoutpushpayments
     :members:
 
 --------------------
-MerchantPushPayments
+merchantpushpayments
 --------------------
 
 ..  automodule:: pyvdp.visadirect.mvisa.merchantpushpayments
@@ -56,9 +56,8 @@ MerchantPushPaymentsModel
 ..  autoclass:: pyvdp.visadirect.mvisa.MerchantPushPaymentsModel
     :members:
 
------------------------
-PurchaseIdentifierModel
------------------------
+++++++++++
+Dispatcher
+++++++++++
 
-..  autoclass:: pyvdp.visadirect.mvisa.PurchaseIdentifierModel
-    :members:
+See :ref:`vd_dispatcher`.

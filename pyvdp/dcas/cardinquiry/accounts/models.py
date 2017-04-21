@@ -1,13 +1,13 @@
-class CardInquiryModel(object):
-    """Card Inquiry data model.
-    
+class DebitCardInquiryModel(object):
+    """Debit Card Inquiry data object model.
+        
     :param str directDebitAccountNumber: **Required**. Direct debit account number. 6-22 characters string.
     :param str routingNumber: **Required**. Routing number. 6-12 characters string.
     :param CardholderName cardholderName: **Optional**. 
-        Instance of :func:`~pyvdp.dcas.cardinquiry.accounts.CardInquiryModel.CardholderName`
+        Instance of :func:`~pyvdp.dcas.cardinquiry.accounts.DebitCardInquiryModel.CardholderName`
     
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+        ..  code:: json
         
             {
                 "directDebitAccountNumber": "0987654321",
@@ -17,6 +17,49 @@ class CardInquiryModel(object):
                     "lastName": "DADE"
                 }
             }
+    
+    **Response:**
+        ..  code:: json
+        
+            {
+                "resource": {
+                    "debitCards": [
+                        {
+                            "primaryAccountNumber": "4031600000000010",
+                            "sequenceOnCard": " ",
+                            "expirationDate": {
+                                "mm": 10,
+                                "yy": 15
+                            },
+                            "activationStatus": "Y",
+                            "cardStatus": " ",
+                            "shouldCaptureCard": false,
+                            "cardholderName": {
+                                "firstName": "JACK",
+                                "lastName": "DADE",
+                                "middleName": " ",
+                                "title": " ",
+                                "suffix": " "
+                            },
+                            "cardholderAddress": {
+                                "addressLine1": "8910 S RIDGELINE",
+                                "addressLine2": " ",
+                                "addressLine3": null,
+                                "city": "DENVER",
+                                "postalCode": "80166",
+                                "region": "CO",
+                                "country": null
+                            }
+                        },
+                        { ... },
+                        { ... },
+                        { ... },
+                    ]
+                },
+                "processingTimeInMs": 163,
+                "receivedTimestamp": "11/18/2016 2:26:04 PM",
+                "error": ""
+            }            
     """
     ATTRS = [
         'directDebitAccountNumber',
@@ -30,9 +73,9 @@ class CardInquiryModel(object):
                 self.__setattr__(attr, value)
 
     class CardholderName(object):
-        """Cardholder name data model.
+        """Cardholder name data object model.
         
-        Part of Card Inquiry data model.
+        Part of :func:`~pyvdp.dcas.cardinquiry.accounts.DebitCardInquiryModel`.
         
         :param str firstName: **Optional**. Cardholder first name.
         :param str lastName: **Optional**. Cardholder last name.

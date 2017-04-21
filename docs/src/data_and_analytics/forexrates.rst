@@ -4,20 +4,17 @@ Foreign Exchange Rates
 
 ..  seealso::
 
-    https://developer.visa.com/products/foreign_exchange/reference
+    https://developer.visa.com/products/foreign_exchange
 
-+++++
-Usage
-+++++
++++++++
+Actions
++++++++
+
+--------------------
+foreignexchangerates
+--------------------
 
 ..  automodule:: pyvdp.forexrates.foreignexchangerates
-    :members:
-
-++++++++++
-Dispatcher
-++++++++++
-
-..  automodule:: pyvdp.forexrates.dispatcher
     :members:
 
 +++++++++++
@@ -29,4 +26,11 @@ ForeignExchangeRatesModel
 -------------------------
 
 ..  autoclass:: pyvdp.forexrates.ForeignExchangeRatesModel
+    :members:
+
+++++++++++
+Dispatcher
+++++++++++
+
+..  automodule:: pyvdp.forexrates.dispatcher
     :members:

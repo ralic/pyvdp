@@ -1,10 +1,6 @@
 from pyvdp.visadirect import VisaDirectDispatcher
 
 
-API = 'mvisa'
-METHOD = 'merchantpushpayments'
-
-
 def send(data):
     """Submits VisaDirect mVISA MerchantPushPayments request.
 
@@ -12,18 +8,20 @@ def send(data):
         Instance of :func:`~pyvdp.visadirect.mvisa.MerchantPushPaymentsModel`.
     :return: Dictionary with VDP API response.
     
-    ..  code-block:: python
+    **Usage:**
     
-        from pyvdp.visadirect import CardAcceptorModel
+    ..  code:: python
+    
         from pyvdp.visadirect.mvisa import merchantpushpayments, MerchantPushPaymentsModel, PurchaseIdentifierModel
+        from pyvdp.visadirect import CardAcceptorModel
         
-        ca_address_kwargs = {
+        address_kwargs = {
             "city": "KOLKATA",
             "country": "IND"        
         }
         
-        ca_kwargs = {
-            "address": CardAcceptorModel.CardAcceptorAddress(**ca_address_kwargs),
+        card_acceptor_kwargs = {
+            "address": CardAcceptorModel.CardAcceptorAddress(**address_kwargs),
             "idCode": "CA-IDCode-77765",
             "name": "Visa Inc. USA-Foster City"                    
         }
@@ -33,12 +31,12 @@ def send(data):
             "type": "1"        
         }
         
-        mpp_kwargs = {
+        data_kwargs = {
             "acquirerCountryCode": "356",
             "acquiringBin": "408972",
             "amount": "124.05",
             "businessApplicationId": "MP",
-            "cardAcceptor": CardAcceptorModel(**ca_kwargs),
+            "cardAcceptor": CardAcceptorModel(**card_acceptor_kwargs),
             "feeProgramIndicator": "123",
             "purchaseIdentifier": PurchaseIdentifierModel(**pi_kwargs),            
             "recipientName": "Jasper",
@@ -51,22 +49,28 @@ def send(data):
             "transactionIdentifier": "381228649430015"            
         }
         
-        data = MerchantPushPaymentsModel(**mpp_kwargs)
+        data = MerchantPushPaymentsModel(**data_kwargs)
         
-        result = merchantpushpayments.send(data=data)
+        result = merchantpushpayments.send(data)
         print(result)
     """
-    c = VisaDirectDispatcher(api=API, method=METHOD, http_verb='POST', data=data)
+    c = VisaDirectDispatcher(resource='visadirect',
+                             api='mvisa',
+                             method='merchantpushpayments',
+                             http_verb='POST',
+                             data=data)
     return c.send()
 
 
-def get(query):
+def get(status_id):
     """Sends VisaDirect mVISA MerchantPushPayments request.
 
-    :param str query: **Required**. Transaction status identifier.
+    :param str status_id: **Required**. Transaction status identifier.
     :return: Dictionary with VDP API response.
     
-    ..  code-block:: python
+    **Usage:**
+    
+    ..  code:: python
     
         from pyvdp.visadirect.mvisa import merchantpushpayments
         
@@ -74,7 +78,11 @@ def get(query):
         result = merchantpushpayments.get(status_id)
         print(result)    
     """
-    query_string = '/' + query
+    query_string = '/' + status_id
 
-    c = VisaDirectDispatcher(api=API, method=METHOD, http_verb='GET', query_string=query_string)
+    c = VisaDirectDispatcher(resource='visadirect',
+                             api='mvisa',
+                             method='merchantpushpayments',
+                             http_verb='GET',
+                             query_string=query_string)
     return c.send()

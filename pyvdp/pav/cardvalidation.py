@@ -9,7 +9,7 @@ def send(data):
     
     **Usage:**
     
-    ..  code-block:: python
+    ..  code:: python
     
         from pyvdp.visadirect import CardAcceptorModel
         from pyvdp.pav import cardvalidation, CardValidationModel
@@ -34,7 +34,7 @@ def send(data):
             "street": "2881 Main Street Sw"        
         }
         
-        pav_kwargs = {
+        data_kwargs = {
             "addressVerificationResults": CardValidationModel.AddressVerificationResults(**avr_kwargs),
             "cardAcceptor": CardAcceptorModel(**ca_kwargs),
             "cardCvv2Value": "672",
@@ -44,9 +44,13 @@ def send(data):
             "systemsTraceAuditNumber": "743720"            
         }
         
-        data = CardValidationModel(**pav_kwargs)        
-        result = cardvalidation.send(data=data)        
+        data = CardValidationModel(**data_kwargs)        
+        result = cardvalidation.send(data)        
         print(result)
     """
-    c = VisaPavDispatcher(method='cardvalidation', http_verb='post', data=data)
+    c = VisaPavDispatcher(resource='pav',
+                          api='',
+                          method='cardvalidation',
+                          http_verb='POST',
+                          data=data)
     return c.send()

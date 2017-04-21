@@ -1,1 +1,1 @@
-from .models import MerchantLocatorModel
+from .models import LocatorModel

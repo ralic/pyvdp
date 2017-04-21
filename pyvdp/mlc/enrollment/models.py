@@ -1,12 +1,38 @@
 class EnrollmentsModel(object):
     """Visa Mobile Location Confirmation Enrollments data object model.
     
-    https://developer.visa.com/products/mlc/reference#mlc__mlc__v1__mlc_enrollments
-    
     :param str enrollmentMessageType: **Required**. Flag, indicating enrollment or deenrollment. Possible values are:
         *'enroll'*, *'deenroll'*. 8 characters string.
     :param EnrollmentRequest enrollmentRequest: **Required**. 
         Instance of :func:`~pyvdp.mlc.enrollment.EnrollmentsModel.EnrollmentRequest`.
+        
+    **Request:**
+    
+    ..  code:: json
+    
+        {
+            "enrollmentMessageType": "enroll",
+            "enrollmentRequest": {
+                "clientMessageID": "466548",
+                "deviceId": "25b794-29a-4acb-9485-5a643d231f8U",
+                "issuerId": "100502",
+                "primaryAccountNumber": "8557530112345699"
+            }
+        }
+            
+    **Response:**
+    
+    ..  code:: json
+    
+        {
+            "deviceId": "25b794-29a-4acb-9485-5a643d231f8U",
+            "msgDeliveryStatus": [
+                {
+                    "code": "CHES101",
+                    "message": "Card Holder enrolled Successfully"
+                }
+            ]
+        }        
     """
     ATTRS = [
         'enrollmentMessageType',

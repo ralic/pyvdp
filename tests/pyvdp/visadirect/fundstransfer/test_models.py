@@ -1,8 +1,8 @@
 import unittest
 
-from pyvdp.visadirect.fundstransfer import PullFundsTransactionModel, MultiPullFundsTransactionModel
-from pyvdp.visadirect.fundstransfer import PushFundsTransactionModel, MultiPushFundsTransactionModel
-from pyvdp.visadirect.fundstransfer import ReverseFundsTransactionModel, MultiReverseFundsTransactionModel
+from pyvdp.visadirect.fundstransfer import PullFundsTransactionsModel, MultiPullFundsTransactionsModel
+from pyvdp.visadirect.fundstransfer import PushFundsTransactionsModel, MultiPushFundsTransactionsModel
+from pyvdp.visadirect.fundstransfer import ReverseFundsTransactionsModel, MultiReverseFundsTransactionsModel
 
 
 class TestPullFundsTransactionModel(unittest.TestCase):
@@ -34,7 +34,7 @@ class TestPullFundsTransactionModel(unittest.TestCase):
             'merchantVerificationValue': object
         }
 
-        model = PullFundsTransactionModel(**attrs)
+        model = PullFundsTransactionsModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -52,7 +52,7 @@ class TestMultiPullFundsTransactionModel(unittest.TestCase):
             'request': [object, object]
         }
 
-        model = MultiPullFundsTransactionModel(**attrs)
+        model = MultiPullFundsTransactionsModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -94,7 +94,7 @@ class TestPushFundsTransactionModel(unittest.TestCase):
             'merchantVerificationValue': object
         }
 
-        model = PushFundsTransactionModel(**attrs)
+        model = PushFundsTransactionsModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -112,7 +112,7 @@ class TestMultiPushFundsTransactionModel(unittest.TestCase):
             'request': [object, object]
         }
 
-        model = MultiPushFundsTransactionModel(**attrs)
+        model = MultiPushFundsTransactionsModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -145,7 +145,7 @@ class TestReverseFundsTransactionModel(unittest.TestCase):
             'merchantVerificationValue': object
         }
 
-        model = ReverseFundsTransactionModel(**attrs)
+        model = ReverseFundsTransactionsModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -162,7 +162,7 @@ class TestMultiReverseFundsTransactionModel(unittest.TestCase):
             'request': [object, object]
         }
 
-        model = MultiReverseFundsTransactionModel(**attrs)
+        model = MultiReverseFundsTransactionsModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)

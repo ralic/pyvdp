@@ -4,21 +4,17 @@ from pyvdp.dispatcher import VisaDispatcher
 class VisaMerchantLocatorDispatcher(VisaDispatcher):
     """Implements HTTP requests to Visa Merchant Locator APIs.
 
-    https://developer.visa.com/products/merchant_locator/guides
-
-    :param str query_string: **Conditional**. Query string to append to URL
-    :param MerchantLocatorModel data: **Conditional**. 
-        Instance of :func:`~pyvdp.merchantlocator.MerchantLocatorModel` 
-    :param dict headers: **Optional**. Additional headers as dictionary
+    :param data: **Required**. Instance of data model.
+    :param str resource: **Required**. Resource name.
+    :param str api: **Required**. API name.
+    :param str method: **Required**. Method name.
+    :param str http_verb: **Required**. HTTP Verb.
     """
+    def __init__(self, resource, api, method, http_verb, data):
 
-    def __init__(self, query_string='', data=None, headers=None):
-
-        super(VisaMerchantLocatorDispatcher, self).__init__(resource='merchantlocator',
-                                                            api='',
-                                                            method='locator',
-                                                            http_verb='POST',
-                                                            query_string=query_string,
-                                                            data=data,
-                                                            headers=headers)
+        super(VisaMerchantLocatorDispatcher, self).__init__(resource=resource,
+                                                            api=api,
+                                                            method=method,
+                                                            http_verb=http_verb,
+                                                            data=data)
 

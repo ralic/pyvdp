@@ -1,8 +1,8 @@
 from datetime import datetime
-from pyvdp.paai import PaymentAccountAttributesInquiryModel
+from pyvdp.paai import AbstractPaymentAccountAttributesInquiryModel
 
 
-class FundsTransferInquiryModel(PaymentAccountAttributesInquiryModel):
+class FundsTransferInquiryModel(AbstractPaymentAccountAttributesInquiryModel):
     """Funds Transfer Inquiry data object model.
 
     :param str primaryAccountNumber: **Required**. Primary account number (PAN). 13-19 characters string.
@@ -12,14 +12,30 @@ class FundsTransferInquiryModel(PaymentAccountAttributesInquiryModel):
     :param str retrievalReferenceNumber: **Optional**. RRN. If not provided, generated automatically based on STAN.
         12 characters string.
 
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+    
+    ..  code:: json
 
-            {
-                "primaryAccountNumber": "4957030420210512",
-                "retrievalReferenceNumber": "330000550000",
+        {
+            "primaryAccountNumber": "4957030420210512",
+            "retrievalReferenceNumber": "330000550000",
                 "systemsTraceAuditNumber": "451006"
-            }
+        }
+        
+    **Response:**
+    
+    ..  code:: json
+    
+        {
+            "cardTypeCode": "C",
+            "billingCurrencyCode": "986",
+            "billingCurrencyMinorDigits": 2,
+            "issuerName": "Visa Test Bank",
+            "cardIssuerCountryCode": "076",
+            "fastFundsIndicator": "N",
+            "pushFundsBlockIndicator": "N",
+            "onlineGambingBlockIndicator": "Y"
+        }    
     """
     ATTRS = [
         'systemsTraceAuditNumber',

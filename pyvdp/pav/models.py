@@ -9,36 +9,50 @@ class CardValidationModel(object):
     :param str cardCvv2Value: **Conditional**. Card CVV2 value. 3-4 characters string.
     :param int acquiringBin: **Optional**. Bank identification number under which a funds transfer is registered.
         6-11 digits integer.
-    :param int acquirerCountryCode: **Optional**. `ISO country code <https://developer.visa.com/request_response_codes#isoCodes>`_ 
-        for acquiring bank. 3 digits integer.
+    :param int acquirerCountryCode: **Optional**. 
+        `ISO country code <https://developer.visa.com/request_response_codes#isoCodes>`_ for acquiring bank. 
+        3 digits integer.
     :param CardAcceptorModel cardAcceptor: **Optional**. Instance of :func:`~pyvdp.visadirect.CardAcceptorModel`.
 
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+        
+    ..  code:: json
 
-            {
-                "addressVerificationResults": {
-                    "postalCode": "T4B 3G5",
-                    "street": "2881 Main Street Sw"
+        {
+            "addressVerificationResults": {
+                "postalCode": "T4B 3G5",
+                "street": "2881 Main Street Sw"
+            },
+            "cardAcceptor": {
+                "address": {
+                    "city": "fostr city",
+                    "country": "PAKISTAN",
+                    "county": "CA",
+                    "state": "CA",
+                    "zipCode": "94404"
                 },
-                "cardAcceptor": {
-                    "address": {
-                        "city": "fostr city",
-                        "country": "PAKISTAN",
-                        "county": "CA",
-                        "state": "CA",
-                        "zipCode": "94404"
-                    },
-                    "idCode": "111111",
-                    "name": "rohan",
-                    "terminalId": "123"
-                },
-                "cardCvv2Value": "672",
-                "cardExpiryDate": "2018-06",
-                "primaryAccountNumber": "4957030000313108",
-                "retrievalReferenceNumber": "015221743720",
-                "systemsTraceAuditNumber": "743720"
-            }
+                "idCode": "111111",
+                "name": "rohan",
+                "terminalId": "123"
+            },
+            "cardCvv2Value": "672",
+            "cardExpiryDate": "2018-06",
+            "primaryAccountNumber": "4957030000313108",
+            "retrievalReferenceNumber": "015221743720",
+            "systemsTraceAuditNumber": "743720"
+        }
+        
+    **Response:**
+    
+    ..  code:: json
+    
+        {
+            "transactionIdentifier": 1234,
+            "actionCode": "25",
+            "responseCode": "5",
+            "addressVerificationResults": "I",
+            "cvv2ResultCode": "P"
+        }    
     """
     ATTRS = [
         'systemsTraceAuditNumber',

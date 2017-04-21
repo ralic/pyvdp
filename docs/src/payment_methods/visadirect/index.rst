@@ -15,13 +15,6 @@ Visa Direct
    reports
    watchlist
 
-++++++++++
-Dispatcher
-++++++++++
-
-.. automodule:: pyvdp.visadirect.dispatcher
-   :members:
-
 +++++++++++
 Data models
 +++++++++++
@@ -48,4 +41,13 @@ OriginalDataElementsModel
 -------------------------
 
 .. autoclass:: pyvdp.visadirect.OriginalDataElementsModel
+   :members:
+
+.. _vd_dispatcher:
+
+++++++++++
+Dispatcher
+++++++++++
+
+.. automodule:: pyvdp.visadirect.dispatcher
    :members:

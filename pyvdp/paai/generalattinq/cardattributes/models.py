@@ -3,12 +3,34 @@ class GeneralInquiryModel(object):
 
     :param str primaryAccountNumber: **Required**. Primary account number (PAN). 13-19 characters string.
 
-    **Example:**
-        ..  code-block:: json
+    **Request:**
+    
+    ..  code:: json
 
-            {
-                "primaryAccountNumber": "4465390000029077"
-            }
+        {
+            "primaryAccountNumber": "4465390000029077"
+        }
+        
+    **Response:**
+    
+    ..  code:: json
+    
+        {
+            "status": {
+                "statusCode": "CDI000",
+                "statusDescription": "Success"
+            },
+            "cardProductId": "K",
+            "cardProductName": "Visa Corporate T&amp;E",
+            "cardProductSubtypeCode": "ON",
+            "cardProductSubtypeDescription": "Other Prepaid-Non Reloadable",
+            "cardTypeCode": "H",
+            "cardSubtypeCode": "R",
+            "cardPlatformCode": "CO",
+            "issuerName": "BANCO AGROMERCANTIL DE GUATEMALA S.A.",
+            "bin": "481507",
+            "countryCode": "332"
+        }    
     """
     ATTRS = [
         'primaryAccountNumber'

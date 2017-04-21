@@ -1,2 +1,2 @@
 from .dispatcher import VisaPaaiDispatcher
-from .models import PaymentAccountAttributesInquiryModel
+from .models import AbstractPaymentAccountAttributesInquiryModel

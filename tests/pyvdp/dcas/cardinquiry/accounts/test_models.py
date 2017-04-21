@@ -1,6 +1,6 @@
 import unittest
 
-from pyvdp.dcas.cardinquiry.accounts import CardInquiryModel
+from pyvdp.dcas.cardinquiry.accounts import DebitCardInquiryModel
 
 
 class TestCardInquiryModel(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestCardInquiryModel(unittest.TestCase):
             'cardholderName': object,
         }
 
-        model = CardInquiryModel(**attrs)
+        model = DebitCardInquiryModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -29,7 +29,7 @@ class TestCardholderName(unittest.TestCase):
             'lastName': 'Doe',
         }
 
-        model = CardInquiryModel.CardholderName(**attrs)
+        model = DebitCardInquiryModel.CardholderName(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)

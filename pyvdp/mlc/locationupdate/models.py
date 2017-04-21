@@ -25,6 +25,43 @@ class LocationsModel(object):
         operator). Currently only '1' is supported.
     :param int source: **Required**. Mobile device event, that triggered location update. Possible values are:
         1 - location change event, 2 - wi-fi connection event.
+        
+    **Request:**
+    
+    ..  code:: json
+    
+        {
+            "accuracy": "5000",
+            "cloudNotificationKey": "03e3ae03-a627-4241-bad6-58f811c18e46",
+            "cloudNotificationProvider": "1",
+            "deviceId": "25b794-29a-4acb-9485-5a643d231f8U",
+            "deviceLocationDateTime": "2017-04-20T03:54:24.932Z",
+            "geoLocationCoordinate": {
+                "latitude": "37.55862902",
+                "longitude": "-122.2773385"
+            },
+            "header": {
+                "messageDateTime": "2017-04-20T03:54:24.932Z",
+                "messageId": "2d099794-e69a-4acb-9485-5a643d231f51"
+            },
+            "issuerId": "123457",
+            "provider": "1",
+            "source": "1"
+        }
+            
+    **Response:**
+    
+    ..  code:: json
+    
+        {
+            "status": "success",
+            "header": {
+                "messageId": "2d099794-e69a-4acb-9485-5a643d231f51",
+                "messageDateTime": "2017-04-20T03:54:24.932Z"
+            },
+            "deviceId": "25b794-29a-4acb-9485-5a643d231f8U",
+            "locationPulseInterval": "6000000"
+        }    
     """
     ATTRS = [
         'header',

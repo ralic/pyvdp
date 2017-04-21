@@ -6,11 +6,26 @@ Merchant Locator
 
     https://developer.visa.com/products/merchant_locator
 
-+++++
-Usage
-+++++
++++++++
+Actions
++++++++
+
+-------
+locator
+-------
 
 ..  automodule:: pyvdp.merchantlocator.locator
+    :members:
+
++++++++++++
+Data models
++++++++++++
+
+------------
+LocatorModel
+------------
+
+..  autoclass:: pyvdp.merchantlocator.LocatorModel
     :members:
 
 ++++++++++
@@ -18,15 +33,4 @@ Dispatcher
 ++++++++++
 
 ..  automodule:: pyvdp.merchantlocator.dispatcher
-    :members:
-
-+++++++++++
-Data models
-+++++++++++
-
---------------------
-MerchantLocatorModel
---------------------
-
-..  autoclass:: pyvdp.merchantlocator.MerchantLocatorModel
     :members:

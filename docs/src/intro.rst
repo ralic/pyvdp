@@ -17,27 +17,27 @@ General interaction with VDP is implemented with following flow:
 4. Result is returned to user.
 5. If something went wrong, exception is raised.
 
------------
++++++++++++
 Data Models
------------
++++++++++++
 
 Models are simple Python objects, representing data, submitted to VISA. Models attributes (properties) are matched to
 actual attributes names, that are understood by VISA.
 
------------
++++++++++++
 Dispatchers
------------
++++++++++++
 
 Dispatcher are python classes, that implement logic, related to connection to various APIs, such as API enpoints,
 authentication methods etc.
 
--------
++++++++
 Actions
--------
++++++++
 
 Actions are Python modules (essentially helpers) that implement one of the API methods, introduced by VDP.
-E.g. :func:`pyvdp.visadirect.fundstransfer.pullfunds.send()` submits POST request to Visa Direct FundsTransfer API
-endpoint.
+E.g. :func:`pyvdp.visadirect.fundstransfer.pullfundstransactions.send()` submits POST request to Visa Direct
+FundsTransfer API endpoint.
 
 ----------
 Exceptions

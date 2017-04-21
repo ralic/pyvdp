@@ -1,36 +1,36 @@
 from pyvdp.dcas.dispatcher import VisaDcasDispatcher
 
-API = 'cardinquiry'
-METHOD = 'accounts/debitcardinquiry'
-
 
 def send(data):
-    """Submits a Digital Card and Accounts request.
+    """Submits DCAS Debit Card Inquiry request.
     
-    :param CardInquiryModel data: **Required**.
-        Instance of :func:`~pyvdp.dcas.cardinquiry.accounts.CardInquiryModel`. 
-    :return: Response from VDP
+    :param DebitCardInquiryModel data: **Required**.
+        Instance of :func:`~pyvdp.dcas.cardinquiry.accounts.DebitCardInquiryModel`. 
+    :return: Response from VDP.
      
     **Usage**: 
     
-    ..  code-block:: python
+    ..  code:: python
     
-            from pyvdp.dcas.cardinquiry.accounts import debitcardinquiry, CardInquiryModel
+            from pyvdp.dcas.cardinquiry.accounts import debitcardinquiry, DebitCardInquiryModel
     
             cn_kwargs = {
                 'first_name': 'John',
                 'last_name': 'Doe'
             }
     
-            cim_kwargs = {
+            data_kwargs = {
                 'direct_dan': '0987654321',
                 'routing_number': '1234567890',
-                'cardholder_name': CardInquiryModel.CardholderName(**cn_kwargs)
+                'cardholder_name': DebitCardInquiryModel.CardholderName(**cn_kwargs)
             }
     
-            cim = CardInquiryModel(**cim_kwargs)
-            result = debitcardinquiry.send(data=cim)
+            data = DebitCardInquiryModel(**data_kwargs)
+            result = debitcardinquiry.send(data)
             print(result)     
     """
-    c = VisaDcasDispatcher(api=API, method=METHOD, http_verb='POST', data=data)
+    c = VisaDcasDispatcher(api='cardinquiry',
+                           method='accounts/debitcardinquiry',
+                           http_verb='POST',
+                           data=data)
     return c.send()

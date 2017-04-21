@@ -11,7 +11,7 @@ def send(data):
     
     ..  code-block:: python
     
-        from pyvdp.merchantsearch import search, MerchantSearchModel
+        from pyvdp.merchantsearch import search, SearchModel
         
         search_attrs = {
             "merchantName": "cmu edctn materials cntr",
@@ -39,14 +39,18 @@ def send(data):
             ]
         }
         
-        search_kwargs = {
-            'searchAttrList': MerchantSearchModel.MerchantSearchAttrList(**search_attrs),
-            'searchOptions': MerchantSearchModel.MerchantSearchOptions(**search_options),        
+        data_kwargs = {
+            'searchAttrList': SearchModel.MerchantSearchAttrList(**search_attrs),
+            'searchOptions': SearchModel.MerchantSearchOptions(**search_options),        
         }
         
-        data = MerchantSearchModel(**search_kwargs)
-        result = search.send(data=data)
+        data = SearchModel(**data_kwargs)
+        result = search.send(data)
         print(result)
     """
-    c = VisaMerchantSearchDispatcher(data=data)
+    c = VisaMerchantSearchDispatcher(resource='merchantsearch',
+                                     api='',
+                                     method='search',
+                                     http_verb='POST',
+                                     data=data)
     return c.send()

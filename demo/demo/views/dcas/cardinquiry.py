@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from pyvdp.dcas.cardinquiry.accounts import debitcardinquiry, CardInquiryModel
+from pyvdp.dcas.cardinquiry.accounts import debitcardinquiry, DebitCardInquiryModel
 
 from demo.forms.dcas.cardinquiry import DebitCardInquiryFormPost
 
@@ -22,10 +22,10 @@ def debit_card_inquiry(request):
             cim_kwargs = {
                 'directDebitAccountNumber': direct_dan,
                 'routingNumber': routing_number,
-                'cardholderName': CardInquiryModel.CardholderName(**cn_kwargs)
+                'cardholderName': DebitCardInquiryModel.CardholderName(**cn_kwargs)
             }
 
-            data = CardInquiryModel(**cim_kwargs)
+            data = DebitCardInquiryModel(**cim_kwargs)
 
             result = debitcardinquiry.send(data=data)
 

@@ -5,11 +5,11 @@ from demo.forms.visadirect.fundstransfer import (PullFundsFormGet, PullFundsForm
 
 from pyvdp.visadirect import CardAcceptorModel, OriginalDataElementsModel
 
-from pyvdp.visadirect.fundstransfer import PullFundsTransactionModel, MultiPullFundsTransactionModel
-from pyvdp.visadirect.fundstransfer import PushFundsTransactionModel, MultiPushFundsTransactionModel
-from pyvdp.visadirect.fundstransfer import ReverseFundsTransactionModel, MultiReverseFundsTransactionModel
+from pyvdp.visadirect.fundstransfer import PullFundsTransactionsModel, MultiPullFundsTransactionsModel
+from pyvdp.visadirect.fundstransfer import PushFundsTransactionsModel, MultiPushFundsTransactionsModel
+from pyvdp.visadirect.fundstransfer import ReverseFundsTransactionsModel, MultiReverseFundsTransactionsModel
 
-from pyvdp.visadirect.fundstransfer import pushfunds, pullfunds, reversefunds
+from pyvdp.visadirect.fundstransfer import pushfunds, pullfunds, reversefundstransactions
 
 
 def index(request):
@@ -50,7 +50,7 @@ def pull(request):
                     'businessApplicationId': 'AA'
                 }
 
-                pft = PullFundsTransactionModel(**pft_kwargs)
+                pft = PullFundsTransactionsModel(**pft_kwargs)
 
                 if is_multi:
                     pft_kwargs = {
@@ -67,11 +67,11 @@ def pull(request):
                         'acquirerCountryCode': 840,
                         'businessApplicationId': 'AA',
                         'request': [
-                            PullFundsTransactionModel(**pft_kwargs)
+                            PullFundsTransactionsModel(**pft_kwargs)
                         ]
                     }
 
-                    mpft = MultiPullFundsTransactionModel(**mpft_kwargs)
+                    mpft = MultiPullFundsTransactionsModel(**mpft_kwargs)
                     result = pullfunds.send(data=mpft, multi=True)
                 else:
                     result = pullfunds.send(data=pft)
@@ -124,7 +124,7 @@ def push(request):
                 'transactionCurrencyCode': 'USD'
             }
 
-            data = PushFundsTransactionModel(**pft_kwargs)
+            data = PushFundsTransactionsModel(**pft_kwargs)
 
             if is_multi:
 
@@ -148,11 +148,11 @@ def push(request):
                     'acquirerCountryCode': 840,
                     'businessApplicationId': 'AA',
                     'request': [
-                        PushFundsTransactionModel(**pft_kwargs)
+                        PushFundsTransactionsModel(**pft_kwargs)
                     ]
                 }
 
-                mpft = MultiPushFundsTransactionModel(**mpft_kwargs)
+                mpft = MultiPushFundsTransactionsModel(**mpft_kwargs)
                 result = pushfunds.send(data=mpft, multi=True)
             else:
                 result = pushfunds.send(data=data)
@@ -207,7 +207,7 @@ def reverse(request):
                 'transactionIdentifier': transaction_identifier
             }
 
-            rft = ReverseFundsTransactionModel(**rft_kwargs)
+            rft = ReverseFundsTransactionsModel(**rft_kwargs)
 
             if is_multi:
 
@@ -226,16 +226,16 @@ def reverse(request):
                     'acquiringBin': 408999,
                     'acquirerCountryCode': 608,
                     'request': [
-                        ReverseFundsTransactionModel(**rft_kwargs)
+                        ReverseFundsTransactionsModel(**rft_kwargs)
                     ]
                 }
 
-                mrft = MultiReverseFundsTransactionModel(**mrft_kwargs)
+                mrft = MultiReverseFundsTransactionsModel(**mrft_kwargs)
 
-                result = reversefunds.send(data=mrft, multi=True)
+                result = reversefundstransactions.send(data=mrft, multi=True)
 
             else:
-                result = reversefunds.send(data=rft)
+                result = reversefundstransactions.send(data=rft)
 
             return render(request, template_name='success.html', context={'result': result})
     else:

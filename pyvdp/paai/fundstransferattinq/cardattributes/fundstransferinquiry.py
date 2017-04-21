@@ -10,20 +10,20 @@ def send(data):
     
     **Usage:**
     
-    ..  code-block:: python
+    ..  code:: python
     
         from pyvdp.paai.fundstransferattinq.cardattributes import fundstransferinquiry, FundsTransferInquiryModel
         
-        ftim_kwargs = {
+        data_kwargs = {
             "primaryAccountNumber": "4957030420210512",
         }
         
-        data = FundsTransferInquiryModel(**ftim_kwargs)
-        
-        result = fundstransferinquiry.send(data=data)
+        data = FundsTransferInquiryModel(**data_kwargs)
+        result = fundstransferinquiry.send(data)
         print(result)
     """
-    c = VisaPaaiDispatcher(api='fundstransferattinq',
+    c = VisaPaaiDispatcher(resource='paai',
+                           api='fundstransferattinq',
                            method='cardattributes/fundstransferinquiry',
                            http_verb='POST',
                            data=data)

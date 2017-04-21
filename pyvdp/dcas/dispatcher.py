@@ -4,18 +4,15 @@ from pyvdp.dispatcher import VisaDispatcher
 class VisaDcasDispatcher(VisaDispatcher):
     """Implements HTTP requests to Visa Digital Card and Accounts APIs.
 
-    https://developer.visa.com/products/dcas/guides
-
-    :param str query_string: **Conditional**. Query string to append to URL
-    :param CardInquiryModel data: **Conditional**. 
-        Instance of :func:`~pyvdp.dcas.cardinquiry.accounts.CardInquiryModel` 
-    :param dict headers: **Optional**. Additional headers as dictionary
+    :param data: **Required**. Instance of data model. 
+    :param str resource: **Required**. Resource name.    
+    :param str api: **Required**. API name.
+    :param str method: **Required**. Method name.
+    :param str http_verb: **Required**. HTTP Verb.
     """
-    def __init__(self, api, method, http_verb, query_string='', data=None, headers=None):
-        super(VisaDcasDispatcher, self).__init__(resource='dcas',
+    def __init__(self, resource, api, method, http_verb, data):
+        super(VisaDcasDispatcher, self).__init__(resource=resource,
                                                  api=api,
                                                  method=method,
                                                  http_verb=http_verb,
-                                                 query_string=query_string,
-                                                 data=data,
-                                                 headers=headers)
+                                                 data=data)

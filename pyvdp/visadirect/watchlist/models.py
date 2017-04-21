@@ -12,19 +12,30 @@ class WatchListInquiryModel(object):
     :param int acquirerCountryCode: **Optional**. Acquirer ISO country code, provided during enrollment. 3 digits
         integer
 
-    **Example:**
-        ..  code-block:: json
-
-            {
-                "acquirerCountryCode": "840",
-                "acquiringBin": "408999",
-                "address": {
-                    "cardIssuerCountryCode": "USA",
-                    "city": "San Francisco"
-                },
-                "name": "Mohammed Qasim",
-                "referenceNumber": "330000550000"
-            }
+    **Request:**
+    
+    ..  code:: json
+    
+        {
+            "acquirerCountryCode": "840",
+            "acquiringBin": "408999",
+            "address": {
+                "cardIssuerCountryCode": "USA",
+                "city": "San Francisco"
+            },
+            "name": "Mohammed Qasim",
+            "referenceNumber": "330000550000"
+        }
+            
+    **Response:**
+    
+    ..  code:: json
+    
+        {
+            "referenceNumber": "330000550000",
+            "ofacScore": "10",
+            "status": "Approved"
+        }    
     """
     ATTRS = [
         'name',

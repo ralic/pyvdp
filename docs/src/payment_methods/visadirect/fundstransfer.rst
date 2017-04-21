@@ -6,61 +6,100 @@ Funds Transfer API
 
     https://developer.visa.com/products/visa_direct/reference#visa_direct__funds_transfer
 
-+++++
-Usage
-+++++
++++++++
+Actions
++++++++
 
----------
-PullFunds
----------
+---------------------
+pullfundstransactions
+---------------------
 
-..  automodule:: pyvdp.visadirect.fundstransfer.pullfunds
+..  automodule:: pyvdp.visadirect.fundstransfer.pullfundstransactions
     :members:
 
----------
-PushFunds
----------
+--------------------------
+multipullfundstransactions
+--------------------------
 
-..  automodule:: pyvdp.visadirect.fundstransfer.pushfunds
+..  automodule:: pyvdp.visadirect.fundstransfer.multipullfundstransactions
     :members:
 
-------------
-ReverseFunds
-------------
+---------------------
+pushfundstransactions
+---------------------
 
-..  automodule:: pyvdp.visadirect.fundstransfer.reversefunds
+..  automodule:: pyvdp.visadirect.fundstransfer.pushfundstransactions
+    :members:
+
+--------------------------
+multipushfundstransactions
+--------------------------
+
+..  automodule:: pyvdp.visadirect.fundstransfer.multipushfundstransactions
+    :members:
+
+------------------------
+reversefundstransactions
+------------------------
+
+..  automodule:: pyvdp.visadirect.fundstransfer.reversefundstransactions
+    :members:
+
+-----------------------------
+multireversefundstransactions
+-----------------------------
+
+..  automodule:: pyvdp.visadirect.fundstransfer.multireversefundstransactions
     :members:
 
 +++++++++++
 Data models
 +++++++++++
 
--------------------------
-PullFundsTransactionModel
--------------------------
+--------------------------
+PullFundsTransactionsModel
+--------------------------
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.PullFundsTransactionModel
+.. autoclass:: pyvdp.visadirect.fundstransfer.PullFundsTransactionsModel
    :members:
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPullFundsTransactionModel
+-------------------------------
+MultiPullFundsTransactionsModel
+-------------------------------
+
+.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPullFundsTransactionsModel
    :members:
 
--------------------------
-PushFundsTransactionModel
--------------------------
+--------------------------
+PushFundsTransactionsModel
+--------------------------
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.PushFundsTransactionModel
+.. autoclass:: pyvdp.visadirect.fundstransfer.PushFundsTransactionsModel
    :members:
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPushFundsTransactionModel
+-------------------------------
+MultiPushFundsTransactionsModel
+-------------------------------
+
+.. autoclass:: pyvdp.visadirect.fundstransfer.MultiPushFundsTransactionsModel
    :members:
 
-----------------------------
-ReverseFundsTransactionModel
-----------------------------
+-----------------------------
+ReverseFundsTransactionsModel
+-----------------------------
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.ReverseFundsTransactionModel
+.. autoclass:: pyvdp.visadirect.fundstransfer.ReverseFundsTransactionsModel
    :members:
 
-.. autoclass:: pyvdp.visadirect.fundstransfer.MultiReverseFundsTransactionModel
+----------------------------------
+MultiReverseFundsTransactionsModel
+----------------------------------
+
+.. autoclass:: pyvdp.visadirect.fundstransfer.MultiReverseFundsTransactionsModel
    :members:
+
+++++++++++
+Dispatcher
+++++++++++
+
+See :ref:`vd_dispatcher`.

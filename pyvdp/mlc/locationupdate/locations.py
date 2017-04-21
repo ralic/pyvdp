@@ -9,7 +9,7 @@ def send(data):
     
     **Usage:**
     
-    ..  code-block:: python
+    ..  code:: python
     
         from pyvdp.mlc.locationupdate import locations, LocationsModel
         

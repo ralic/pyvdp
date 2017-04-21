@@ -4,15 +4,15 @@ from .dispatcher import VisaMerchantLocatorDispatcher
 def send(data):
     """Submits a MerchantLocator request.
 
-    :param MerchantLocatorModel data: **Required**. 
-        Instance of :func:`~pyvdp.merchantlocator.MerchantLocatorModel`.
+    :param LocatorModel data: **Required**. 
+        Instance of :func:`~pyvdp.merchantlocator.LocatorModel`.
     :return: A response from VDP.
     
     **Usage:**
     
-    ..  code-block:: python
+    ..  code:: python
     
-            from pyvdp.merchantlocator import locator, MerchantLocatorModel
+            from pyvdp.merchantlocator import locator, LocatorModel
             
             search_attrs_kwargs = {
                 "merchantName": "Starbucks",
@@ -29,15 +29,19 @@ def send(data):
                 "matchScore": "true"            
             }
             
-            mlm_kwargs = {
-                "searchAttrList": MerchantLocatorModel.SearchAttrList(**search_attrs_kwargs),
-                "searchOptions": MerchantLocatorModel.SearchOptions(**search_options_kwargs),
+            data_kwargs = {
+                "searchAttrList": LocatorModel.SearchAttrList(**search_attrs_kwargs),
+                "searchOptions": LocatorModel.SearchOptions(**search_options_kwargs),
                 "responseAttrList": ["GNLOCATOR"]
             }
             
-            data = MerchantLocatorModel(**mlm_kwargs)            
-            result = locator.send(data=data)
+            data = LocatorModel(**data_kwargs)            
+            result = locator.send(data)
             print(result)
     """
-    c = VisaMerchantLocatorDispatcher(data=data)
+    c = VisaMerchantLocatorDispatcher(resource='merchantlocator',
+                                      api='',
+                                      method='locator',
+                                      http_verb='POST',
+                                      data=data)
     return c.send()

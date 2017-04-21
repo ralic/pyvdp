@@ -6,9 +6,13 @@ Funds Transfer Inquiry
 
     https://developer.visa.com/products/paai/reference#paai__paai
 
-+++++
-Usage
-+++++
++++++++
+Actions
++++++++
+
+--------------------
+fundstransferinquiry
+--------------------
 
 ..  automodule:: pyvdp.paai.fundstransferattinq.cardattributes.fundstransferinquiry
     :members:
@@ -23,4 +27,10 @@ FundsTransferInquiryModel
 
 ..  autoclass:: pyvdp.paai.fundstransferattinq.cardattributes.FundsTransferInquiryModel
     :members:
+
+++++++++++
+Dispatcher
+++++++++++
+
+See :ref:`paai_dispatcher`
 

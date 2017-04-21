@@ -6,9 +6,13 @@ Watchlist Screening API
 
     https://developer.visa.com/products/visa_direct/reference#visa_direct__ws
 
-+++++
-Usage
-+++++
++++++++
+Actions
++++++++
+
+----------------
+watchlistinquiry
+----------------
 
 ..  automodule:: pyvdp.visadirect.watchlist.watchlistinquiry
     :members:
@@ -23,3 +27,9 @@ WatchListInquiryModel
 
 ..  autoclass:: pyvdp.visadirect.watchlist.WatchListInquiryModel
     :members:
+
+++++++++++
+Dispatcher
+++++++++++
+
+See :ref:`vd_dispatcher`.

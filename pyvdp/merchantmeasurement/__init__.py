@@ -1,1 +1,1 @@
-from .models import RetrieveMetricsPayloadModel
+from .models import MerchantBenchmarkModel

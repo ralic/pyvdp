@@ -1,28 +1,22 @@
 from pyvdp.visadirect import VisaDirectDispatcher
 
 
-API = 'fundstransfer'
-METHOD = 'reversefundstransactions'
+def send(data):
+    """Submits a ReverseFundsTransactions request.
 
-
-def send(data, multi=False):
-    """Submits a ReverseFunds request.
-
-    :param data: **Required**. Instance of :func:`~pyvdp.visadirect.fundstransfer.ReverseFundsTransactionModel` or 
-        :func:`~pyvdp.visadirect.fundstransfer.MultiReverseFundsTransactionModel`.
-    :param bool multi: **Conditional**. Indicates that transaction is a batch 
-        (:func:`~pyvdp.visadirect.fundstransfer.MultiReverseFundsTransactionModel`).
+    :param data: **Required**. Instance of :func:`~pyvdp.visadirect.fundstransfer.ReverseFundsTransactionsModel`
     :return: Dictionary with VDP API response.
     
     **Usage:**
     
-    ..  code-block:: python
+    ..  code:: python
     
         from pyvdp.visadirect import (CardAcceptorModel, 
                                       OriginalDataElementsModel, 
                                       PointOfServiceCapabilityModel, 
                                       PointOfServiceDataModel)
-        from pyvdp.visadirect.fundstransfer import reversefunds, ReverseFundsTransactionModel
+                                      
+        from pyvdp.visadirect.fundstransfer import reversefundstransactions, ReverseFundsTransactionsModel
         
         ode_kwargs = {
             "acquiringBin": "408999",
@@ -42,22 +36,22 @@ def send(data, multi=False):
             "posConditionCode": "00"        
         }
         
-        ca_address_kwargs = {
+        address_kwargs = {
             "country": "USA",
             "county": "San Mateo",
             "state": "CA",
             "zipCode": "94404"        
         }
         
-        ca_kwargs = {
-            "address": CardAcceptorModel.CardAcceptorAddress(**ca_address_kwargs),
+        card_acceptor_kwargs = {
+            "address": CardAcceptorModel.CardAcceptorAddress(**address_kwargs),
             "idCode": "VMT200911026070",
             "name": "Visa Inc. USA-Foster City",
             "terminalId": "365539"                    
         }
         
-        rftm_kwargs = {
-            "cardAcceptor": CardAcceptorModel(**ca_kwargs),
+        data_kwargs = {
+            "cardAcceptor": CardAcceptorModel(**card_acceptor_kwargs),
             "originalDataElements": OriginalDataElementsModel(**ode_kwargs),
             "pointOfServiceCapability": PointOfServiceCapabilityModel(**posc_kwargs),
             "pointOfServiceData": PointOfServiceDataModel(**posd_kwargs),
@@ -70,48 +64,43 @@ def send(data, multi=False):
             "amount": "24.01",                        
         }
         
-        data = ReverseFundsTransactionModel(**rftm_kwargs)
-        result = reversefunds.send(data=data)
+        data = ReverseFundsTransactionsModel(**data_kwargs)
+        result = reversefundstransactions.send(data)
         print(result)
     """
-    method = METHOD
-
-    if multi:
-        method = 'multireversefundstransactions'
-
-    c = VisaDirectDispatcher(api=API, method=method, http_verb='POST', data=data)
+    c = VisaDirectDispatcher(resource='visadirect',
+                             api='fundstransfer',
+                             method='reversefundstransactions',
+                             http_verb='POST',
+                             data=data)
     return c.send()
 
 
-def get(query, multi=False):
-    """Fetches a status of previously submitted ReverseFunds request.
+def get(status_id):
+    """Fetches a status of previously submitted ReverseFundsTransactions request.
 
-    Returns a status of :func:`~pyvdp.visadirect.fundstransfer.ReverseFundsTransactionModel` or  
-    :func:`~pyvdp.visadirect.fundstransfer.MultiReverseFundsTransactionModel` request by transaction identifier, returned 
-    with 202 response.
+    Returns a status of :func:`~pyvdp.visadirect.fundstransfer.ReverseFundsTransactionsModel` request by transaction 
+    identifier, returned with 202 response.
 
-    :param str query: **Required**. Transaction status identifier.
-    :param bool multi: **Conditional**. Indicates that transaction is a batch 
-        (:func:`~pyvdp.visadirect.fundstransfer.MultiReverseFundsTransactionModel`)
+    :param str status_id: **Required**. Transaction status identifier.
     :return: Dictionary with VDP API response
     
     **Usage:**
     
-    ..  code-block:: python
+    ..  code:: python
     
-        from pyvdp.visadirect.fundstransfer import reversefunds
+        from pyvdp.visadirect.fundstransfer import reversefundstransactions
         
         status_id = '1491819372_186_81_l73c003_VDP_ARM'
         
         result = reversefunds.get(status_id)
         print(result)
     """
-    method = METHOD
+    query_string = '/' + status_id
 
-    if multi:
-        method = 'multireversefundstransactions'
-
-    query_string = '/' + query
-
-    c = VisaDirectDispatcher(api=API, method=method, http_verb='GET', query_string=query_string)
+    c = VisaDirectDispatcher(resource='visadirect',
+                             api='fundstransfer',
+                             method='reversefundstransactions',
+                             http_verb='GET',
+                             query_string=query_string)
     return c.send()

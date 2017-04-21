@@ -2,36 +2,38 @@ from .dispatcher import VisaMerchantMeasurementDispatcher
 
 
 def send(data):
-    """Submits a MerchantMeasurement request.
+    """Submits a MerchantBenchmark request.
 
-    :param RetrieveMetricsPayloadModel data: **Required**. 
-        Instance of :func:`~pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel`.
+    :param MerchantBenchmarkModel data: **Required**. 
+        Instance of :func:`~pyvdp.merchantmeasurement.MerchantBenchmarkModel`.
     :return: A response from VDP.
+
+    ..  code:: python
     
-    **Usage:**
-    
-    ..  code-block:: python
-    
-            from pyvdp.merchantmeasurement import merchantbenchmark, RetrieveMetricsPayloadModel
+        from pyvdp.merchantmeasurement import merchantbenchmark, MerchantBenchmarkModel
             
-            data_kwargs = {
-                'merchantCategoryCodes': ['5812'],
-                'merchantCategoryGroupsCodes': [''],
-                'zipList': ['77027'],
-                'msaList': [''],
-                'countryList': [''],
-                'monthList': ['201501'],
-                'groupList': ['standard'],
+        data_kwargs = {
+            'merchantCategoryCodes': ['5812'],
+            'merchantCategoryGroupsCodes': [''],
+            'zipList': ['77027'],
+            'msaList': [''],
+            'countryList': [''],
+            'monthList': ['201501'],
+            'groupList': ['standard'],
                 'cardPresentIndicator': '2'
-            }
+        }
                     
-            rmpm_kwargs = {
-                'requestData': RetrieveMetricsPayloadModel.RequestData(**data_kwargs)
-            }
+        data_kwargs = {
+            'requestData': MerchantBenchmarkModel.RequestData(**data_kwargs)
+        }
             
-            rmpm = RetrieveMetricsPayloadModel(**rmpm_kwargs)
-            
-            result = merchantbenchmark.send(data=rmpm)    
+        data = MerchantBenchmarkModel(**data_kwargs)
+        result = merchantbenchmark.send(data)
+        print(result)
     """
-    c = VisaMerchantMeasurementDispatcher(data=data)
+    c = VisaMerchantMeasurementDispatcher(resource='merchantmeasurement',
+                                          api='',
+                                          method='merchantbenchmark',
+                                          http_verb='POST',
+                                          data=data)
     return c.send()

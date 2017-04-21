@@ -1,6 +1,6 @@
 import unittest
 
-from pyvdp.merchantmeasurement import RetrieveMetricsPayloadModel
+from pyvdp.merchantmeasurement import MerchantBenchmarkModel
 
 
 class TestRetrieveMetricsPayloadModel(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestRetrieveMetricsPayloadModel(unittest.TestCase):
             'requestData': object
         }
 
-        model = RetrieveMetricsPayloadModel(**attrs)
+        model = MerchantBenchmarkModel(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -26,7 +26,7 @@ class TestRequestHeader(unittest.TestCase):
             'requestMessageId': str
         }
 
-        model = RetrieveMetricsPayloadModel.RequestHeader(**attrs)
+        model = MerchantBenchmarkModel.RequestHeader(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)
@@ -46,7 +46,7 @@ class TestRequestData(unittest.TestCase):
             'cardPresentIndicator': '2'
         }
 
-        model = RetrieveMetricsPayloadModel.RequestData(**attrs)
+        model = MerchantBenchmarkModel.RequestData(**attrs)
 
         for attr, value in attrs.items():
             self.assertTrue(hasattr(model, attr), 'missing %s attribute' % attr)

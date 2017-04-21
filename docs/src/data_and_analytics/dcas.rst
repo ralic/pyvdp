@@ -4,13 +4,28 @@ Digital Card and Account Services
 
 ..  seealso::
 
-    https://developer.visa.com/products/dcas/reference
+    https://developer.visa.com/products/dcas
 
-+++++
-Usage
-+++++
++++++++
+Actions
++++++++
+
+----------------
+debitcardinquiry
+----------------
 
 ..  automodule:: pyvdp.dcas.cardinquiry.accounts.debitcardinquiry
+    :members:
+
+++++++
+Models
+++++++
+
+---------------------
+DebitCardInquiryModel
+---------------------
+
+..  autoclass:: pyvdp.dcas.cardinquiry.accounts.DebitCardInquiryModel
     :members:
 
 ++++++++++
@@ -18,15 +33,4 @@ Dispatcher
 ++++++++++
 
 ..  automodule:: pyvdp.dcas.dispatcher
-    :members:
-
-+++++++++++
-Data models
-+++++++++++
-
-----------------
-CardInquiryModel
-----------------
-
-..  autoclass:: pyvdp.dcas.cardinquiry.accounts.CardInquiryModel
     :members:

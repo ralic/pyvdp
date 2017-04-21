@@ -3,13 +3,46 @@ import time
 from datetime import datetime
 
 
-class RetrieveMetricsPayloadModel(object):
-    """RetriveMetricsPayload data object model for Merchant Measurement APIs.
+class MerchantBenchmarkModel(object):
+    """MerchantBenchmark data object model for Merchant Measurement APIs.
     
-    :param pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel.RequestHeader requestHeader: **Optional**. 
-        Instance of :func:`~pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel.RequestHeader`
-    :param pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel.RequestData requestData: **Required**.
-        Instance of :func:`~pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel.RequestData`
+    :param pyvdp.merchantmeasurement.MerchantBenchmarkModel.RequestHeader requestHeader: **Optional**. 
+        Instance of :func:`~pyvdp.merchantmeasurement.MerchantBenchmarkModel.RequestHeader`
+    :param pyvdp.merchantmeasurement.MerchantBenchmarkModel.RequestData requestData: **Required**.
+        Instance of :func:`~pyvdp.merchantmeasurement.MerchantBenchmarkModel.RequestData`
+    
+    **Request:**
+    
+    ..  code:: json
+    
+        {
+            "requestHeader": {
+                "messageDateTime": "2017-04-19T11:23:04.327Z",
+                "requestMessageId": "6da60e1b8b024532a2e0eacb1af58581"
+            },
+            "requestData": {
+                "merchantCategoryCodes": [
+                    "5812"
+                ],
+                "merchantCategoryGroupsCodes": [""],
+                "zipList": [
+                    "77027"
+                ],
+                "msaList": [""],
+                "countryList": [""],
+                "monthList": [
+                    "201501"
+                ],
+                "groupList": [
+                    "standard"
+                ],
+                "cardPresentIndicator": "2"
+            }
+        }
+           
+    **Response:**
+    
+    TODO
     """
     ATTRS = [
         'requestHeader',
@@ -22,7 +55,7 @@ class RetrieveMetricsPayloadModel(object):
                 self.__setattr__(attr, value)
 
     class RequestHeader(object):
-        """Part of RetrieveMetricsPayloadModel
+        """Part of MerchantBenchmarkModel
         
         :param str requestMessageId: **Required**. Unique message identifier. If not provided, generated automatically. 
         """
@@ -46,7 +79,7 @@ class RetrieveMetricsPayloadModel(object):
             return 'Request_' + str(int(time.time()))
 
     class RequestData(object):
-        """Data payload for RetrieveMetricsPayloadModel.
+        """Data payload for MerchantBenchmarkModel.
         
         :param list merchantCategoryCodes: **Required**. A list of valid MCCs.
         :param list merchantCategoryGroupsCodes: **Required**. A list of valid merchant category group codes.

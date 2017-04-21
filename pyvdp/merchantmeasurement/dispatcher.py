@@ -4,21 +4,18 @@ from pyvdp.dispatcher import VisaDispatcher
 class VisaMerchantMeasurementDispatcher(VisaDispatcher):
     """Implements HTTP requests to Visa MerchantMeasurement APIs.
 
-    https://developer.visa.com/products/merchant_measurement/guides
+    https://developer.visa.com/products/merchant_measurement
 
-    :param str query_string: **Conditional**. Query string to append to URL
-    :param RetrieveMetricsPayloadModel data: **Conditional**. 
-        Instance of :func:`~pyvdp.merchantmeasurement.RetrieveMetricsPayloadModel` 
-    :param dict headers: **Optional**. Additional headers as dictionary
+    :param data: **Required**. Instance of data model.
+    :param str resource: **Required**. Resource name.
+    :param str api: **Required**. API name.
+    :param str method: **Required**. Method name.
+    :param str http_verb: **Required**. HTTP Verb.
     """
-
-    def __init__(self, query_string='', data=None, headers=None):
-
-        super(VisaMerchantMeasurementDispatcher, self).__init__(resource='merchantmeasurement',
-                                                                api='',
-                                                                method='merchantbenchmark',
-                                                                http_verb='POST',
-                                                                query_string=query_string,
-                                                                data=data,
-                                                                headers=headers)
+    def __init__(self, resource, api, method, http_verb, data):
+        super(VisaMerchantMeasurementDispatcher, self).__init__(resource=resource,
+                                                                api=api,
+                                                                method=method,
+                                                                http_verb=http_verb,
+                                                                data=data)
 

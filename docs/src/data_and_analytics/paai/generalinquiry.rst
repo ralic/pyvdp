@@ -6,12 +6,13 @@ General Inquiry
 
     https://developer.visa.com/products/paai/reference#paai__gaai
 
-The General Attributes Inquiry API provides an easy access to an array of general attributes, such as product ID,
-product name, card type, issuer name, etc.
++++++++
+Actions
++++++++
 
-+++++
-Usage
-+++++
+--------------
+generalinquiry
+--------------
 
 ..  automodule:: pyvdp.paai.generalattinq.cardattributes.generalinquiry
     :members:
@@ -27,4 +28,8 @@ GeneralInquiryModel
 ..  autoclass:: pyvdp.paai.generalattinq.cardattributes.GeneralInquiryModel
     :members:
 
+++++++++++
+Dispatcher
+++++++++++
 
+See :ref:`paai_dispatcher`

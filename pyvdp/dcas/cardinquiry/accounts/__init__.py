@@ -1,1 +1,1 @@
-from .models import CardInquiryModel
+from .models import DebitCardInquiryModel

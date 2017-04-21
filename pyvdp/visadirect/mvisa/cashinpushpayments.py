@@ -1,10 +1,6 @@
 from pyvdp.visadirect import VisaDirectDispatcher
 
 
-API = 'mvisa'
-METHOD = 'cashinpushpayments'
-
-
 def send(data):
     """Submits VisaDirect mVISA CashinPushPayments request.
 
@@ -14,28 +10,28 @@ def send(data):
     
     **Usage:**
     
-    ..  code-block:: python
-    
+    ..  code:: python
+
+        from pyvdp.visadirect.mvisa import cashinpushpayments, CashinPushPaymentsModel    
         from pyvdp.visadirect import CardAcceptorModel
-        from pyvdp.visadirect.mvisa import cashinpushpayments, CashinPushPaymentsModel
-        
-        ca_address_kwargs = {
+
+        address_kwargs = {
             "city": "KOLKATA",
             "country": "IND"
         }
         
-        ca_kwargs = {
-            "address": CardAcceptorModel.CardAcceptorAddress(**ca_address_kwargs),
+        card_acceptor_kwargs = {
+            "address": CardAcceptorModel.CardAcceptorAddress(**address_kwargs),
             "idCode": "CA-IDCode-77765",
             "name": "Visa Inc. USA-Foster City"            
         }
         
-        cipp_kwargs = {
+        data_kwargs = {
             "acquirerCountryCode": "643",
             "acquiringBin": "400171",
             "amount": "124.05",
             "businessApplicationId": "CI",            
-            "cardAcceptor": CardAcceptorModel(**ca_kwargs),
+            "cardAcceptor": CardAcceptorModel(**card_acceptor_kwargs),
             "merchantCategoryCode": "4829",
             "recipientPrimaryAccountNumber": "4123640062698797",
             "senderAccountNumber": "4541237895236",
@@ -45,22 +41,27 @@ def send(data):
             "transactionIdentifier": "381228649430015"                                        
         }
         
-        data = CashinPushPaymentsModel(**cipp_kwargs)
-        
-        result = cashinpushpayments.send(data=data)
+        data = CashinPushPaymentsModel(**data_kwargs)
+        result = cashinpushpayments.send(data)
         print(result)
     """
-    c = VisaDirectDispatcher(api=API, method=METHOD, http_verb='POST', data=data)
+    c = VisaDirectDispatcher(resource='visadirect',
+                             api='mvisa',
+                             method='cashinpushpayments',
+                             http_verb='POST',
+                             data=data)
     return c.send()
 
 
-def get(query):
+def get(status_id):
     """Sends VisaDirect mVISA CashinPushPayments request.
 
-    :param str query: **Required**. Transaction status identifier.
+    :param str status_id: **Required**. Transaction status identifier.
     :return: Dictionary with VDP API response.
     
-    ..  code-block:: python
+    **Usage:**
+    
+    ..  code:: python
     
         from pyvdp.visadirect.mvisa import cashinpushpayments
         
@@ -68,7 +69,10 @@ def get(query):
         result = cashinpushpayments.get(status_id)
         print(result)
     """
-    query_string = '/' + query
+    query_string = '/' + status_id
 
-    c = VisaDirectDispatcher(api=API, method=METHOD, http_verb='GET', query_string=query_string)
+    c = VisaDirectDispatcher(resource='visadirect',
+                             api='mvisa', method='cashinpushpayments',
+                             http_verb='GET',
+                             query_string=query_string)
     return c.send()

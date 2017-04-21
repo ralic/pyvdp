@@ -4,14 +4,16 @@ from pyvdp.dispatcher import VisaDispatcher
 class VisaGlobalAtmLocatorDispatcher(VisaDispatcher):
     """Implements HTTP requests to Visa Global ATM Locator APIs.
 
-    https://developer.visa.com/products/atmlocator/guides
+    :param data: **Required**. Instance of data model.
+    :param str resource: **Required**. Resource name.
+    :param str api: **Required**. API name.
+    :param str method: **Required**. Method name.
+    :param str http_verb: **Required**. HTTP Verb.
     """
-    def __init__(self, method, query_string='', data=None, headers=None):
-        super(VisaGlobalAtmLocatorDispatcher, self).__init__(resource='globalatmlocator',
-                                                             api='',
+    def __init__(self, resource, api, method, http_verb, data):
+        super(VisaGlobalAtmLocatorDispatcher, self).__init__(resource=resource,
+                                                             api=api,
                                                              method=method,
-                                                             http_verb='POST',
-                                                             query_string=query_string,
-                                                             data=data,
-                                                             headers=headers)
+                                                             http_verb=http_verb,
+                                                             data=data)
 

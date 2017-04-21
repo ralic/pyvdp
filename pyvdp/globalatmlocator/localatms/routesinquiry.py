@@ -10,7 +10,7 @@ def send(data):
 
     **Usage:**
     
-    ..  code-block:: python
+    ..  code:: python
     
         from pyvdp.globalatmlocator.localatms import routesinquiry, RoutesInquiryModel
         
@@ -58,8 +58,12 @@ def send(data):
         }
         
         data = RoutesInquiryModel(**data_kwargs)
-        result = routesinquiry.send(data=data)
+        result = routesinquiry.send(data)
         print(result) 
     """
-    c = VisaGlobalAtmLocatorDispatcher(method='localatms/routesinquiry', data=data)
+    c = VisaGlobalAtmLocatorDispatcher(resource='globalatmlocator',
+                                       api='',
+                                       method='localatms/routesinquiry',
+                                       http_verb='POST',
+                                       data=data)
     return c.send()
