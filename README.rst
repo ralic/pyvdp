@@ -105,8 +105,8 @@ Here's an example snippet for Payment Account Validation call:
 
 The implementation is straightforward:
 
-1. Build a data object
-2. Submit this object to :func:`send` function
+1. Build a data object;
+2. Submit this object to `send()` function of the corresponding module.
 
 Under the hood, data object will be serialized to JSON and submitted to corresponding API endpoint. If returning
 HTTP code equals 200, response will contain a JSON string with headers and payload, otherwise an exception will be
@@ -116,7 +116,7 @@ raised depending on returned HTTP code value.
 Documentation
 +++++++++++++
 
-A thorough documentation is located in docs/
+A thorough documentation is located at <www.pyvdp.org>.
 
 +++++++++
 Questions
