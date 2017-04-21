@@ -3,8 +3,8 @@ Data and Analytics
 ==================
 
 ..  toctree::
-    :maxdepth: 1
-    :caption: Contents:
+    :maxdepth: 2
+    :caption: Data and Analytics
 
     paai/index
     globalatmlocator/index

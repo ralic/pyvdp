@@ -39,9 +39,9 @@ Actions are Python modules (essentially helpers) that implement one of the API m
 E.g. :func:`pyvdp.visadirect.fundstransfer.pullfundstransactions.send()` submits POST request to Visa Direct
 FundsTransfer API endpoint.
 
-----------
+++++++++++
 Exceptions
-----------
+++++++++++
 
 With any unexpected outcome, a corresponding exception is raised. Generally, any response code from VISA, except
 **200 OK** raises corresponding exception, listed in :func:`pyvdp.exceptions` module. Names of such exceptions begin

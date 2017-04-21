@@ -3,8 +3,8 @@ Risk and Fraud
 ==============
 
 ..  toctree::
-    :maxdepth: 1
-    :caption: Contents:
+    :maxdepth: 2
+    :caption: Risk And Fraud
 
     pav
     mlc/index

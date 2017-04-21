@@ -7,8 +7,8 @@ Visa Direct
     https://developer.visa.com/products/visa_direct
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Contents:
+   :maxdepth: 2
+   :caption: Visa Direct
 
    fundstransfer
    mvisa

@@ -7,7 +7,7 @@ Payment Account Attributes Inquiry
     https://developer.visa.com/products/paai
 
 ..  toctree::
-    :maxdepth: 1
+    :maxdepth: 2
     :caption: Payment Account Attributes Inquiry
 
     fundstransferinquiry

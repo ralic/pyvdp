@@ -7,8 +7,8 @@ Mobile Location Confirmation
     https://developer.visa.com/products/mlc
 
 ..  toctree::
-    :maxdepth: 1
-    :caption: Contents:
+    :maxdepth: 2
+    :caption: Mobile Location Confirmation:
 
     enrollments
     locationupdate

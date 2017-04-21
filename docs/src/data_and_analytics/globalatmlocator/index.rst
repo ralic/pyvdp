@@ -7,7 +7,7 @@ Global ATM Locator
     https://developer.visa.com/products/atmlocator
 
 ..  toctree::
-    :maxdepth: 1
+    :maxdepth: 2
     :caption: Global ATM Locator
 
     atmsinquiry
