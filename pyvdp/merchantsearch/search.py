@@ -52,5 +52,6 @@ def send(data):
                                      api='',
                                      method='search',
                                      http_verb='POST',
+                                     auth_method='ssl',
                                      data=data)
     return c.send()

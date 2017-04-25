@@ -32,6 +32,7 @@ def send(data):
         }
         
         data_kwargs = {
+            "systemsTraceAuditNumber": 123456,
             "acquirerCountryCode": "356",
             "acquiringBin": "408972",
             "amount": "124.05",
@@ -58,6 +59,7 @@ def send(data):
                              api='mvisa',
                              method='merchantpushpayments',
                              http_verb='POST',
+                             auth_method='ssl',
                              data=data)
     return c.send()
 

@@ -15,22 +15,25 @@ def send(data):
             from pyvdp.dcas.cardinquiry.accounts import debitcardinquiry, DebitCardInquiryModel
     
             cn_kwargs = {
-                'first_name': 'John',
-                'last_name': 'Doe'
+                'firstName': 'John',
+                'lastName': 'Doe'
             }
     
             data_kwargs = {
-                'direct_dan': '0987654321',
-                'routing_number': '1234567890',
-                'cardholder_name': DebitCardInquiryModel.CardholderName(**cn_kwargs)
+                'directDebitAccountNumber': '0987654321',
+                'routingNumber': '1234567890',
+                'cardholderName': DebitCardInquiryModel.CardholderName(**cn_kwargs)
             }
     
             data = DebitCardInquiryModel(**data_kwargs)
             result = debitcardinquiry.send(data)
             print(result)     
     """
-    c = VisaDcasDispatcher(api='cardinquiry',
+    c = VisaDcasDispatcher(resource='dcas',
+                           api='cardinquiry',
+                           version='v1',
                            method='accounts/debitcardinquiry',
                            http_verb='POST',
+                           auth_method='ssl',
                            data=data)
     return c.send()

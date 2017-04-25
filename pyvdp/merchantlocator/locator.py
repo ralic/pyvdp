@@ -43,5 +43,6 @@ def send(data):
                                       api='',
                                       method='locator',
                                       http_verb='POST',
+                                      auth_method='ssl',
                                       data=data)
     return c.send()

@@ -122,5 +122,6 @@ def send(data):
                                        api='',
                                        method='localatms/atmsinquiry',
                                        http_verb='POST',
+                                       auth_method='ssl',
                                        data=data)
     return c.send()

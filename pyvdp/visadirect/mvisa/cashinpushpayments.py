@@ -15,6 +15,7 @@ def send(data):
         from pyvdp.visadirect.mvisa import cashinpushpayments, CashinPushPaymentsModel    
         from pyvdp.visadirect import CardAcceptorModel
 
+
         address_kwargs = {
             "city": "KOLKATA",
             "country": "IND"
@@ -27,6 +28,7 @@ def send(data):
         }
         
         data_kwargs = {
+            "systemsTraceAuditNumber": 123456,
             "acquirerCountryCode": "643",
             "acquiringBin": "400171",
             "amount": "124.05",
@@ -49,6 +51,7 @@ def send(data):
                              api='mvisa',
                              method='cashinpushpayments',
                              http_verb='POST',
+                             auth_method='ssl',
                              data=data)
     return c.send()
 
@@ -74,5 +77,6 @@ def get(status_id):
     c = VisaDirectDispatcher(resource='visadirect',
                              api='mvisa', method='cashinpushpayments',
                              http_verb='GET',
+                             auth_method='ssl',
                              query_string=query_string)
     return c.send()

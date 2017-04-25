@@ -51,6 +51,7 @@ def send(data):
         }
         
         data_kwargs = {
+            "systemsTraceAuditNumber": 123456,
             "cardAcceptor": CardAcceptorModel(**card_acceptor_kwargs),
             "originalDataElements": OriginalDataElementsModel(**ode_kwargs),
             "pointOfServiceCapability": PointOfServiceCapabilityModel(**posc_kwargs),
@@ -72,6 +73,7 @@ def send(data):
                              api='fundstransfer',
                              method='reversefundstransactions',
                              http_verb='POST',
+                             auth_method='ssl',
                              data=data)
     return c.send()
 
@@ -91,8 +93,8 @@ def get(status_id):
     
         from pyvdp.visadirect.fundstransfer import reversefundstransactions
         
-        status_id = '1491819372_186_81_l73c003_VDP_ARM'
         
+        status_id = '1491819372_186_81_l73c003_VDP_ARM'
         result = reversefunds.get(status_id)
         print(result)
     """
@@ -102,5 +104,6 @@ def get(status_id):
                              api='fundstransfer',
                              method='reversefundstransactions',
                              http_verb='GET',
+                             auth_method='ssl',
                              query_string=query_string)
     return c.send()

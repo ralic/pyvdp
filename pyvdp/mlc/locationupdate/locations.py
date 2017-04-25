@@ -39,5 +39,10 @@ def send(data):
         result = locations.send(data)
         print(result)
     """
-    c = VisaMobileLocationConfirmationDispatcher(api='locationupdate', method='locations', data=data)
+    c = VisaMobileLocationConfirmationDispatcher(resource='mlc',
+                                                 api='locationupdate',
+                                                 method='locations',
+                                                 http_verb='POST',
+                                                 auth_method='ssl',
+                                                 data=data)
     return c.send()

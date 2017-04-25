@@ -14,6 +14,7 @@ def send(data):
         from pyvdp.visadirect import CardAcceptorModel, PointOfServiceDataModel
         from pyvdp.visadirect.fundstransfer import pushfundstransactions, PushFundsTransactionsModel
         
+        
         posd_kwargs = {
             "motoECIIndicator": "0",
             "panEntryMode": "90",
@@ -35,7 +36,8 @@ def send(data):
         }
         
         data_kwargs = {
-            "cardAcceptor": CardAcceptorModel(**ca_kwargs),
+            "systemsTraceAuditNumber": 123456,
+            "cardAcceptor": CardAcceptorModel(**card_acceptor_kwargs),
             "pointOfServiceData": PointOfServiceDataModel(**posd_kwargs),
             "acquirerCountryCode": "840",
             "acquiringBin": "408999",
@@ -63,6 +65,7 @@ def send(data):
                              api='fundstransfer',
                              method='pushfundstransactions',
                              http_verb='POST',
+                             auth_method='ssl',
                              data=data)
     return c.send()
 
@@ -92,5 +95,6 @@ def get(status_id):
                              api='fundstransfer',
                              method='pushfundstransactions',
                              http_verb='GET',
+                             auth_method='ssl',
                              query_string=query_string)
     return c.send()

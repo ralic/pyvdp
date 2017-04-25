@@ -12,9 +12,10 @@ def send(data):
     
     ..  code:: python
     
-        from pyvdp.paai.geeneralattinq.cardattributes import generalinquiry, GeneralInquiryModel
+        from pyvdp.paai.generalattinq.cardattributes import generalinquiry, GeneralInquiryModel
         
         data_kwargs = {
+            "systemsTraceAuditNumber": 123456,
             "primaryAccountNumber": "4957030420210512",
         }
         
@@ -26,5 +27,6 @@ def send(data):
                            api='generalattinq',
                            method='cardattributes/generalinquiry',
                            http_verb='POST',
+                           auth_method='ssl',
                            data=data)
     return c.send()

@@ -15,9 +15,9 @@ def send(data):
             from pyvdp.forexrates import foreignexchangerates, ForeignExchangeRatesModel
     
             data_kwargs = {
-                'destination_cur_code': '840',
-                'source_amount': 100.00,
-                'source_cur_code': 643
+                'destinationCurrencyCode': '840',
+                'sourceAmount': 100.00,
+                'sourceCurrencyCode': 643
             }
     
             data = ForeignExchangeRatesModel(**data_kwargs)
@@ -28,5 +28,6 @@ def send(data):
                                  api='',
                                  method='foreignexchangerates',
                                  http_verb='POST',
+                                 auth_method='ssl',
                                  data=data)
     return c.send()

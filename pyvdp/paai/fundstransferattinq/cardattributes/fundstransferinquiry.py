@@ -15,6 +15,7 @@ def send(data):
         from pyvdp.paai.fundstransferattinq.cardattributes import fundstransferinquiry, FundsTransferInquiryModel
         
         data_kwargs = {
+            "systemsTraceAuditNumber": 123456,
             "primaryAccountNumber": "4957030420210512",
         }
         
@@ -26,5 +27,6 @@ def send(data):
                            api='fundstransferattinq',
                            method='cardattributes/fundstransferinquiry',
                            http_verb='POST',
+                           auth_method='ssl',
                            data=data)
     return c.send()

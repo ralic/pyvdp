@@ -23,7 +23,7 @@ def send(data):
         }
 
         card_acceptor_kwargs = {
-            "address": CardAcceptorModel.CardAcceptorAddress(**ca_address_kwargs),
+            "address": CardAcceptorModel.CardAcceptorAddress(**address_kwargs),
             "idCode": "ABCD1234ABCD123",
             "name": "Visa Inc. USA-Foster City",
             "terminalId": "ABCD1234"            
@@ -60,6 +60,7 @@ def send(data):
                              api='fundstransfer',
                              method='multipullfundstransactions',
                              http_verb='POST',
+                             auth_method='ssl',
                              data=data)
     return c.send()
 
@@ -80,7 +81,7 @@ def get(status_id):
 
         from pyvdp.visadirect.fundstransfer import multipullfundstransactions
 
-        status_id = '1491819372_186_81_l73c003_VDP_ARM'
+        status_id = '1493096783_992_1597_l73c002_VDP_ARM'
         result = multipullfundstransactions.get(status_id)
         print(result)
     """
@@ -91,5 +92,6 @@ def get(status_id):
                              api='fundstransfer',
                              method='multipullfundstransactions',
                              http_verb='GET',
+                             auth_method='ssl',
                              query_string=query_string)
     return c.send()

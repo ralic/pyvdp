@@ -33,5 +33,6 @@ def send(data):
                                                  api='enrollment',
                                                  method='enrollments',
                                                  http_verb='POST',
+                                                 auth_method='ssl',
                                                  data=data)
     return c.send()

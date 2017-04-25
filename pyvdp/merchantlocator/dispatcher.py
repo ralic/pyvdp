@@ -9,12 +9,14 @@ class VisaMerchantLocatorDispatcher(VisaDispatcher):
     :param str api: **Required**. API name.
     :param str method: **Required**. Method name.
     :param str http_verb: **Required**. HTTP Verb.
+    :param str auth_method: **Required**. Authentication method. Possible values are: **ssl**, **token**.
     """
-    def __init__(self, resource, api, method, http_verb, data):
+    def __init__(self, resource, api, method, http_verb, auth_method, data):
 
         super(VisaMerchantLocatorDispatcher, self).__init__(resource=resource,
                                                             api=api,
                                                             method=method,
                                                             http_verb=http_verb,
+                                                            auth_method=auth_method,
                                                             data=data)
 

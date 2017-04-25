@@ -36,5 +36,6 @@ def send(data):
                              api='watchlistscreening',
                              method='watchlistinquiry',
                              http_verb='POST',
+                             auth_method='ssl',
                              data=data)
     return c.send()

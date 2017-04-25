@@ -34,5 +34,6 @@ def get(from_date, to_date):
                              api='reports',
                              method='transactiondata',
                              http_verb='GET',
+                             auth_method='ssl',
                              query_string=query)
     return c.send()

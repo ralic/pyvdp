@@ -11,10 +11,9 @@ def send(data):
     
     ..  code:: python
     
-        from pyvdp.visadirect import (CardAcceptorModel, 
-                                      OriginalDataElementsModel)
-                                      
+        from pyvdp.visadirect import CardAcceptorModel, OriginalDataElementsModel
         from pyvdp.visadirect.fundstransfer import multireversefundstransactions, MultiReverseFundsTransactionsModel
+        
         
         address_kwargs = {
             "country": "USA",
@@ -28,7 +27,7 @@ def send(data):
             "idCode": "5678",
             "name": "Mr Smith",
             "terminalId": "1234",
-            "address": CardAcceptorModel.Address(**address_kwargs)
+            "address": CardAcceptorModel.CardAcceptorAddress(**address_kwargs)
         }
         
         ode_kwargs = {
@@ -66,6 +65,7 @@ def send(data):
                              api='fundstransfer',
                              method='multireversefundstransactions',
                              http_verb='POST',
+                             auth_method='ssl',
                              data=data)
     return c.send()
 

@@ -19,7 +19,7 @@ class FundsTransferInquiryModel(AbstractPaymentAccountAttributesInquiryModel):
         {
             "primaryAccountNumber": "4957030420210512",
             "retrievalReferenceNumber": "330000550000",
-                "systemsTraceAuditNumber": "451006"
+            "systemsTraceAuditNumber": "451006"
         }
         
     **Response:**

@@ -12,6 +12,8 @@ def send(data):
     
     ..  code:: python
 
+        from pyvdp.globalatmlocator.localatms import geocodesinquiry, GeocodesInquiryModel
+
         header_kwargs = {
             "applicationId": "GEOCODE",
             "correlationId": "909420141104053819418",
@@ -75,5 +77,6 @@ def send(data):
                                        api='',
                                        method='localatms/geocodesinquiry',
                                        http_verb='POST',
+                                       auth_method='ssl',
                                        data=data)
     return c.send()
