@@ -1,11 +1,10 @@
 from pyvdp.visadirect import VisaDirectDispatcher
 
 
-def get(from_date, to_date):
+def get(data):
     """Fetches transaction report for given dates range.
 
-    :param str from_date: **Required**. Starting date *ddmmyyyy*
-    :param str to_date: **Required**. Ending date *ddmmyyyy*
+    :param dict data: **Required**. Dictionary with dates range.
     :return: CSV-formatted list of transactions.
     
     **Usage:**
@@ -14,7 +13,12 @@ def get(from_date, to_date):
     
         from pyvdp.visadirect.reports import transactiondata
         
-        result = transactiondata.get('31122015', '31122016')
+        data = {
+            "fromDate": "31122015",
+            "toDate": "31122016"
+        }
+        
+        result = transactiondata.get(data)
         print(result)
         
     **Response:**
@@ -29,11 +33,11 @@ def get(from_date, to_date):
         2016-02-02,408999,385274484362603,SALES DRAFT,NOT APPLICABLE,Cardacceptor_1,VISA MONEY TRANSFER,616315,479325XXXXXX0000716,2015-10-01,012716,68.18,840,000000,527413616315,,OCTRANFR NATL,2016-03-02:2226 
         2016-04-02,408999,585032554732529,SALES REVERSAL,TRANSACTION NOT COMPLETED/TIMEOUT,Cardacceptor_1,VISA MONEY TRANSFER,465493,2009EDXXXXXXCF17,2015-02-01,152429,14.32,840,312448,503215465493,,VMT FF NATL,2016-04-02:2017
     """
-    query = '?fromDate=' + from_date + '&toDate=' + to_date
     c = VisaDirectDispatcher(resource='visadirect',
                              api='reports',
+                             version='v1',
                              method='transactiondata',
                              http_verb='GET',
                              auth_method='ssl',
-                             query_string=query)
+                             data=data)
     return c.send()

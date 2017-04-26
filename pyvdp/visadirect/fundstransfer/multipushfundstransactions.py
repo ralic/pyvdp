@@ -90,12 +90,11 @@ def get(status_id):
         result = multipushfundstransactions.send(status_id)
         print(result)
     """
-    query_string = '/' + status_id
-
     c = VisaDirectDispatcher(resource='visadirect',
                              api='fundstransfer',
                              method='multipushfundstransactions',
+                             version='v1',
                              http_verb='GET',
                              auth_method='ssl',
-                             query_string=query_string)
+                             url_params=status_id)
     return c.send()

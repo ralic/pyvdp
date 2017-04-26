@@ -15,19 +15,32 @@ from pyvdp.visadirect import VisaDirectTransactionModel
 
 @requests_mock.Mocker()
 class TestVisaDispatcher(unittest.TestCase):
+
     def setUp(self):
+
         kwargs = {
             'systemsTraceAuditNumber': 123456
         }
         self.t = VisaDirectTransactionModel(**kwargs)
 
-        self.vr = VisaDispatcher(resource='', api='', method='', http_verb='POST', auth_method='ssl', data=self.t)
+        self.vr = VisaDispatcher(resource='',
+                                 api='',
+                                 version='',
+                                 method='',
+                                 http_verb='POST',
+                                 auth_method='ssl',
+                                 data=self.t)
 
     def test_sendReturnsDictionaryOnHTTP200(self, m):
         self.maxDiff = None
 
         message = jsonpickle.encode({'text': 'this is a test'}, unpicklable=False)
-        m.register_uri('POST', self.vr._endpoint, headers={'content-type': 'application/json;charset=UTF-8'}, text=message)
+
+        m.register_uri('POST',
+                       self.vr._endpoint,
+                       headers={'content-type': 'application/json;charset=UTF-8'},
+                       text=message)
+
         result = self.vr.send()
 
         expected = {

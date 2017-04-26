@@ -25,6 +25,7 @@ def send(data):
     """
     c = VisaPaaiDispatcher(resource='paai',
                            api='fundstransferattinq',
+                           version='v1',
                            method='cardattributes/fundstransferinquiry',
                            http_verb='POST',
                            auth_method='ssl',

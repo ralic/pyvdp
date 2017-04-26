@@ -120,6 +120,7 @@ def send(data):
     """
     c = VisaGlobalAtmLocatorDispatcher(resource='globalatmlocator',
                                        api='',
+                                       version='v1',
                                        method='localatms/atmsinquiry',
                                        http_verb='POST',
                                        auth_method='ssl',

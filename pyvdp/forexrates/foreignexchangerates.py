@@ -26,6 +26,7 @@ def send(data):
     """
     c = VisaForexRatesDispatcher(resource='forexrates',
                                  api='',
+                                 version='v1',
                                  method='foreignexchangerates',
                                  http_verb='POST',
                                  auth_method='ssl',

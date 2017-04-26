@@ -50,6 +50,7 @@ def send(data):
     """
     c = VisaPavDispatcher(resource='pav',
                           api='',
+                          version='v1',
                           method='cardvalidation',
                           http_verb='POST',
                           auth_method='ssl',

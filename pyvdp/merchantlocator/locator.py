@@ -41,6 +41,7 @@ def send(data):
     """
     c = VisaMerchantLocatorDispatcher(resource='merchantlocator',
                                       api='',
+                                      version='v1',
                                       method='locator',
                                       http_verb='POST',
                                       auth_method='ssl',

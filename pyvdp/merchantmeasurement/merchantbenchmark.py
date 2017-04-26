@@ -33,6 +33,7 @@ def send(data):
     """
     c = VisaMerchantMeasurementDispatcher(resource='merchantmeasurement',
                                           api='',
+                                          version='v1',
                                           method='merchantbenchmark',
                                           http_verb='POST',
                                           auth_method='ssl',

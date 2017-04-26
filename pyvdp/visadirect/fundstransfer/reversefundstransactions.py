@@ -95,15 +95,14 @@ def get(status_id):
         
         
         status_id = '1491819372_186_81_l73c003_VDP_ARM'
-        result = reversefunds.get(status_id)
+        result = reversefundstransactions.get(status_id)
         print(result)
     """
-    query_string = '/' + status_id
-
     c = VisaDirectDispatcher(resource='visadirect',
                              api='fundstransfer',
+                             version='v1',
                              method='reversefundstransactions',
                              http_verb='GET',
                              auth_method='ssl',
-                             query_string=query_string)
+                             url_params=status_id)
     return c.send()

@@ -26,7 +26,7 @@ def get_auth(auth_method, **kwargs):
 
     :param str auth_method: **Required**. API authentication method. Possible values are: **ssl** for ssl-based 
         authentication, **token** for token-based authentication.
-    :param dict kwargs: **Conditional**. Token computation segments. See :func:`~pyvdp.authentication.TokenAuth`.
+    :param kwargs: **Conditional**. Token computation segments. See :func:`~pyvdp.authentication.TokenAuth`.
     :return: dictionary with authentication details.
     :rtype: dict
     """

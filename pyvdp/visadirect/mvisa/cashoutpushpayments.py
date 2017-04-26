@@ -73,12 +73,11 @@ def get(status_id):
         result = cashoutpushpayments.get(status_id)
         print(result)
     """
-    query_string = '/' + status_id
-
     c = VisaDirectDispatcher(resource='visadirect',
                              api='mvisa',
+                             version='v1',
                              method='cashoutpushpayments',
                              http_verb='GET',
                              auth_method='ssl',
-                             query_string=query_string)
+                             url_params=status_id)
     return c.send()

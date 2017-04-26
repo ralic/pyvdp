@@ -35,7 +35,8 @@ def send(data):
             "cavv": "0700020718799100000002980179911000000000",
             "localTransactionDateTime": "2017-04-20T05:16:05",
             "retrievalReferenceNumber": "401010101011",
-            "senderCardExpiryDate": "2020-12",
+            "senderCard1493177038_089_69_l73c032_VDP_ARM
+            "cardExpiryDate": "2020-12",
             "senderCurrencyCode": "USD",
             "senderPrimaryAccountNumber": "4895140000066666",
             "systemsTraceAuditNumber": "101011"
@@ -58,6 +59,7 @@ def send(data):
     """
     c = VisaDirectDispatcher(resource='visadirect',
                              api='fundstransfer',
+                             version='v1',
                              method='multipullfundstransactions',
                              http_verb='POST',
                              auth_method='ssl',
@@ -86,12 +88,11 @@ def get(status_id):
         print(result)
     """
 
-    query_string = '/' + status_id
-
     c = VisaDirectDispatcher(resource='visadirect',
                              api='fundstransfer',
+                             version='v1',
                              method='multipullfundstransactions',
                              http_verb='GET',
                              auth_method='ssl',
-                             query_string=query_string)
+                             url_params=status_id)
     return c.send()

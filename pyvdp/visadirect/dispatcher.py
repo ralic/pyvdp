@@ -12,12 +12,13 @@ class VisaDirectDispatcher(VisaDispatcher):
     :param str auth_method: **Required**. Authentication method. Possible values are: **ssl**, **token**.
     """
 
-    def __init__(self, resource, api, method, http_verb, auth_method, data=None, query_string=None):
+    def __init__(self, resource, api, method, version, http_verb, auth_method, url_params=None, data=None):
 
         super(VisaDirectDispatcher, self).__init__(resource=resource,
                                                    api=api,
+                                                   version=version,
                                                    method=method,
                                                    http_verb=http_verb,
-                                                   data=data,
                                                    auth_method=auth_method,
-                                                   query_string=query_string)
+                                                   url_params=url_params,
+                                                   data=data)

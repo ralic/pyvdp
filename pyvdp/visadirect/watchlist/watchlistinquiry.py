@@ -34,6 +34,7 @@ def send(data):
     """
     c = VisaDirectDispatcher(resource='visadirect',
                              api='watchlistscreening',
+                             version='v1',
                              method='watchlistinquiry',
                              http_verb='POST',
                              auth_method='ssl',

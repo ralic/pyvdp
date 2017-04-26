@@ -50,6 +50,7 @@ def send(data):
     """
     c = VisaMerchantSearchDispatcher(resource='merchantsearch',
                                      api='',
+                                     version='v1',
                                      method='search',
                                      http_verb='POST',
                                      auth_method='ssl',

@@ -41,6 +41,7 @@ def send(data):
     """
     c = VisaMobileLocationConfirmationDispatcher(resource='mlc',
                                                  api='locationupdate',
+                                                 version='v1',
                                                  method='locations',
                                                  http_verb='POST',
                                                  auth_method='ssl',

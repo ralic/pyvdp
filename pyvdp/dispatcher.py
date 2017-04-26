@@ -21,15 +21,15 @@ class VisaDispatcher(object):
 
     :param str resource: **Required**. VISA API resource name.
     :param str api: **Required**. VISA API api name.
+    :param str version: **Required**. VISA API version.
     :param str method: **Required**. VISA API endpoint method.
-    :param str http_verb: **Required**. VISA API HTTP verb (GET, POST, PUT).
-    :param str query_string: **Conditional**. Query string to append to API endpoint.
-    :param object data: **Conditional**. Data payload for POST requests, VisaTransacton object.
-    :param str auth_method: **Conditional**. Authentication method. Possible values are:
-            **ssl** - for certificate-based authentication (default) or **token** - for x-pay-token authentication
-    :param dict headers: **Optional**. Additional headers.
+    :param str http_verb: **Required**. VISA API HTTP verb. Possible values: **GET**, **POST**.
+    :param str auth_method: **Required**. Authentication method. Possible values:
+            **ssl** - for certificate-based authentication (default) or **token** - for x-pay-token authentication    
+    :param object data: **Conditional**. Data payload.
+    :param str url_params: **Conditional**. Additional parameters for endpoint url, e.g. status identifier for
+        :func:`pyvdp.visadirect.fundstransfer.pushfundstransactions.get`.    
     """
-
     # VDP HTTP codes mapped to exceptions
     # (kudos to http://codereview.stackexchange.com/questions/155350/pyvdp-python-library-for-visa-developer-program)
     ERROR_CODES = {
@@ -44,13 +44,12 @@ class VisaDispatcher(object):
     def __init__(self,
                  resource,
                  api,
+                 version,
                  method,
                  http_verb,
                  auth_method,
-                 version='v1',
-                 query_string='',
-                 data='',
-                 headers=None):
+                 url_params=None,
+                 data=None):
 
         self._config = configuration.get_config()
 
@@ -64,46 +63,52 @@ class VisaDispatcher(object):
         self._endpoint = "%s/%s/%s/%s/%s" % (self._url, resource, api, version, method)
         self._http_verb = http_verb
 
-        if query_string:
-            self._query_string = query_string
-        else:
-            self._query_string = ''
+        if url_params:
+            self._endpoint = self._endpoint + "/" + url_params
 
-        if data:
+        if self._http_verb == 'POST' or self._http_verb == 'PUT':
             self._data = self._obj_to_json(data)
+        elif self._http_verb == 'GET':
+            if data:
+                self._data = data.__dict__
+            else:
+                self._data = None
         else:
-            self._data = ''
+            raise AttributeError("HTTP verb must be 'GET', 'POST' or 'PUT'. '%s' given." % self._http_verb)
 
         # Headers setup
-        self._setup_headers(headers)
+        self._setup_headers()
 
         self._auth = authentication.get_auth(auth_method,
                                              url=self._url,
                                              api=self._api,
                                              version=self._version,
                                              method=self._method,
-                                             query_string=self._query_string,
-                                             data=self._obj_to_json(self._data))
+                                             data=self._data)
 
     @logger.log_event
     def send(self):
-        """Submits a data object or query string id to VISA using `self.api_endpoint` field and corresponding http verb.
+        """Submits a data object or query string id to VISA using `self._endpoint` field and corresponding http verb.
 
         :return: result: Resulting dictionary.
         """
-
-        url = self._endpoint + self._query_string
 
         # Session initialization
         _session = requests.Session()
 
         # Using requests.Session and requests.PreparedRequest to construct request to VDP
         _request = requests.Request(
+            headers=self._headers,
+            url=self._endpoint,
             method=self._http_verb,
-            url=url,
-            data=self._data,
-            headers=self._headers
         )
+
+        if self._http_verb == 'GET':
+            _request.params = self._data
+        elif self._http_verb == 'POST' or self._http_verb == 'PUT':
+            _request.data = self._data
+        else:
+            raise AttributeError("HTTP verb must be 'GET', 'POST', 'PUT'. '%s' given." % self._http_verb)
 
         _request.__dict__.update(self._auth['request'])
         _session.__dict__.update(self._auth['session'])
@@ -172,11 +177,10 @@ class VisaDispatcher(object):
         """
         return jsonpickle.encode(data, unpicklable=False)
 
-    def _setup_headers(self, headers=None):
+    def _setup_headers(self):
         self._headers = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'X-Client-Transaction-ID': self._get_x_client_transaction_id()
         }
-        if headers:
-            self._headers.update(headers)
+
