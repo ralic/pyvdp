@@ -16,6 +16,7 @@ PyVDP: VISA APIs. Wrapped with Python.
     data_and_analytics/index
     payment_methods/index
     risk_and_fraud/index
+    loyalty_and_offers/index
     glossary
 
 +++++
