@@ -164,110 +164,9 @@ class MerchantModel(object):
                     "key": 14,
                     "value": "Azeri"
                 },
-                {
-                    "key": 12,
-                    "value": "Bahasa Indonesia"
-                },
-                {
-                    "key": 20,
-                    "value": "Canadian English"
-                },
-                {
-                    "key": 21,
-                    "value": "Canadian French"
-                },
-                {
-                    "key": 28,
-                    "value": "Croatian"
-                },
-                {
-                    "key": 1,
-                    "value": "English"
-                },
-                {
-                    "key": 13,
-                    "value": "French"
-                },
-                {
-                    "key": 16,
-                    "value": "Georgian"
-                },
-                {
-                    "key": 25,
-                    "value": "German"
-                },
-                {
-                    "key": 27,
-                    "value": "Hebrew"
-                },
-                {
-                    "key": 26,
-                    "value": "Italian"
-                },
-                {
-                    "key": 2,
-                    "value": "Japanese"
-                },
-                {
-                    "key": 15,
-                    "value": "Kazakh"
-                },
-                {
-                    "key": 24,
-                    "value": "Khmer"
-                },
-                {
-                    "key": 19,
-                    "value": "Kinyarwanda"
-                },
-                {
-                    "key": 6,
-                    "value": "Korean"
-                },
-                {
-                    "key": 22,
-                    "value": "Portuguese (Brazillian)"
-                },
-                {
-                    "key": 3,
-                    "value": "Portuguese (Regular)"
-                },
-                {
-                    "key": 5,
-                    "value": "Russian"
-                },
-                {
-                    "key": 18,
-                    "value": "Serbian"
-                },
-                {
-                    "key": 8,
-                    "value": "Simplified Chinese"
-                },
-                {
-                    "key": 4,
-                    "value": "Spanish"
-                },
-                {
-                    "key": 11,
-                    "value": "Thai"
-                },
-                {
-                    "key": 23,
-                    "value": "Traditional Chinese (HK)"
-                },
-                {
-                    "key": 9,
-                    "value": "Traditional Chinese (TW)"
-                },
-                {
-                    "key": 17,
-                    "value": "Ukrainian"
-                },
-                {
-                    "key": 10,
-                    "value": "Vietnamese"
-                }
+                { ... },
+                { ... },
+                { ... }
             ],
             "TotalFoundResults": 1
         }        
@@ -318,45 +217,12 @@ class RefModel(object):
                             "languageId": 22
                         },
                         {
-                            "value": "تجاري",
-                            "languageId": 7
-                        },
-                        {
-                            "value": "Коммерческий",
-                            "languageId": 5
-                        },
-                        {
-                            "value": "商務卡",
-                            "languageId": 9
-                        },
-                        {
-                            "value": "상용",
-                            "languageId": 6
-                        },
-                        {
-                            "value": "商務卡",
-                            "languageId": 23
-                        },
-                        {
-                            "value": "Comercial",
-                            "languageId": 3
-                        },
-                        {
                             "value": "Commercial",
                             "languageId": 1
                         },
-                        {
-                            "value": "Affaires et Professionnels",
-                            "languageId": 13
-                        },
-                        {
-                            "value": "商务卡",
-                            "languageId": 8
-                        },
-                        {
-                            "value": "Comercial",
-                            "languageId": 4
-                        }
+                        { ... },
+                        { ... },
+                        { ... }
                     ]
                 },
                 {
@@ -372,42 +238,9 @@ class RefModel(object):
                             "value": "Consumidor",
                             "languageId": 3
                         },
-                        {
-                            "value": "個人卡",
-                            "languageId": 23
-                        },
-                        {
-                            "value": "개인",
-                            "languageId": 6
-                        },
-                        {
-                            "value": "個人卡",
-                            "languageId": 9
-                        },
-                        {
-                            "value": "Потребитель",
-                            "languageId": 5
-                        },
-                        {
-                            "value": "مستهلك",
-                            "languageId": 7
-                        },
-                        {
-                            "value": "Consumer",
-                            "languageId": 1
-                        },
-                        {
-                            "value": "Particuliers",
-                            "languageId": 13
-                        },
-                        {
-                            "value": "个人卡",
-                            "languageId": 8
-                        },
-                        {
-                            "value": "Consumidor",
-                            "languageId": 4
-                        }
+                        { ... },
+                        { ... },
+                        { ... }
                     ]
                 },
                 {
@@ -416,10 +249,6 @@ class RefModel(object):
                     "languageId": 1,
                     "translations": [
                         {
-                            "value": "小企业卡",
-                            "languageId": 8
-                        },
-                        {
                             "value": "Empresarial",
                             "languageId": 4
                         },
@@ -427,38 +256,9 @@ class RefModel(object):
                             "value": "Small Business",
                             "languageId": 1
                         },
-                        {
-                            "value": "Pequeno negócio",
-                            "languageId": 22
-                        },
-                        {
-                            "value": "شركة صغيرة",
-                            "languageId": 7
-                        },
-                        {
-                            "value": "Малый бизнес",
-                            "languageId": 5
-                        },
-                        {
-                            "value": "中小企業卡",
-                            "languageId": 9
-                        },
-                        {
-                            "value": "중소기업",
-                            "languageId": 6
-                        },
-                        {
-                            "value": "小企業卡",
-                            "languageId": 23
-                        },
-                        {
-                            "value": "Pequeno negócio",
-                            "languageId": 3
-                        },
-                        {
-                            "value": "Professionnels",
-                            "languageId": 13
-                        }
+                        { ... },
+                        { ... },
+                        { ... }
                     ]
                 }
             ],
@@ -471,110 +271,9 @@ class RefModel(object):
                     "key": 14,
                     "value": "Azeri"
                 },
-                {
-                    "key": 12,
-                    "value": "Bahasa Indonesia"
-                },
-                {
-                    "key": 20,
-                    "value": "Canadian English"
-                },
-                {
-                    "key": 21,
-                    "value": "Canadian French"
-                },
-                {
-                    "key": 28,
-                    "value": "Croatian"
-                },
-                {
-                    "key": 1,
-                    "value": "English"
-                },
-                {
-                    "key": 13,
-                    "value": "French"
-                },
-                {
-                    "key": 16,
-                    "value": "Georgian"
-                },
-                {
-                    "key": 25,
-                    "value": "German"
-                },
-                {
-                    "key": 27,
-                    "value": "Hebrew"
-                },
-                {
-                    "key": 26,
-                    "value": "Italian"
-                },
-                {
-                    "key": 2,
-                    "value": "Japanese"
-                },
-                {
-                    "key": 15,
-                    "value": "Kazakh"
-                },
-                {
-                    "key": 24,
-                    "value": "Khmer"
-                },
-                {
-                    "key": 19,
-                    "value": "Kinyarwanda"
-                },
-                {
-                    "key": 6,
-                    "value": "Korean"
-                },
-                {
-                    "key": 22,
-                    "value": "Portuguese (Brazillian)"
-                },
-                {
-                    "key": 3,
-                    "value": "Portuguese (Regular)"
-                },
-                {
-                    "key": 5,
-                    "value": "Russian"
-                },
-                {
-                    "key": 18,
-                    "value": "Serbian"
-                },
-                {
-                    "key": 8,
-                    "value": "Simplified Chinese"
-                },
-                {
-                    "key": 4,
-                    "value": "Spanish"
-                },
-                {
-                    "key": 11,
-                    "value": "Thai"
-                },
-                {
-                    "key": 23,
-                    "value": "Traditional Chinese (HK)"
-                },
-                {
-                    "key": 9,
-                    "value": "Traditional Chinese (TW)"
-                },
-                {
-                    "key": 17,
-                    "value": "Ukrainian"
-                },
-                {
-                    "key": 10,
-                    "value": "Vietnamese"
-                }
+                { ... },
+                { ... },
+                { ... }
             ]
         }    
        
