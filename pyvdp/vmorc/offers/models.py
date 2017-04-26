@@ -133,7 +133,7 @@ class ByOfferIdModel(object):
                         "text": "Save 20% on your purchase!"
                     },
                     "offerCopy": {
-                        "richText": "<p>Save 20%* on the merchandise value** of your purchase when you pay with your Visa® card.</p>",
+                        "richText": "<p>Save 20%* on the merchandise value** of your purchase when you pay with your Visa card.</p>",
                         "text": "Save 20%* on the merchandise value** of your purchase when you pay with your Visa® card."
                     },
                     "legalCountryExclusions": {
