@@ -134,7 +134,7 @@ class ByOfferIdModel(object):
                     },
                     "offerCopy": {
                         "richText": "<p>Save 20%* on the merchandise value** of your purchase when you pay with your Visa card.</p>",
-                        "text": "Save 20%* on the merchandise value** of your purchase when you pay with your Visa® card."
+                        "text": "Save 20%* on the merchandise value** of your purchase when you pay with your Visa card."
                     },
                     "legalCountryExclusions": {
                         "richText": "",
@@ -483,8 +483,8 @@ class ByContentIdModel(object):
                         "text": "Save 20% on your purchase!"
                     },
                     "offerCopy": {
-                        "richText": "<p>Save 20%* on the merchandise value** of your purchase when you pay with your Visa® card.</p>",
-                        "text": "Save 20%* on the merchandise value** of your purchase when you pay with your Visa® card."
+                        "richText": "<p>Save 20%* on the merchandise value** of your purchase when you pay with your Visa card.</p>",
+                        "text": "Save 20%* on the merchandise value** of your purchase when you pay with your Visa card."
                     },
                     "legalCountryExclusions": {
                         "richText": "",
@@ -866,8 +866,8 @@ class ByFilterModel(object):
                         "text": "Save 20% on your purchase!"
                     },
                     "offerCopy": {
-                        "richText": "<p>Save 20%* on the merchandise value** of your purchase when you pay with your Visa® card.</p>",
-                        "text": "Save 20%* on the merchandise value** of your purchase when you pay with your Visa® card."
+                        "richText": "<p>Save 20%* on the merchandise value** of your purchase when you pay with your Visa card.</p>",
+                        "text": "Save 20%* on the merchandise value** of your purchase when you pay with your Visa card."
                     },
                     "legalCountryExclusions": {
                         "richText": "",
@@ -1220,8 +1220,8 @@ class AllModel(object):
                         "text": "Save 20% on your purchase!"
                     },
                     "offerCopy": {
-                        "richText": "<p>Save 20%* on the merchandise value** of your purchase when you pay with your Visa® card.</p>",
-                        "text": "Save 20%* on the merchandise value** of your purchase when you pay with your Visa® card."
+                        "richText": "<p>Save 20%* on the merchandise value** of your purchase when you pay with your Visa card.</p>",
+                        "text": "Save 20%* on the merchandise value** of your purchase when you pay with your Visa card."
                     },
                     "legalCountryExclusions": {
                         "richText": "",
