@@ -7,3 +7,4 @@ Loyalty and Offers
     :caption: Loyalty and offers
 
     vmorc/index
+    vces/index
